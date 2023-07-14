@@ -1,3 +1,5 @@
+import os
+import numpy
 from .mindo3 import RMINDO3, UMINDO3
 from .mndo_class import RMNDO
 from .omx_class import ROM2
@@ -17,3 +19,5 @@ def MNDO(mol, model):
 def OMX(mol, model):
     if mol.spin == 0:
         return ROM2(mol, model)
+
+from misc import *

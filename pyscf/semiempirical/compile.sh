@@ -15,5 +15,5 @@ eval "$(conda shell.bash hook)"
 source ~/mambaforge/etc/profile.d/mamba.sh
 
 mamba activate pybase
-python __init__.py 
-mamba deactivate 
+python __init__.py
+mamba deactivate

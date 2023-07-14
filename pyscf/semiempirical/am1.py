@@ -24,10 +24,8 @@ from pyscf.semiempirical import mindo3
 from pyscf.semiempirical import mopac_param, read_param
 #import constants # Make more professional -CL
 
-#libsemiempirical = lib.load_library('lib/libsemiempirical.so')
-
-#libsemiempirical = lib.load_library('/work/yihan/projects/semiempirical/build/lib.linux-x86_64-3.7/pyscf/lib/libsemiempirical.so')
-libsemiempirical = ctypes.CDLL('/home/chance/pyscf_ext/semiempirical/pyscf/semiempirical/lib/libsemiempirical.so') #laptop path
+from pyscf.semiempirical import misc
+libsemiempirical = misc.load_library('./libsemiempirical.so')
 ndpointer = np.ctypeslib.ndpointer
 libsemiempirical.MOPAC_rotate.argtypes = [
     ctypes.c_int, ctypes.c_int,

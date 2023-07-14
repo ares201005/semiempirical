@@ -24,7 +24,8 @@ from .diatomic_ecp_resonance_matrix import *
 from .python_integrals import *
 from math import sqrt, atan, acos, sin, cos
 
-libsemiempirical = lib.load_library('/home/chance/pyscf_ext/semiempirical/pyscf/semiempirical/libsemiempirical.so') 
+from pyscf.semiempirical import misc
+libsemiempirical = misc.load_library('./libsemiempirical.so')
 ndpointer = numpy.ctypeslib.ndpointer
 libsemiempirical.MOPAC_rotate.argtypes = [
     ctypes.c_int, ctypes.c_int,

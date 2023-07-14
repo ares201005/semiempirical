@@ -15,13 +15,14 @@ from pyscf import gto
 from pyscf import scf
 from pyscf.data.elements import _symbol
 from pyscf.semiempirical import mopac_param
-from .read_param import *
-from .diatomic_overlap_matrix import *
-from .python_integrals import *
+from pyscf.semiempirical.read_param import *
+from pyscf.semiempirical.diatomic_overlap_matrix import *
+from pyscf.semiempirical.python_integrals import *
 from math import sqrt, atan, acos, sin, cos
 write = sys.stdout.write
 
-libsemiempirical = lib.load_library('/home/chance/pyscf_ext/semiempirical/pyscf/semiempirical/libsemiempirical.so') 
+from pyscf.semiempirical import misc
+libsemiempirical = misc.load_library('./libsemiempirical.so')
 ndpointer = numpy.ctypeslib.ndpointer
 libsemiempirical.MOPAC_rotate.argtypes = [
     ctypes.c_int, ctypes.c_int,
