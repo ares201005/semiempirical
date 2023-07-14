@@ -20,14 +20,12 @@ from pyscf.lib import logger
 from pyscf import gto
 from pyscf import scf
 from pyscf.data.elements import _symbol
-from pyscf.semiempirical import mindo3
+from pyscf.semiempirical import mindo3#, mopac_param 
 from pyscf.semiempirical import mopac_param, read_param
-#import constants # Make more professional -CL
 
 #libsemiempirical = lib.load_library('lib/libsemiempirical.so')
 
-#libsemiempirical = lib.load_library('/work/yihan/projects/semiempirical/build/lib.linux-x86_64-3.7/pyscf/lib/libsemiempirical.so')
-libsemiempirical = ctypes.CDLL('/home/chance/pyscf_ext/semiempirical/pyscf/semiempirical/lib/libsemiempirical.so') #laptop path
+libsemiempirical =lib.load_library('/home/chance/pyscf_ext/semiempirical/pyscf/semiempirical/lib/libsemiempirical.so') 
 ndpointer = np.ctypeslib.ndpointer
 libsemiempirical.MOPAC_rotate.argtypes = [
     ctypes.c_int, ctypes.c_int,
@@ -49,24 +47,23 @@ libsemiempirical.MOPAC_rotate.argtypes = [
     ctypes.c_int
 ]
 repp = libsemiempirical.MOPAC_rotate
-
-#def param_const(mol):
-parameterlist={'AM1':['U_ss', 'U_pp', 'zeta_s', 'zeta_p','beta_s', 'beta_p',
-                      'g_ss', 'g_sp', 'g_pp', 'g_p2', 'h_sp',
-                      'alpha',
-                      'Gaussian1_K', 'Gaussian2_K', 'Gaussian3_K','Gaussian4_K',
-                      'Gaussian1_L', 'Gaussian2_L', 'Gaussian3_L','Gaussian4_L',
-                      'Gaussian1_M', 'Gaussian2_M', 'Gaussian3_M','Gaussian4_M'
-                     ],
-                'MNDO':['U_ss', 'U_pp', 'zeta_s', 'zeta_p','beta_s', 'beta_p',
-                        'g_ss', 'g_sp', 'g_pp', 'g_p2', 'h_sp', 'alpha'],
-                'PM3':['U_ss', 'U_pp', 'zeta_s', 'zeta_p','beta_s', 'beta_p',
-                       'g_ss', 'g_sp', 'g_pp', 'g_p2', 'h_sp',
-                       'alpha',
-                       'Gaussian1_K', 'Gaussian2_K',
-                       'Gaussian1_L', 'Gaussian2_L',
-                       'Gaussian1_M', 'Gaussian2_M'
-                      ]}
+# parameterlist from PYSEQM
+#parameterlist={'AM1':['U_ss', 'U_pp', 'zeta_s', 'zeta_p','beta_s', 'beta_p',
+#                      'g_ss', 'g_sp', 'g_pp', 'g_p2', 'h_sp',
+#                      'alpha',
+#                      'Gaussian1_K', 'Gaussian2_K', 'Gaussian3_K','Gaussian4_K',
+#                      'Gaussian1_L', 'Gaussian2_L', 'Gaussian3_L','Gaussian4_L',
+#                      'Gaussian1_M', 'Gaussian2_M', 'Gaussian3_M','Gaussian4_M'
+#                     ],  
+#                'MNDO':['U_ss', 'U_pp', 'zeta_s', 'zeta_p','beta_s', 'beta_p',
+#                        'g_ss', 'g_sp', 'g_pp', 'g_p2', 'h_sp', 'alpha'],
+#                'PM3':['U_ss', 'U_pp', 'zeta_s', 'zeta_p','beta_s', 'beta_p',
+#                       'g_ss', 'g_sp', 'g_pp', 'g_p2', 'h_sp',
+#                       'alpha',
+#                       'Gaussian1_K', 'Gaussian2_K',
+#                       'Gaussian1_L', 'Gaussian2_L',
+#                       'Gaussian1_M', 'Gaussian2_M'
+#                      ]} 
 
 # improve parameter list later? -CL
 #method = 'AM1'
@@ -121,14 +118,14 @@ def SET(rij, jcall, z1, z2):
     alp = 0.5*rij*(z1+z2)
     beta  = 0.5*rij*(z1-z2)
     #print("alpha, beta:", alp, beta)
-    A = aintgs(alp, jcall)
-    B = bintgs(beta, jcall)
+    A = aintgs(alp)
+    B = bintgs(beta)
     #print("A=", A)
     #print("B=", B)
     return A, B
 
 
-def aintgs(x, jcall):
+def aintgs(x):
     """
     A integrals for diatom_overlap_matrix
     """
@@ -140,7 +137,7 @@ def aintgs(x, jcall):
     #print("a1, a2, a3, a4, a5:", a1, a2, a3, a4, a5)
     return np.array([a1, a2, a3, a4, a5])
 
-def bintgs(x, jcall):
+def bintgs(x):
     """
     B integrals for diatom_overlap_matrix
     """
@@ -315,7 +312,7 @@ def diatomic_overlap_matrix(ia, ja, zi, zj, xij, rij): #generalize -CL ***
     return di
 
 @lib.with_doc(scf.hf.get_hcore.__doc__)
-def get_hcore(mol):
+def get_hcore(mol,U_ss,U_pp): # Var added
     assert(not mol.has_ecp())
     atom_charges = mol.atom_charges()
     basis_atom_charges = atom_charges[mol._bas[:,gto.ATOM_OF]]
@@ -334,7 +331,7 @@ def get_hcore(mol):
     aoslices = mol.aoslice_by_atom()
     for ia in range(mol.natm):
         for ja in range(ia+1,mol.natm): #Was ia -CL
-            w, e1b, e2a, enuc = _get_jk_2c_ints(mol, ia, ja)
+            w, e1b, e2a, enuc = _get_jk_2c_ints(mol, ia, ja, tore, method)
             i0, i1 = aoslices[ia,2:]
             j0, j1 = aoslices[ja,2:]
             hcore[j0:j1,j0:j1] += e2a
@@ -361,7 +358,7 @@ def get_hcore(mol):
  
     return hcore
 
-def _get_jk_2c_ints(mol, ia, ja): #should be ok -CL
+def _get_jk_2c_ints(mol, ia, ja, tore, method): #should be ok -CL
     zi = mol.atom_charge(ia)
     zj = mol.atom_charge(ja)
     ri = mol.atom_coord(ia) #?*lib.param.BOHR
@@ -370,10 +367,15 @@ def _get_jk_2c_ints(mol, ia, ja): #should be ok -CL
     e1b = np.zeros(10)
     e2a = np.zeros(10)
     enuc = np.zeros(1)
-    AM1_MODEL = 2
+    if method == 'AM1': 
+        MODEL = 2
+    elif method == 'PM3':
+        MODEL = 3
+    elif method == 'MNDO': # Add MNDO to repp/rotate.C
+        return NotImplementedError
     repp(zi, zj, ri, rj, w, e1b, e2a, enuc,
          alpha, mopac_param.MOPAC_DD, mopac_param.MOPAC_QQ, mopac_param.MOPAC_AM, mopac_param.MOPAC_AD, mopac_param.MOPAC_AQ,
-         K, L, M, AM1_MODEL) #Check params vs am1-h2o.py? -CL
+         K, L, M, MODEL) # Replaced AM1_MODEL with MODEL 
 
     #repp(zi, zj, ri, rj, w, e1b, e2a, enuc,
     #     alpha, mopac_param.MOPAC_DD, mopac_param.MOPAC_QQ, mopac_param.MOPAC_AM, mopac_param.MOPAC_AD, mopac_param.MOPAC_AQ,
@@ -444,11 +446,11 @@ def get_jk(mol, dm):
 
     # Two-center contributions to the J/K matrices
     for ia, (i0, i1) in enumerate(aoslices[:,2:]):
-        w = _get_jk_2c_ints(mol, ia, ia)[0]
+        w = _get_jk_2c_ints(mol, ia, ia, tore, method)[0]
         vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w, dm[:,i0:i1,i0:i1])
         vk[:,i0:i1,i0:i1] += np.einsum('ijkl,xjk->xil', w, dm[:,i0:i1,i0:i1])
         for ja, (j0, j1) in enumerate(aoslices[:ia,2:]):
-            w = _get_jk_2c_ints(mol, ia, ja)[0]
+            w = _get_jk_2c_ints(mol, ia, ja, tore, method)[0]
             vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w, dm[:,j0:j1,j0:j1])
             vj[:,j0:j1,j0:j1] += np.einsum('klij,xkl->xij', w, dm[:,i0:i1,i0:i1])
             vk[:,i0:i1,j0:j1] += np.einsum('ijkl,xjk->xil', w, dm[:,i0:i1,j0:j1])
@@ -491,7 +493,7 @@ def _get_gamma(mol, F03=None): #From mindo3.py -CL
 #    gamma[numpy.diag_indices(mol.natm)] = 0  # remove self-interaction terms
 #    return gamma
 
-def energy_nuc(mol):
+def energy_nuc(mol,alpha,tore,K,L,M,method):
     atom_charges = mol.atom_charges()
     atom_coords = mol.atom_coords()
     distances = np.linalg.norm(atom_coords[:,None,:] - atom_coords, axis=2)
@@ -520,16 +522,13 @@ def energy_nuc(mol):
             #print('scale', scale)
 
             #print('scale 2', scale)
-            enuc += tore[ni] * tore[nj] * gamma[ia,ja] * scale #EN(A,B) = ZZ*gamma*fij
+            enuc += tore[ni] * tore[nj] * gamma[ia,ja] * scale #EN(A,B) = ZZ*gamma*fij | MNDO enuc
             #print('gamma[ia,ja]',gamma[ia,ja])
-
-            fac1 = np.einsum('i,i->', K[ni], exp(-L[ni] * (rij - M[ni])**2))
-            # einsum(i,i->, K, exp(L * (rij-M)**2))
-            fac2 = np.einsum('i,i->', K[nj], exp(-L[nj] * (rij - M[nj])**2))
-            enuc += tore[ni] * tore[nj] / rij * (fac1 + fac2)
-            #print('fac1, fac2, enuc',fac1, fac2, enuc)
-            # enuc = ZZ*gamma*fij + ZZ/rij * (Fa + Fb) 
-    #print('\n\n HELLO \n \n')
+            if method == 'AM1' or method == 'PM3': # AM1/PM3 scaling for enuc
+                fac1 = np.einsum('i,i->', K[ni], exp(-L[ni] * (rij - M[ni])**2))
+                # einsum(i,i->, K, exp(L * (rij-M)**2))
+                fac2 = np.einsum('i,i->', K[nj], exp(-L[nj] * (rij - M[nj])**2))
+                enuc += tore[ni] * tore[nj] / rij * (fac1 + fac2)
     return enuc
 
 def get_init_guess(mol):
@@ -553,57 +552,74 @@ def energy_tot(mf, dm=None, h1e=None, vhf=None):
     return e_tot.real
 
 
-class RAM1(scf.hf.RHF):
-    '''RHF-AM1 for closed-shell systems'''
-    def __init__(self, mol):
+class RNDDO(scf.hf.RHF):
+    '''RHF-NDDO for closed-shell systems'''
+    def __init__(self, mol, method):
         scf.hf.RHF.__init__(self, mol)
-        self.conv_tol = 1e-5
-        self.method = 'AM1'
-        self.method_params = parameterlist[self.method]
+        #self.conv_tol = 1e-5
+        print(self.conv_tol)
+        self.method = method
+        print('class', method)
+        #self.method_params = parameterlist[self.method]
         self.elements = np.asarray([mol.atom_charge(i) for i in range(mol.natm)])
-        self.parameters = read_param.read_param(self.method, self.elements)
+        self.parameters = read_param.read_param(method, self.elements)
         self.constants = read_param.read_constants(self.elements)
 
         #self.atmmass = self.constants['atmmass']
+        tore = self.constants['tore']
         self.tore = self.constants['tore']
         
-        self.U_ss = self.parameters['U_ss']/27.211386
-        self.U_pp = self.parameters['U_pp']/27.211386
+        U_ss = self.parameters['U_ss']/27.211386
+        U_pp = self.parameters['U_pp']/27.211386
+        zeta_s = self.parameters['zeta_s']
         self.zeta_s = self.parameters['zeta_s']
+        zeta_p = self.parameters['zeta_p']
         self.zeta_p = self.parameters['zeta_p']
-        self.zeta_d = self.parameters['zeta_d']
-        self.beta_s = self.parameters['beta_s']
-        self.beta_p = self.parameters['beta_p']
-        self.g_ss = self.parameters['g_ss']/27.211386
-        self.g_sp = self.parameters['g_sp']/27.211386
-        self.g_pp = self.parameters['g_pp']/27.211386
-        self.g_p2 = self.parameters['g_p2']/27.211386
-        self.h_sp = self.parameters['h_sp']/27.211386 #div 27.211 ? -CL
-        self.alpha = self.parameters['alpha']
+        zeta_d = self.parameters['zeta_d']
+        beta_s = self.parameters['beta_s']
+        beta_p = self.parameters['beta_p']
+        g_ss = self.parameters['g_ss']/27.211386
+        g_sp = self.parameters['g_sp']/27.211386
+        g_pp = self.parameters['g_pp']/27.211386
+        g_p2 = self.parameters['g_p2']/27.211386
+        h_sp = self.parameters['h_sp']/27.211386 #div 27.211 ? -CL
+        alpha = self.parameters['alpha']
         
-        if self.method == 'AM1':
-            self.K = np.stack((self.parameters['Gaussian1_K'],
-                          self.parameters['Gaussian2_K'],
-                          self.parameters['Gaussian3_K'],
-                          self.parameters['Gaussian4_K']), axis=1)/27.211386
-            self.L = np.stack((self.parameters['Gaussian1_L'],
-                          self.parameters['Gaussian2_L'],
-                          self.parameters['Gaussian3_L'],
-                          self.parameters['Gaussian4_L']), axis=1)
-            self.M = np.stack((self.parameters['Gaussian1_M'],
+        if method == 'AM1':
+            K = np.stack((self.parameters['Gaussian1_K'],
+                     self.parameters['Gaussian2_K'],
+                     self.parameters['Gaussian3_K'],
+                     self.parameters['Gaussian4_K']), axis=1)/27.211386
+            L = np.stack((self.parameters['Gaussian1_L'],
+                     self.parameters['Gaussian2_L'],
+                     self.parameters['Gaussian3_L'],
+                     self.parameters['Gaussian4_L']), axis=1)
+            M = np.stack((self.parameters['Gaussian1_M'],
                           self.parameters['Gaussian2_M'],
                           self.parameters['Gaussian3_M'],
                           self.parameters['Gaussian4_M']), axis=1)
+        elif method == 'PM3':
+            K = np.stack((self.parameters['Gaussian1_K'],
+                     self.parameters['Gaussian2_K']), axis=1)/27.211386 
+            L = np.stack((self.parameters['Gaussian1_L'],
+                     self.parameters['Gaussian2_L']), axis=1)
+            M = np.stack((self.parameters['Gaussian1_M'],
+                          self.parameters['Gaussian2_M']), axis=1)
+        elif method == 'MNDO':
+            K = None
+            L = None
+            M = None
 
         self.e_heat_formation = None
         self._mindo_mol = _make_mindo_mol(mol,tore,zeta_s,zeta_p)
         self._keys.update(['e_heat_formation'])
 
-    def build(self, mol=None):
+    #def build(self,tore,zeta_s,zeta_p,mol=None):
+    def build(self,mol=None):
         if mol is None: mol = self.mol
         if self.verbose >= logger.WARN:
             self.check_sanity()
-        self._mindo_mol = _make_mindo_mol(mol,tore,zeta_s,zeta_p)
+        self._mindo_mol = _make_mindo_mol(self.tore,self.zeta_s,self.zeta_p,mol)
         return self
 
     #def get_param_const(self, mol=None): #CL
@@ -612,8 +628,8 @@ class RAM1(scf.hf.RHF):
     def get_ovlp(self, mol=None):
         return np.eye(self._mindo_mol.nao)
 
-    def get_hcore(self, mol=None):
-        return get_hcore(self._mindo_mol)
+    def get_hcore(self,mol=None):
+        return get_hcore(self._mindo_mol,U_ss,U_pp)
 
     @lib.with_doc(get_jk.__doc__)
     def get_jk(self, mol=None, dm=None, hermi=1, with_j=True, with_k=True):
@@ -627,8 +643,8 @@ class RAM1(scf.hf.RHF):
     def get_init_guess(self, mol=None, key='minao'):
         return get_init_guess(self._mindo_mol)
 
-    def energy_nuc(self):
-        return energy_nuc(self._mindo_mol)
+    def energy_nuc(self,alpha,tore,K,L,M,method):
+        return energy_nuc(self._mindo_mol,alpha,tore,K,L,M,method)
 
     energy_tot = energy_tot
 
@@ -659,14 +675,14 @@ class UAM1(scf.uhf.UHF):
         scf.uhf.UHF.__init__(self, mol)
         self.conv_tol = 1e-5
         self.e_heat_formation = None
-        self._mindo_mol = _make_mindo_mol(mol,tore,zeta_s,zeta_p)
+        self._mindo_mol = _make_mindo_mol(mol)
         self._keys.update(['e_heat_formation'])
 
-    def build(self, mol=None):
+    def build(self,tore,zeta_s,zeta_p,mol=None):
         if mol is None: mol = self.mol
         if self.verbose >= logger.WARN:
             self.check_sanity()
-        self._mindo_mol = _make_mindo_mol(mol,tore,zeta_s,zeta_p)
+        self._mindo_mol = _make_mindo_mol(mol)
         self.nelec = self._mindo_mol.nelec
         return self
 
@@ -716,7 +732,7 @@ class UAM1(scf.uhf.UHF):
         return umindo3_grad.Gradients(self)
 
 
-def _make_mindo_mol(mol,tore,zeta_s,zeta_p): 
+def _make_mindo_mol(mol,tore,zeta_s,zeta_p):
     #gexps and gcoefs for Gaussians? zeta_s/p were ZS3/ZP3. Possible source of problems. -CL
     #check to see how this is being used. May need to remove later. -CL
     assert(not mol.has_ecp())
@@ -758,7 +774,8 @@ def _make_mindo_mol(mol,tore,zeta_s,zeta_p):
     z_eff = tore[atom_charges]
     mindo_mol.nelectron = int(z_eff.sum() - mol.charge)
 
-    mindo_mol.build(0, 0)
+    #mindo_mol.build(0,tore,zeta_s,zeta_p,mol)
+    mindo_mol.build(0,0) # Original
     return mindo_mol
 
 

@@ -1,0 +1,1208 @@
+      BLOCKDATA BLOCK4
+C     *
+C     INITIALIZATION FOR PARAMETERS IN OM1, OM2, OM3, OM4, ODM2, AND ODM3.
+C     *
+C     COMMON BLOCKS: OM1BL, OM2BL, OM3BL, OM4BL, ODM2BL, ODM3BL.
+C     *
+      USE LIMIT, ONLY: LMZ
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+C     CHARACTER REFOM1*80,REFOM2*80,REFOM3*80
+C *** GENERAL COMMON BLOCKS
+C     COMMON
+C    ./REFOM / REFOM1(LMZ),REFOM2(LMZ)
+C *** COMMON BLOCKS FOR OM1
+      COMMON
+     ./OM1BL / USS1(LMZ),UPP1(LMZ),ZS1(LMZ),ZP1(LMZ),BETAS1(LMZ),
+     .         BETAP1(LMZ),HYFOM1(LMZ),BETPI1(LMZ),BETSH1(LMZ),
+     .         BETPH1(LMZ),ALPS1(LMZ),ALPP1(LMZ),ALPPI1(LMZ),
+     .         ALPSH1(LMZ),ALPPH1(LMZ),FVAL11(LMZ),FVAL21(LMZ),
+     .         DDOM1(LMZ),QQOM1(LMZ),AMOM1(LMZ),ADOM1(LMZ),AQOM1(LMZ),
+     .         GSSOM1(LMZ),GSPOM1(LMZ),GPPOM1(LMZ),GP2OM1(LMZ),
+     .         HSPOM1(LMZ),EISOL1(LMZ),IMOM1(LMZ)
+C *** COMMON BLOCKS FOR OM2
+      COMMON
+     ./OM2BL / USS2(LMZ),UPP2(LMZ),ZS2(LMZ),ZP2(LMZ),BETAS2(LMZ),
+     .         BETAP2(LMZ),HYFOM2(LMZ),BETPI2(LMZ),BETSH2(LMZ),
+     .         BETPH2(LMZ),ALPS2(LMZ),ALPP2(LMZ),ALPPI2(LMZ),
+     .         ALPSH2(LMZ),ALPPH2(LMZ),FVAL12(LMZ),FVAL22(LMZ),
+     .         GVAL12(LMZ),GVAL22(LMZ),
+     .         ZSCOR2(LMZ),FSCOR2(LMZ),BSCOR2(LMZ),ASCOR2(LMZ),
+     .         DDOM2(LMZ),QQOM2(LMZ),AMOM2(LMZ),ADOM2(LMZ),AQOM2(LMZ),
+     .         GSSOM2(LMZ),GSPOM2(LMZ),GPPOM2(LMZ),GP2OM2(LMZ),
+     .         HSPOM2(LMZ),EISOL2(LMZ),IMOM2(LMZ)
+     ./OM2DBL/ C62(LMZ,2),R02(LMZ,2)
+C *** COMMON BLOCKS FOR OM3
+      COMMON
+     ./OM3BL/  USS3(LMZ),UPP3(LMZ),ZS3(LMZ),ZP3(LMZ),BETAS3(LMZ),
+     .         BETAP3(LMZ),HYFOM3(LMZ),BETPI3(LMZ),BETSH3(LMZ),
+     .         BETPH3(LMZ),ALPS3(LMZ),ALPP3(LMZ),ALPPI3(LMZ),
+     .         ALPSH3(LMZ),ALPPH3(LMZ),FVAL13(LMZ),FVAL23(LMZ),
+     .         GVAL13(LMZ),GVAL23(LMZ),
+     .         ZSCOR3(LMZ),FSCOR3(LMZ),BSCOR3(LMZ),ASCOR3(LMZ),
+     .         DDOM3(LMZ),QQOM3(LMZ),AMOM3(LMZ),ADOM3(LMZ),AQOM3(LMZ),
+     .         GSSOM3(LMZ),GSPOM3(LMZ),GPPOM3(LMZ),GP2OM3(LMZ),
+     .         HSPOM3(LMZ),EISOL3(LMZ),IMOM3(LMZ)
+     ./OM3DBL/ C63(LMZ,2),R03(LMZ,2)
+C *** COMMON BLOCKS FOR OM4
+      COMMON
+     ./OM4BL / USS4(LMZ),UPP4(LMZ),ZS4(LMZ),ZP4(LMZ),BETAS4(LMZ),
+     .         BETAP4(LMZ),HYFOM4(LMZ),BETPI4(LMZ),BETSH4(LMZ),
+     .         BETPH4(LMZ),ALPS4(LMZ),ALPP4(LMZ),ALPPI4(LMZ),
+     .         ALPSH4(LMZ),ALPPH4(LMZ),
+     .         ZSCOR4(LMZ),FSCOR4(LMZ),BSCOR4(LMZ),ASCOR4(LMZ),
+     .         DDOM4(LMZ),QQOM4(LMZ),AMOM4(LMZ),ADOM4(LMZ),AQOM4(LMZ),
+     .         GSSOM4(LMZ),GSPOM4(LMZ),GPPOM4(LMZ),GP2OM4(LMZ),
+     .         HSPOM4(LMZ),EISOL4(LMZ),IMOM4(LMZ)
+C *** COMMON BLOCKS FOR ODM2
+      COMMON
+     ./ODM2BL/ USSOD2(LMZ),UPPOD2(LMZ),ZSOMD2(LMZ),ZPOMD2(LMZ),
+     .         BETSD2(LMZ),BETPD2(LMZ),HYFOD2(LMZ),BTPID2(LMZ),
+     .         BTSHD2(LMZ),BTPHD2(LMZ),ALPSD2(LMZ),ALPPD2(LMZ),
+     .         ALPID2(LMZ),ALSHD2(LMZ),ALPHD2(LMZ),F1ODM2(LMZ),
+     .         F2ODM2(LMZ),G1ODM2(LMZ),G2ODM2(LMZ),
+     .         ZSCOD2(LMZ),FSCOD2(LMZ),BSCOD2(LMZ),ASCOD2(LMZ),
+     .         DDODM2(LMZ),QQODM2(LMZ),AMODM2(LMZ),ADODM2(LMZ),
+     .         AQODM2(LMZ),GSSOD2(LMZ),GSPOD2(LMZ),GPPOD2(LMZ),
+     .         GP2OD2(LMZ),HSPOD2(LMZ),EISLD2(LMZ),IMODM2(LMZ)
+C *** COMMON BLOCKS FOR ODM3
+      COMMON
+     ./ODM3BL/ USSOD3(LMZ),UPPOD3(LMZ),ZSOMD3(LMZ),ZPOMD3(LMZ),
+     .         BETSD3(LMZ),BETPD3(LMZ),HYFOD3(LMZ),BTPID3(LMZ),
+     .         BTSHD3(LMZ),BTPHD3(LMZ),ALPSD3(LMZ),ALPPD3(LMZ),
+     .         ALPID3(LMZ),ALSHD3(LMZ),ALPHD3(LMZ),F1ODM3(LMZ),
+     .         F2ODM3(LMZ),G1ODM3(LMZ),G2ODM3(LMZ),
+     .         ZSCOD3(LMZ),FSCOD3(LMZ),BSCOD3(LMZ),ASCOD3(LMZ),
+     .         DDODM3(LMZ),QQODM3(LMZ),AMODM3(LMZ),ADODM3(LMZ),
+     .         AQODM3(LMZ),GSSOD3(LMZ),GSPOD3(LMZ),GPPOD3(LMZ),
+     .         GP2OD3(LMZ),HSPOD3(LMZ),EISLD3(LMZ),IMODM3(LMZ)
+C     *
+C *** START OF OM1 PARAMETERS.
+C     *
+C     LIST OF ELEMENTS WITH OM1 PARAMETERS.
+      DATA IMOM1/1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,
+     1           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     2           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     3           25*0,                 0,0,0,0,0,0,1/
+C     DATA FOR ELEMENT  1        HYDROGEN
+C     DATA REFOM1 ( 1)/'  H: (OM1):  M. KOLB, W. THIEL, J. COMPUT. CHEM.
+C    1, 14, 775 (1993).               '/
+      DATA USS1   ( 1)/     -12.83851861D0/
+      DATA UPP1   ( 1)/       0.00000000D0/
+      DATA ZS1    ( 1)/       1.20948930D0/
+      DATA ZP1    ( 1)/       0.00000000D0/
+      DATA BETAS1 ( 1)/      -4.89312435D0/
+      DATA BETAP1 ( 1)/       0.00000000D0/
+      DATA BETPI1 ( 1)/       0.00000000D0/
+      DATA BETSH1 ( 1)/      -4.89312435D0/
+      DATA BETPH1 ( 1)/       0.00000000D0/
+      DATA ALPS1  ( 1)/       0.09653898D0/
+      DATA ALPP1  ( 1)/       0.00000000D0/
+      DATA ALPPI1 ( 1)/       0.00000000D0/
+      DATA ALPSH1 ( 1)/       0.09653898D0/
+      DATA ALPPH1 ( 1)/       0.00000000D0/
+      DATA FVAL11 ( 1)/       0.54128873D0/
+      DATA FVAL21 ( 1)/       0.84668969D0/
+      DATA EISOL1 ( 1)/     -12.83851861D0/
+      DATA HYFOM1 ( 1)/       0.00000000D0/
+      DATA GSSOM1 ( 1)/      12.8480000D0/
+      DATA GSPOM1 ( 1)/       0.0000000D0/
+      DATA GPPOM1 ( 1)/       0.0000000D0/
+      DATA GP2OM1 ( 1)/       0.0000000D0/
+      DATA HSPOM1 ( 1)/       0.0000000D0/
+      DATA DDOM1  ( 1)/       0.0000000D0/
+      DATA QQOM1  ( 1)/       0.0000000D0/
+      DATA AMOM1  ( 1)/       0.4721793D0/
+      DATA ADOM1  ( 1)/       0.4721793D0/
+      DATA AQOM1  ( 1)/       0.4721793D0/
+C     DATA FOR ELEMENT  6        CARBON
+C     DATA REFOM1 ( 6)/'  C: (OM1):  M. KOLB, W. THIEL, J. COMPUT. CHEM.
+C    1, 14, 775 (1993).               '/
+      DATA USS1   ( 6)/     -50.15945000D0/
+      DATA UPP1   ( 6)/     -38.76257345D0/
+      DATA ZS1    ( 6)/       1.13551142D0/
+      DATA ZP1    ( 6)/       1.13551142D0/
+      DATA BETAS1 ( 6)/      -7.58632270D0/
+      DATA BETAP1 ( 6)/      -4.49894163D0/
+      DATA BETPI1 ( 6)/      -5.91210138D0/
+      DATA BETSH1 ( 6)/      -7.58632270D0/
+      DATA BETPH1 ( 6)/      -4.49894163D0/
+      DATA ALPS1  ( 6)/       0.09325105D0/
+      DATA ALPP1  ( 6)/       0.05398748D0/
+      DATA ALPPI1 ( 6)/       0.10477244D0/
+      DATA ALPSH1 ( 6)/       0.09325105D0/
+      DATA ALPPH1 ( 6)/       0.05398748D0/
+      DATA FVAL11 ( 6)/       0.50383851D0/
+      DATA FVAL21 ( 6)/       0.66944409D0/
+      DATA EISOL1 ( 6)/    -115.37404690D0/
+      DATA HYFOM1 ( 6)/       4.24171868D0/
+      DATA GSSOM1 ( 6)/      12.2300000D0/
+      DATA GSPOM1 ( 6)/      11.4700000D0/
+      DATA GPPOM1 ( 6)/      11.0800000D0/
+      DATA GP2OM1 ( 6)/       9.8400000D0/
+      DATA HSPOM1 ( 6)/       2.4300000D0/
+      DATA DDOM1  ( 6)/       0.8344584D0/
+      DATA QQOM1  ( 6)/       0.8014682D0/
+      DATA AMOM1  ( 6)/       0.4494671D0/
+      DATA ADOM1  ( 6)/       0.6039891D0/
+      DATA AQOM1  ( 6)/       0.6013811D0/
+C     DATA FOR ELEMENT  7        NITROGEN
+C     DATA REFOM1 ( 7)/'  N: (OM1):  M. KOLB, W. THIEL, J. COMPUT. CHEM.
+C    1, 14, 775 (1993).               '/
+      DATA USS1   ( 7)/     -71.33505463D0/
+      DATA UPP1   ( 7)/     -56.58315267D0/
+      DATA ZS1    ( 7)/       1.16081665D0/
+      DATA ZP1    ( 7)/       1.16081665D0/
+      DATA BETAS1 ( 7)/     -12.00586167D0/
+      DATA BETAP1 ( 7)/      -9.64950408D0/
+      DATA BETPI1 ( 7)/     -10.16405908D0/
+      DATA BETSH1 ( 7)/      -8.08332477D0/
+      DATA BETPH1 ( 7)/     -11.48923075D0/
+      DATA ALPS1  ( 7)/       0.10185884D0/
+      DATA ALPP1  ( 7)/       0.08540515D0/
+      DATA ALPPI1 ( 7)/       0.14350678D0/
+      DATA ALPSH1 ( 7)/       0.07514671D0/
+      DATA ALPPH1 ( 7)/       0.11556228D0/
+      DATA FVAL11 ( 7)/       0.63476395D0/
+      DATA FVAL21 ( 7)/       0.31135759D0/
+      DATA EISOL1 ( 7)/    -199.60456727D0/
+      DATA HYFOM1 ( 7)/       3.44472020D0/
+      DATA GSSOM1 ( 7)/      13.5900000D0/
+      DATA GSPOM1 ( 7)/      12.6600000D0/
+      DATA GPPOM1 ( 7)/      12.9800000D0/
+      DATA GP2OM1 ( 7)/      11.5900000D0/
+      DATA HSPOM1 ( 7)/       3.1400000D0/
+      DATA DDOM1  ( 7)/       0.6776677D0/
+      DATA QQOM1  ( 7)/       0.5887890D0/
+      DATA AMOM1  ( 7)/       0.4994487D0/
+      DATA ADOM1  ( 7)/       0.7602786D0/
+      DATA AQOM1  ( 7)/       0.7688050D0/
+C     DATA FOR ELEMENT  8        OXYGEN
+C     DATA REFOM1 ( 8)/'  O: (OM1):  M. KOLB, W. THIEL, J. COMPUT. CHEM.
+C    1, 14, 775 (1993).               '/
+      DATA USS1   ( 8)/     -93.04158571D0/
+      DATA UPP1   ( 8)/     -77.59792792D0/
+      DATA ZS1    ( 8)/       1.10190209D0/
+      DATA ZP1    ( 8)/       1.10190209D0/
+      DATA BETAS1 ( 8)/      -6.22223757D0/
+      DATA BETAP1 ( 8)/      -9.94028730D0/
+      DATA BETPI1 ( 8)/     -11.29342651D0/
+      DATA BETSH1 ( 8)/      -6.45960578D0/
+      DATA BETPH1 ( 8)/     -12.47451386D0/
+      DATA ALPS1  ( 8)/       0.10891616D0/
+      DATA ALPP1  ( 8)/       0.09666556D0/
+      DATA ALPPI1 ( 8)/       0.15255321D0/
+      DATA ALPSH1 ( 8)/       0.07953217D0/
+      DATA ALPPH1 ( 8)/       0.12908958D0/
+      DATA FVAL11 ( 8)/       0.68193417D0/
+      DATA FVAL21 ( 8)/       0.47652748D0/
+      DATA EISOL1 ( 8)/    -303.86488310D0/
+      DATA HYFOM1 ( 8)/       3.12846379D0/
+      DATA GSSOM1 ( 8)/      15.4200000D0/
+      DATA GSPOM1 ( 8)/      14.4800000D0/
+      DATA GPPOM1 ( 8)/      14.5200000D0/
+      DATA GP2OM1 ( 8)/      12.9800000D0/
+      DATA HSPOM1 ( 8)/       3.9400000D0/
+      DATA DDOM1  ( 8)/       0.6154516D0/
+      DATA QQOM1  ( 8)/       0.5162333D0/
+      DATA AMOM1  ( 8)/       0.5667034D0/
+      DATA ADOM1  ( 8)/       0.8894516D0/
+      DATA AQOM1  ( 8)/       0.8688318D0/
+C     DATA FOR ELEMENT  9        FLUORINE
+C     DATA REFOM1 ( 9)/'  F: (OM1):  M. KOLB, W. THIEL, J. COMPUT. CHEM.
+C    1, 14, 775 (1993).               '/
+      DATA USS1   ( 9)/    -121.69518463D0/
+      DATA UPP1   ( 9)/    -106.37310634D0/
+      DATA ZS1    ( 9)/       1.16498140D0/
+      DATA ZP1    ( 9)/       1.16498140D0/
+      DATA BETAS1 ( 9)/      -5.73558167D0/
+      DATA BETAP1 ( 9)/     -16.36168108D0/
+      DATA BETPI1 ( 9)/     -17.22481680D0/
+      DATA BETSH1 ( 9)/      -5.73558167D0/
+      DATA BETPH1 ( 9)/     -16.36168108D0/
+      DATA ALPS1  ( 9)/       0.19374572D0/
+      DATA ALPP1  ( 9)/       0.13034754D0/
+      DATA ALPPI1 ( 9)/       0.22033729D0/
+      DATA ALPSH1 ( 9)/       0.19374572D0/
+      DATA ALPPH1 ( 9)/       0.13034754D0/
+      DATA FVAL11 ( 9)/       1.19938976D0/
+      DATA FVAL21 ( 9)/       0.49484369D0/
+      DATA EISOL1 ( 9)/    -460.88590096D0/
+      DATA HYFOM1 ( 9)/       2.59579869D0/
+      DATA GSSOM1 ( 9)/      16.9200000D0/
+      DATA GSPOM1 ( 9)/      17.2500000D0/
+      DATA GPPOM1 ( 9)/      16.7100000D0/
+      DATA GP2OM1 ( 9)/      14.9100000D0/
+      DATA HSPOM1 ( 9)/       4.8300000D0/
+      DATA DDOM1  ( 9)/       0.5106623D0/
+      DATA QQOM1  ( 9)/       0.3932237D0/
+      DATA AMOM1  ( 9)/       0.6218302D0/
+      DATA ADOM1  ( 9)/       1.0805856D0/
+      DATA AQOM1  ( 9)/       1.0999100D0/
+C     DATA FOR ELEMENT 86        CONNECTION ATOM FOR QM/MM TREATMENTS
+C     DATA REFOM1 (86)/' **: (OM1): I. ANTES, W. THIEL, TO BE PUBLISHED.
+C    1 PRELIMINARY SET 7, FEB 2000    '/
+      DATA USS1   (86)/     -12.68237913D0/
+      DATA UPP1   (86)/       0.00000000D0/
+      DATA ZS1    (86)/       0.86265386D0/
+      DATA ZP1    (86)/       0.86265386D0/
+      DATA BETAS1 (86)/     -13.64556159D0/
+      DATA BETAP1 (86)/     -13.64556159D0/
+      DATA BETPI1 (86)/       0.00000000D0/
+      DATA BETSH1 (86)/     -13.64556159D0/
+      DATA BETPH1 (86)/       0.00000000D0/
+      DATA ALPS1  (86)/       0.07990183D0/
+      DATA ALPP1  (86)/       0.00000000D0/
+      DATA ALPPI1 (86)/       0.00000000D0/
+      DATA ALPSH1 (86)/       0.07990183D0/
+      DATA ALPPH1 (86)/       0.00000000D0/
+      DATA FVAL11 (86)/       0.88976383D0/
+      DATA FVAL21 (86)/       0.97076097D0/
+      DATA EISOL1 (86)/     -12.68237913D0/
+      DATA HYFOM1 (86)/       0.00000000D0/
+      DATA GSSOM1 (86)/      11.34888554D0/
+      DATA GSPOM1 (86)/       0.00000000D0/
+      DATA GPPOM1 (86)/       0.00000000D0/
+      DATA GP2OM1 (86)/       0.00000000D0/
+      DATA HSPOM1 (86)/       0.00000000D0/
+      DATA DDOM1  (86)/       0.00000000D0/
+      DATA QQOM1  (86)/       0.00000000D0/
+      DATA AMOM1  (86)/       1.19879612D0/
+      DATA ADOM1  (86)/       1.19879612D0/
+      DATA AQOM1  (86)/       1.19879612D0/
+C     *
+C *** START OF OM2 PARAMETERS.
+C     *
+C     LIST OF ELEMENTS WITH OM2 PARAMETERS.
+      DATA IMOM2/1,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,
+     1           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     2           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     3           25*0,                 0,0,0,0,0,0,1/
+C     DATA FOR ELEMENT  1        HYDROGEN
+C     DATA REFOM2 ( 1)/'  H: (OM2):  P.O. DRAL, X. WU, L. SPOERKEL,
+C    1 A. KOSLOWSKI, W. WEBER, R. STEIGER, M. SCHOLTEN, W. THIEL,
+C    2 J. CHEM. THEORY COMPUT. 12, 1082 (2016). '/
+      DATA USS2   ( 1)/     -12.64890000D0/
+      DATA UPP2   ( 1)/       0.00000000D0/
+      DATA ZS2    ( 1)/       1.47386481D0/
+      DATA ZP2    ( 1)/       0.00000000D0/
+      DATA BETAS2 ( 1)/      -3.41998220D0/
+      DATA BETAP2 ( 1)/       0.00000000D0/
+      DATA BETPI2 ( 1)/       0.00000000D0/
+      DATA BETSH2 ( 1)/      -3.41998220D0/
+      DATA BETPH2 ( 1)/       0.00000000D0/
+      DATA ALPS2  ( 1)/       0.06607903D0/
+      DATA ALPP2  ( 1)/       0.00000000D0/
+      DATA ALPPI2 ( 1)/       0.00000000D0/
+      DATA ALPSH2 ( 1)/       0.06607903D0/
+      DATA ALPPH2 ( 1)/       0.00000000D0/
+      DATA FVAL12 ( 1)/       0.29566861D0/
+      DATA FVAL22 ( 1)/       1.40190659D0/
+      DATA GVAL12 ( 1)/       0.65271563D0/
+      DATA GVAL22 ( 1)/       0.90843670D0/
+      DATA ZSCOR2 ( 1)/       0.00000000D0/
+      DATA FSCOR2 ( 1)/       0.00000000D0/
+      DATA BSCOR2 ( 1)/       0.00000000D0/
+      DATA ASCOR2 ( 1)/       0.00000000D0/
+      DATA EISOL2 ( 1)/     -12.64890000D0/
+      DATA HYFOM2 ( 1)/       0.00000000D0/
+      DATA GSSOM2 ( 1)/      12.8480000D0/
+      DATA GSPOM2 ( 1)/       0.0000000D0/
+      DATA GPPOM2 ( 1)/       0.0000000D0/
+      DATA GP2OM2 ( 1)/       0.0000000D0/
+      DATA HSPOM2 ( 1)/       0.0000000D0/
+      DATA DDOM2  ( 1)/       0.0000000D0/
+      DATA QQOM2  ( 1)/       0.0000000D0/
+      DATA AMOM2  ( 1)/       0.4721793D0/
+      DATA ADOM2  ( 1)/       0.4721793D0/
+      DATA AQOM2  ( 1)/       0.4721793D0/
+      DATA C62    ( 1,1)/       0.13836140D0/
+      DATA R02    ( 1,1)/       0.09195488D0/
+      DATA C62    ( 1,2)/       0.13349720D0/
+      DATA R02    ( 1,2)/       0.10685589D0/
+C     DATA FOR ELEMENT  6        CARBON
+C     DATA REFOM2 ( 6)/'  C: (OM2):  P.O. DRAL, X. WU, L. SPOERKEL,
+C    1 A. KOSLOWSKI, W. WEBER, R. STEIGER, M. SCHOLTEN, W. THIEL,
+C    2 J. CHEM. THEORY COMPUT. 12, 1082 (2016). '/
+      DATA USS2   ( 6)/     -51.65550844D0/
+      DATA UPP2   ( 6)/     -39.74369825D0/
+      DATA ZS2    ( 6)/       1.42036892D0/
+      DATA ZP2    ( 6)/       1.42036892D0/
+      DATA BETAS2 ( 6)/      -7.21406021D0/
+      DATA BETAP2 ( 6)/      -4.14394503D0/
+      DATA BETPI2 ( 6)/      -5.97107657D0/
+      DATA BETSH2 ( 6)/      -6.30164062D0/
+      DATA BETPH2 ( 6)/      -4.04444703D0/
+      DATA ALPS2  ( 6)/       0.09045297D0/
+      DATA ALPP2  ( 6)/       0.05452192D0/
+      DATA ALPPI2 ( 6)/       0.10204903D0/
+      DATA ALPSH2 ( 6)/       0.09668329D0/
+      DATA ALPPH2 ( 6)/       0.05283694D0/
+      DATA FVAL12 ( 6)/       0.49949211D0/
+      DATA FVAL22 ( 6)/       0.72261226D0/
+      DATA GVAL12 ( 6)/       0.21284361D0/
+      DATA GVAL22 ( 6)/       0.99250289D0/
+      DATA ZSCOR2 ( 6)/       5.16802668D0/
+      DATA FSCOR2 ( 6)/    -305.68646337D0/
+      DATA BSCOR2 ( 6)/      -9.07185084D0/
+      DATA ASCOR2 ( 6)/       0.16985745D0/
+      DATA EISOL2 ( 6)/    -120.32841338D0/
+      DATA HYFOM2 ( 6)/       3.39103449D0/
+      DATA GSSOM2 ( 6)/      12.2300000D0/
+      DATA GSPOM2 ( 6)/      11.4700000D0/
+      DATA GPPOM2 ( 6)/      11.0800000D0/
+      DATA GP2OM2 ( 6)/       9.8400000D0/
+      DATA HSPOM2 ( 6)/       2.4300000D0/
+      DATA DDOM2  ( 6)/       0.6671063D0/
+      DATA QQOM2  ( 6)/       0.5728908D0/
+      DATA AMOM2  ( 6)/       0.4494671D0/
+      DATA ADOM2  ( 6)/       0.6837422D0/
+      DATA AQOM2  ( 6)/       0.7558142D0/
+      DATA C62    ( 6,1)/       1.74837313D0/
+      DATA R02    ( 6,1)/       0.14057505D0/
+      DATA C62    ( 6,2)/       1.74649564D0/
+      DATA R02    ( 6,2)/       0.14169369D0/
+C     DATA FOR ELEMENT  7        NITROGEN
+C     DATA REFOM2 ( 7)/'  N: (OM2):  P.O. DRAL, X. WU, L. SPOERKEL,
+C    1 A. KOSLOWSKI, W. WEBER, R. STEIGER, M. SCHOLTEN, W. THIEL,
+C    2 J. CHEM. THEORY COMPUT. 12, 1082 (2016). '/
+      DATA USS2   ( 7)/     -74.37638240D0/
+      DATA UPP2   ( 7)/     -57.60067613D0/
+      DATA ZS2    ( 7)/       1.33175233D0/
+      DATA ZP2    ( 7)/       1.33175233D0/
+      DATA BETAS2 ( 7)/     -10.84303446D0/
+      DATA BETAP2 ( 7)/      -7.62373736D0/
+      DATA BETPI2 ( 7)/      -9.27936312D0/
+      DATA BETSH2 ( 7)/      -9.49567107D0/
+      DATA BETPH2 ( 7)/      -8.51180846D0/
+      DATA ALPS2  ( 7)/       0.08974553D0/
+      DATA ALPP2  ( 7)/       0.08759680D0/
+      DATA ALPPI2 ( 7)/       0.13172314D0/
+      DATA ALPSH2 ( 7)/       0.11429048D0/
+      DATA ALPPH2 ( 7)/       0.10673732D0/
+      DATA FVAL12 ( 7)/       0.64073384D0/
+      DATA FVAL22 ( 7)/       0.19580808D0/
+      DATA GVAL12 ( 7)/       0.13946233D0/
+      DATA GVAL22 ( 7)/       0.84373060D0/
+      DATA ZSCOR2 ( 7)/       6.93980600D0/
+      DATA FSCOR2 ( 7)/    -407.39202305D0/
+      DATA BSCOR2 ( 7)/      -9.97910210D0/
+      DATA ASCOR2 ( 7)/       0.16173024D0/
+      DATA EISOL2 ( 7)/    -208.73979319D0/
+      DATA HYFOM2 ( 7)/       3.00257673D0/
+      DATA GSSOM2 ( 7)/      13.5900000D0/
+      DATA GSPOM2 ( 7)/      12.6600000D0/
+      DATA GPPOM2 ( 7)/      12.9800000D0/
+      DATA GP2OM2 ( 7)/      11.5900000D0/
+      DATA HSPOM2 ( 7)/       3.1400000D0/
+      DATA DDOM2  ( 7)/       0.5906863D0/
+      DATA QQOM2  ( 7)/       0.4791483D0/
+      DATA AMOM2  ( 7)/       0.4994487D0/
+      DATA ADOM2  ( 7)/       0.8196213D0/
+      DATA AQOM2  ( 7)/       0.8858938D0/
+      DATA C62    ( 7,1)/       1.22660965D0/
+      DATA R02    ( 7,1)/       0.13120977D0/
+      DATA C62    ( 7,2)/       1.22649173D0/
+      DATA R02    ( 7,2)/       0.14069819D0/
+C     DATA FOR ELEMENT  8        OXYGEN
+C     DATA REFOM2 ( 8)/'  O: (OM2):  P.O. DRAL, X. WU, L. SPOERKEL,
+C    1 A. KOSLOWSKI, W. WEBER, R. STEIGER, M. SCHOLTEN, W. THIEL,
+C    2 J. CHEM. THEORY COMPUT. 12, 1082 (2016). '/
+      DATA USS2   ( 8)/    -101.82723464D0/
+      DATA UPP2   ( 8)/     -78.92823923D0/
+      DATA ZS2    ( 8)/       1.55214516D0/
+      DATA ZP2    ( 8)/       1.55214516D0/
+      DATA BETAS2 ( 8)/     -10.64436974D0/
+      DATA BETAP2 ( 8)/      -8.63610952D0/
+      DATA BETPI2 ( 8)/      -9.21201190D0/
+      DATA BETSH2 ( 8)/      -6.54238767D0/
+      DATA BETPH2 ( 8)/     -10.11307271D0/
+      DATA ALPS2  ( 8)/       0.13062089D0/
+      DATA ALPP2  ( 8)/       0.09626876D0/
+      DATA ALPPI2 ( 8)/       0.13071747D0/
+      DATA ALPSH2 ( 8)/       0.11112738D0/
+      DATA ALPPH2 ( 8)/       0.11891861D0/
+      DATA FVAL12 ( 8)/       1.26450169D0/
+      DATA FVAL22 ( 8)/       1.14847352D0/
+      DATA GVAL12 ( 8)/       0.28309603D0/
+      DATA GVAL22 ( 8)/       0.78414131D0/
+      DATA ZSCOR2 ( 8)/       7.58579774D0/
+      DATA FSCOR2 ( 8)/    -514.45812327D0/
+      DATA BSCOR2 ( 8)/     -14.16551053D0/
+      DATA ASCOR2 ( 8)/       0.34390559D0/
+      DATA EISOL2 ( 8)/    -326.75742620D0/
+      DATA HYFOM2 ( 8)/       2.22096546D0/
+      DATA GSSOM2 ( 8)/      15.4200000D0/
+      DATA GSPOM2 ( 8)/      14.4800000D0/
+      DATA GPPOM2 ( 8)/      14.5200000D0/
+      DATA GP2OM2 ( 8)/      12.9800000D0/
+      DATA HSPOM2 ( 8)/       3.9400000D0/
+      DATA DDOM2  ( 8)/       0.4369227D0/
+      DATA QQOM2  ( 8)/       0.3087891D0/
+      DATA AMOM2  ( 8)/       0.5667034D0/
+      DATA ADOM2  ( 8)/       1.0719202D0/
+      DATA AQOM2  ( 8)/       1.2430674D0/
+      DATA C62    ( 8,1)/       0.70235574D0/
+      DATA R02    ( 8,1)/       0.13943710D0/
+      DATA C62    ( 8,2)/       0.68974720D0/
+      DATA R02    ( 8,2)/       0.13069564D0/
+C
+C     DATA FOR ELEMENT  9        FLUORINE
+C     DATA REFOM2 ( 9)/'  F: (OM2):  P.O. DRAL, X. WU, L. SPOERKEL,
+C    1 A. KOSLOWSKI, W. WEBER, R. STEIGER, M. SCHOLTEN, W. THIEL,
+C    2 J. CHEM. THEORY COMPUT. 12, 1082 (2016). '/
+      DATA USS2   ( 9)/    -120.62785370D0/
+      DATA UPP2   ( 9)/    -107.27105397D0/
+      DATA ZS2    ( 9)/       1.45216726D0/
+      DATA ZP2    ( 9)/       1.45216726D0/
+      DATA BETAS2 ( 9)/      -6.25438426D0/
+      DATA BETAP2 ( 9)/     -13.93492471D0/
+      DATA BETPI2 ( 9)/     -18.73205761D0/
+      DATA BETSH2 ( 9)/      -6.25104378D0/
+      DATA BETPH2 ( 9)/     -13.94492971D0/
+      DATA ALPS2  ( 9)/       0.26624434D0/
+      DATA ALPP2  ( 9)/       0.12261412D0/
+      DATA ALPPI2 ( 9)/       0.21684388D0/
+      DATA ALPSH2 ( 9)/       0.44713918D0/
+      DATA ALPPH2 ( 9)/       0.15648906D0/
+      DATA FVAL12 ( 9)/       2.11499396D0/
+      DATA FVAL22 ( 9)/       1.09156321D0/
+      DATA GVAL12 ( 9)/       0.31704089D0/
+      DATA GVAL22 ( 9)/       0.02140504D0/
+      DATA ZSCOR2 ( 9)/       8.71226515D0/
+      DATA FSCOR2 ( 9)/    -685.41988599D0/
+      DATA BSCOR2 ( 9)/      -9.17960365D0/
+      DATA ASCOR2 ( 9)/       0.99971548D0/
+      DATA EISOL2 ( 9)/    -463.24097725D0/
+      DATA HYFOM2 ( 9)/       2.08244413D0/
+      DATA GSSOM2 ( 9)/      16.9200000D0/
+      DATA GSPOM2 ( 9)/      17.2500000D0/
+      DATA GPPOM2 ( 9)/      16.7100000D0/
+      DATA GP2OM2 ( 9)/      14.9100000D0/
+      DATA HSPOM2 ( 9)/       4.8300000D0/
+      DATA DDOM2  ( 9)/       0.5106623D0/
+      DATA QQOM2  ( 9)/       0.3932237D0/
+      DATA AMOM2  ( 9)/       0.6218302D0/
+      DATA ADOM2  ( 9)/       1.0805856D0/
+      DATA AQOM2  ( 9)/       1.0999100D0/
+      DATA C62    ( 9,1)/       0.75000000D0/
+      DATA R02    ( 9,1)/       0.12870000D0/
+      DATA C62    ( 9,2)/       0.75000000D0/
+      DATA R02    ( 9,2)/       0.12870000D0/
+C
+CC     SILICON
+CC
+C      DATA ZS2    (14)/       1.00000000D0/
+C      DATA ZP2    (14)/       1.00000000D0/
+C      DATA GSSOM2 (14)/       9.82000000D0/
+C      DATA AMOM2  (14)/       0.36089673D0/
+CC
+CC     PHOSPHORUS
+CC
+C      DATA ZS2    (15)/       1.00000000D0/
+C      DATA ZP2    (15)/       1.00000000D0/
+C      DATA GSSOM2 (15)/      11.56000000D0/
+C      DATA AMOM2  (15)/       0.42484381D0/
+C
+CC     SULFUR
+CC
+C      DATA USS2   (16)/     -71.46564965D0/
+C      DATA UPP2   (16)/     -57.04768590D0/
+C      DATA ZS2    (16)/       1.21691426D0/
+CC     DATA ZP2    (16)/       0.73613311D0/
+C      DATA BETAS2 (16)/     -22.88707847D0/
+C      DATA BETAP2 (16)/     -10.17175344D0/
+C      DATA BETPI2 (16)/      -5.21602619D0/
+C      DATA BETSH2 (16)/      -3.30374395D0/
+C      DATA BETPH2 (16)/      -9.43749652D0/
+C      DATA ALPS2  (16)/       0.15011196D0/
+C      DATA ALPP2  (16)/       0.05408727D0/
+C      DATA ALPPI2 (16)/       0.04317379D0/
+C      DATA ALPSH2 (16)/       0.09317913D0/
+C      DATA ALPPH2 (16)/       0.05756239D0/
+C      DATA FVAL12 (16)/       0.78633466D0/
+C      DATA FVAL22 (16)/       0.08622897D0/
+C      DATA GVAL12 (16)/       0.16039903D0/
+C      DATA GVAL22 (16)/       1.54712458D0/
+C      DATA ZSCOR2 (16)/       7.19878404D0/
+C      DATA FSCOR2 (16)/   -2757.23907496D0/
+C      DATA BSCOR2 (16)/      -8.36431055D0/
+C      DATA ASCOR2 (16)/       9.81491219D0/
+C      DATA EISOL2 (16)/    -237.11557146D0/
+C      DATA HYFOM2 (16)/       4.42488764D0/
+C      DATA GSSOM2 (16)/      10.00682168D0/
+C      DATA GSPOM2 (16)/       9.84808033D0/
+C      DATA GPPOM2 (16)/      11.32354984D0/
+C      DATA GP2OM2 (16)/       9.30536965D0/
+C      DATA HSPOM2 (16)/       2.40203017D0/
+C      DATA DDOM2  (16)/       0.00000000D0/
+C      DATA QQOM2  (16)/       0.00000000D0/
+C      DATA AMOM2  (16)/       0.00000000D0/
+C      DATA ADOM2  (16)/       0.00000000D0/
+C      DATA AQOM2  (16)/       0.00000000D0/
+CC
+CC     CHLORINE
+CC
+C      DATA ZS2    (17)/       1.00000000D0/
+C      DATA ZP2    (17)/       1.00000000D0/
+C      DATA GSSOM2 (17)/      15.03000000D0/
+C      DATA AMOM2  (17)/       0.55237045D0/
+C
+C     DATA FOR ELEMENT 86        CONNECTION ATOM FOR QM/MM TREATMENTS
+C     DATA REFOM2 (86)/' **: (OM2): I. ANTES, W. THIEL, TO BE PUBLISHED.
+C    1 PRELIMINARY SET 7, FEB 2000    '/
+C      DATA USS2   (86)/     -11.64382340D0/
+C      DATA UPP2   (86)/       0.00000000D0/
+C      DATA ZS2    (86)/       1.10810736D0/
+C      DATA ZP2    (86)/       1.10810736D0/
+C      DATA BETAS2 (86)/      -8.51187019D0/
+C      DATA BETAP2 (86)/      -8.51187019D0/
+C      DATA BETPI2 (86)/       0.00000000D0/
+C      DATA BETSH2 (86)/      -8.51187019D0/
+C      DATA BETPH2 (86)/       0.00000000D0/
+C      DATA ALPS2  (86)/       0.06785782D0/
+C      DATA ALPP2  (86)/       0.00000000D0/
+C      DATA ALPPI2 (86)/       0.00000000D0/
+C      DATA ALPSH2 (86)/       0.06785782D0/
+C      DATA ALPPH2 (86)/       0.00000000D0/
+C      DATA FVAL12 (86)/       0.95461749D0/
+C      DATA FVAL22 (86)/       0.00000000D0/
+C      DATA GVAL12 (86)/       0.98889270D0/
+C      DATA GVAL22 (86)/       0.92813978D0/
+C      DATA ZSCOR2 (86)/       5.16802668D0/
+C      DATA FSCOR2 (86)/    -305.68646337D0/
+C      DATA BSCOR2 (86)/      -9.07185084D0/
+C      DATA ASCOR2 (86)/       0.16985745D0/
+C      DATA EISOL2 (86)/     -11.64382340D0/
+C      DATA HYFOM2 (86)/       0.00000000D0/
+C      DATA GSSOM2 (86)/      11.99011922D0/
+C      DATA GSPOM2 (86)/       0.00000000D0/
+C      DATA GPPOM2 (86)/       0.00000000D0/
+C      DATA GP2OM2 (86)/       0.00000000D0/
+C      DATA HSPOM2 (86)/       0.00000000D0/
+C      DATA DDOM2  (86)/       0.00000000D0/
+C      DATA QQOM2  (86)/       0.00000000D0/
+C      DATA AMOM2  (86)/       1.13468430D0/
+C      DATA ADOM2  (86)/       1.13468430D0/
+C      DATA AQOM2  (86)/       1.13468430D0/
+C     *
+C *** START OF OM3 PARAMETERS.
+C     *
+C     LIST OF ELEMENTS WITH OM3 PARAMETERS.
+      DATA IMOM3/1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,
+     1           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     2           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     3           25*0,                 0,0,0,0,0,0,0/
+C     DATA FOR ELEMENT  1        HYDROGEN
+C     DATA REFOM3 ( 1)/'  H: (OM3):  P.O. DRAL, X. WU, L. SPOERKEL,
+C    1 A. KOSLOWSKI, W. WEBER, R. STEIGER, M. SCHOLTEN, W. THIEL,
+C    2 J. CHEM. THEORY COMPUT. 12, 1082 (2016). '/
+      DATA USS3   ( 1)/     -12.45828647D0/
+      DATA UPP3   ( 1)/       0.00000000D0/
+      DATA ZS3    ( 1)/       1.25906452D0/
+      DATA ZP3    ( 1)/       0.00000000D0/
+      DATA BETAS3 ( 1)/      -3.40064659D0/
+      DATA BETAP3 ( 1)/       0.00000000D0/
+      DATA BETPI3 ( 1)/       0.00000000D0/
+      DATA BETSH3 ( 1)/      -3.40064659D0/
+      DATA BETPH3 ( 1)/       0.00000000D0/
+      DATA ALPS3  ( 1)/       0.06931667D0/
+      DATA ALPP3  ( 1)/       0.00000000D0/
+      DATA ALPPI3 ( 1)/       0.00000000D0/
+      DATA ALPSH3 ( 1)/       0.06931667D0/
+      DATA ALPPH3 ( 1)/       0.00000000D0/
+      DATA FVAL13 ( 1)/       0.25393975D0/
+      DATA FVAL23 ( 1)/       0.00000000D0/
+      DATA GVAL13 ( 1)/       0.35600772D0/
+      DATA GVAL23 ( 1)/       0.00000000D0/
+      DATA ZSCOR3 ( 1)/       0.00000000D0/
+      DATA FSCOR3 ( 1)/       0.00000000D0/
+      DATA BSCOR3 ( 1)/       0.00000000D0/
+      DATA ASCOR3 ( 1)/       0.00000000D0/
+      DATA EISOL3 ( 1)/     -12.45828647D0/
+      DATA HYFOM3 ( 1)/       0.00000000D0/
+      DATA GSSOM3 ( 1)/      12.8480000D0/
+      DATA GSPOM3 ( 1)/       0.0000000D0/
+      DATA GPPOM3 ( 1)/       0.0000000D0/
+      DATA GP2OM3 ( 1)/       0.0000000D0/
+      DATA HSPOM3 ( 1)/       0.0000000D0/
+      DATA DDOM3  ( 1)/       0.0000000D0/
+      DATA QQOM3  ( 1)/       0.0000000D0/
+      DATA AMOM3  ( 1)/       0.4721793D0/
+      DATA ADOM3  ( 1)/       0.4721793D0/
+      DATA AQOM3  ( 1)/       0.4721793D0/
+      DATA C63    ( 1,1)/       0.13699517D0/
+      DATA R03    ( 1,1)/       0.09359344D0/
+      DATA C63    ( 1,2)/       0.14146973D0/
+      DATA R03    ( 1,2)/       0.10158635D0/
+C
+C     DATA FOR ELEMENT  6        CARBON
+C     DATA REFOM3 ( 6)/'  C: (OM3):  P.O. DRAL, X. WU, L. SPOERKEL,
+C    1 A. KOSLOWSKI, W. WEBER, R. STEIGER, M. SCHOLTEN, W. THIEL,
+C    2 J. CHEM. THEORY COMPUT. 12, 1082 (2016). '/
+      DATA USS3   ( 6)/     -50.55997310D0/
+      DATA UPP3   ( 6)/     -39.60463506D0/
+      DATA ZS3    ( 6)/       1.27811536D0/
+      DATA ZP3    ( 6)/       1.27811536D0/
+      DATA BETAS3 ( 6)/      -7.15007507D0/
+      DATA BETAP3 ( 6)/      -4.00965991D0/
+      DATA BETPI3 ( 6)/      -5.63958651D0/
+      DATA BETSH3 ( 6)/      -6.19914817D0/
+      DATA BETPH3 ( 6)/      -4.23218526D0/
+      DATA ALPS3  ( 6)/       0.09197146D0/
+      DATA ALPP3  ( 6)/       0.05274021D0/
+      DATA ALPPI3 ( 6)/       0.09864674D0/
+      DATA ALPSH3 ( 6)/       0.10023679D0/
+      DATA ALPPH3 ( 6)/       0.05492720D0/
+      DATA FVAL13 ( 6)/       0.41151269D0/
+      DATA FVAL23 ( 6)/       0.00000000D0/
+      DATA GVAL13 ( 6)/       0.10398816D0/
+      DATA GVAL23 ( 6)/       0.00000000D0/
+      DATA ZSCOR3 ( 6)/       5.70000000D0/
+      DATA FSCOR3 ( 6)/    -283.81699000D0/
+      DATA BSCOR3 ( 6)/     -22.48815939D0/
+      DATA ASCOR3 ( 6)/       0.15323932D0/
+      DATA EISOL3 ( 6)/    -117.85921632D0/
+      DATA HYFOM3 ( 6)/       3.76845483D0/
+      DATA GSSOM3 ( 6)/      12.2300000D0/
+      DATA GSPOM3 ( 6)/      11.4700000D0/
+      DATA GPPOM3 ( 6)/      11.0800000D0/
+      DATA GP2OM3 ( 6)/       9.8400000D0/
+      DATA HSPOM3 ( 6)/       2.4300000D0/
+      DATA DDOM3  ( 6)/       0.6927013D0/
+      DATA QQOM3  ( 6)/       0.6061754D0/
+      DATA AMOM3  ( 6)/       0.4494671D0/
+      DATA ADOM3  ( 6)/       0.6694531D0/
+      DATA AQOM3  ( 6)/       0.7269880D0/
+      DATA C63    ( 6,1)/       1.76051239D0/
+      DATA R03    ( 6,1)/       0.14369850D0/
+      DATA C63    ( 6,2)/       1.75148586D0/
+      DATA R03    ( 6,2)/       0.15275442D0/
+C
+C     DATA FOR ELEMENT  7        NITROGEN
+C     DATA REFOM3 ( 7)/'  N: (OM3):  P.O. DRAL, X. WU, L. SPOERKEL,
+C    1 A. KOSLOWSKI, W. WEBER, R. STEIGER, M. SCHOLTEN, W. THIEL,
+C    2 J. CHEM. THEORY COMPUT. 12, 1082 (2016). '/
+      DATA USS3   ( 7)/     -75.98413465D0/
+      DATA UPP3   ( 7)/     -57.38630489D0/
+      DATA ZS3    ( 7)/       1.30965521D0/
+      DATA ZP3    ( 7)/       1.30965521D0/
+      DATA BETAS3 ( 7)/     -13.42485887D0/
+      DATA BETAP3 ( 7)/      -5.69143961D0/
+      DATA BETPI3 ( 7)/      -8.25767437D0/
+      DATA BETSH3 ( 7)/     -11.40440049D0/
+      DATA BETPH3 ( 7)/      -7.87479008D0/
+      DATA ALPS3  ( 7)/       0.09461210D0/
+      DATA ALPP3  ( 7)/       0.06941595D0/
+      DATA ALPPI3 ( 7)/       0.10511596D0/
+      DATA ALPSH3 ( 7)/       0.11356707D0/
+      DATA ALPPH3 ( 7)/       0.09244486D0/
+      DATA FVAL13 ( 7)/       0.58223498D0/
+      DATA FVAL23 ( 7)/       0.00000000D0/
+      DATA GVAL13 ( 7)/       0.05928617D0/
+      DATA GVAL23 ( 7)/       0.00000000D0/
+      DATA ZSCOR3 ( 7)/       6.73673665D0/
+      DATA FSCOR3 ( 7)/    -380.94261410D0/
+      DATA BSCOR3 ( 7)/     -22.78185605D0/
+      DATA ASCOR3 ( 7)/       0.15915338D0/
+      DATA EISOL3 ( 7)/    -211.31218397D0/
+      DATA HYFOM3 ( 7)/       3.05323762D0/
+      DATA GSSOM3 ( 7)/      13.5900000D0/
+      DATA GSPOM3 ( 7)/      12.6600000D0/
+      DATA GPPOM3 ( 7)/      12.9800000D0/
+      DATA GP2OM3 ( 7)/      11.5900000D0/
+      DATA HSPOM3 ( 7)/       3.1400000D0/
+      DATA DDOM3  ( 7)/       0.5507329D0/
+      DATA QQOM3  ( 7)/       0.4313662D0/
+      DATA AMOM3  ( 7)/       0.4994487D0/
+      DATA ADOM3  ( 7)/       0.8521126D0/
+      DATA AQOM3  ( 7)/       0.9530874D0/
+      DATA C63    ( 7,1)/       1.23050050D0/
+      DATA R03    ( 7,1)/       0.13970000D0/
+      DATA C63    ( 7,2)/       1.23148586D0/
+      DATA R03    ( 7,2)/       0.14115458D0/
+C
+C     DATA FOR ELEMENT  8        OXYGEN
+C     DATA REFOM3 ( 8)/'  O: (OM3):  P.O. DRAL, X. WU, L. SPOERKEL,
+C    1 A. KOSLOWSKI, W. WEBER, R. STEIGER, M. SCHOLTEN, W. THIEL,
+C    2 J. CHEM. THEORY COMPUT. 12, 1082 (2016). '/
+      DATA USS3   ( 8)/    -105.79319826D0/
+      DATA UPP3   ( 8)/     -78.90502490D0/
+      DATA ZS3    ( 8)/       1.20838191D0/
+      DATA ZP3    ( 8)/       1.20838191D0/
+      DATA BETAS3 ( 8)/     -14.42839639D0/
+      DATA BETAP3 ( 8)/      -8.77114206D0/
+      DATA BETPI3 ( 8)/     -12.94995697D0/
+      DATA BETSH3 ( 8)/     -13.56403003D0/
+      DATA BETPH3 ( 8)/      -9.42200507D0/
+      DATA ALPS3  ( 8)/       0.12962541D0/
+      DATA ALPP3  ( 8)/       0.09275135D0/
+      DATA ALPPI3 ( 8)/       0.16086067D0/
+      DATA ALPSH3 ( 8)/       0.14516313D0/
+      DATA ALPPH3 ( 8)/       0.10981869D0/
+      DATA FVAL13 ( 8)/       0.55266327D0/
+      DATA FVAL23 ( 8)/       0.00000000D0/
+      DATA GVAL13 ( 8)/       0.06226814D0/
+      DATA GVAL23 ( 8)/       0.00000000D0/
+      DATA ZSCOR3 ( 8)/       7.74239776D0/
+      DATA FSCOR3 ( 8)/    -512.51900000D0/
+      DATA BSCOR3 ( 8)/     -26.13251784D0/
+      DATA ASCOR3 ( 8)/       0.18281098D0/
+      DATA EISOL3 ( 8)/    -334.59649612D0/
+      DATA HYFOM3 ( 8)/       2.85279080D0/
+      DATA GSSOM3 ( 8)/      15.4200000D0/
+      DATA GSPOM3 ( 8)/      14.4800000D0/
+      DATA GPPOM3 ( 8)/      14.5200000D0/
+      DATA GP2OM3 ( 8)/      12.9800000D0/
+      DATA HSPOM3 ( 8)/       3.9400000D0/
+      DATA DDOM3  ( 8)/       0.5174561D0/
+      DATA QQOM3  ( 8)/       0.3979838D0/
+      DATA AMOM3  ( 8)/       0.5667034D0/
+      DATA ADOM3  ( 8)/       0.9764113D0/
+      DATA AQOM3  ( 8)/       1.0398973D0/
+      DATA C63    ( 8,1)/       0.70000000D0/
+      DATA R03    ( 8,1)/       0.13420000D0/
+      DATA C63    ( 8,2)/       0.70136073D0/
+      DATA R03    ( 8,2)/       0.13573278D0/
+C
+C     DATA FOR ELEMENT  9        FLUORINE
+C     DATA REFOM3 ( 9)/'  F: (OM3):  P.O. DRAL, X. WU, L. SPOERKEL,
+C    1 A. KOSLOWSKI, W. WEBER, R. STEIGER, M. SCHOLTEN, W. THIEL,
+C    2 J. CHEM. THEORY COMPUT. 12, 1082 (2016). '/
+      DATA USS3   ( 9)/    -120.65477058D0/
+      DATA UPP3   ( 9)/    -107.50304443D0/
+      DATA ZS3    ( 9)/       1.20564838D0/
+      DATA ZP3    ( 9)/       1.20564838D0/
+      DATA BETAS3 ( 9)/      -6.19918959D0/
+      DATA BETAP3 ( 9)/     -13.82075048D0/
+      DATA BETPI3 ( 9)/     -18.96710976D0/
+      DATA BETSH3 ( 9)/      -8.06286638D0/
+      DATA BETPH3 ( 9)/     -13.92380910D0/
+      DATA ALPS3  ( 9)/       0.31128286D0/
+      DATA ALPP3  ( 9)/       0.12448702D0/
+      DATA ALPPI3 ( 9)/       0.21596283D0/
+      DATA ALPSH3 ( 9)/       0.32623663D0/
+      DATA ALPPH3 ( 9)/       0.15497349D0/
+      DATA FVAL13 ( 9)/       1.03522357D0/
+      DATA FVAL23 ( 9)/       0.00000000D0/
+      DATA GVAL13 ( 9)/       0.14035077D0/
+      DATA GVAL23 ( 9)/       0.00000000D0/
+      DATA ZSCOR3 ( 9)/       8.70367110D0/
+      DATA FSCOR3 ( 9)/    -685.41999336D0/
+      DATA BSCOR3 ( 9)/     -10.62649349D0/
+      DATA ASCOR3 ( 9)/       0.00010713D0/
+      DATA EISOL3 ( 9)/    -464.45476331D0/
+      DATA HYFOM3 ( 9)/       2.50824141D0/
+      DATA GSSOM3 ( 9)/      16.9200000D0/
+      DATA GSPOM3 ( 9)/      17.2500000D0/
+      DATA GPPOM3 ( 9)/      16.7100000D0/
+      DATA GP2OM3 ( 9)/      14.9100000D0/
+      DATA HSPOM3 ( 9)/       4.8300000D0/
+      DATA DDOM3  ( 9)/       0.5106623D0/
+      DATA QQOM3  ( 9)/       0.3932237D0/
+      DATA AMOM3  ( 9)/       0.6218302D0/
+      DATA ADOM3  ( 9)/       1.0805856D0/
+      DATA AQOM3  ( 9)/       1.0999100D0/
+      DATA C63    ( 9,1)/       0.75000000D0/
+      DATA R03    ( 9,1)/       0.12870000D0/
+      DATA C63    ( 9,2)/       0.75000000D0/
+      DATA R03    ( 9,2)/       0.12870000D0/
+C
+C     *
+C *** START OF OM4 PARAMETERS.
+C     *
+C     LIST OF ELEMENTS WITH OM4 PARAMETERS.
+      DATA IMOM4/0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     1           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     2           0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     3           25*0,                 0,0,0,0,0,0,0/
+C     *
+C *** START OF ODM2 PARAMETERS.
+C     D3 PARAMETERS INITIALIZED IN PARAM
+C     *
+C     LIST OF ELEMENTS WITH ODM2 PARAMETERS.
+      DATA IMODM2/1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,
+     1            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     2            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     3            25*0,                 0,0,0,0,0,0,1/
+C     DATA FOR ELEMENT  1        HYDROGEN
+C     DATA REFODM2( 1)/'  H: (ODM2):  P.O. DRAL, X. WU, W. THIEL,
+C    1 TO BE PUBLISHED. '/
+      DATA USSOD2 ( 1)/     -12.48937475D0/
+      DATA UPPOD2 ( 1)/       0.00000000D0/
+      DATA ZSOMD2 ( 1)/       1.38028450D0/
+      DATA ZPOMD2 ( 1)/       0.00000000D0/
+      DATA BETSD2 ( 1)/      -3.40625426D0/
+      DATA BETPD2 ( 1)/       0.00000000D0/
+      DATA BTPID2 ( 1)/       0.00000000D0/
+      DATA BTSHD2 ( 1)/      -3.40625426D0/
+      DATA BTPHD2 ( 1)/       0.00000000D0/
+      DATA ALPSD2 ( 1)/       0.06556888D0/
+      DATA ALPPD2 ( 1)/       0.00000000D0/
+      DATA ALPID2 ( 1)/       0.00000000D0/
+      DATA ALSHD2 ( 1)/       0.06556888D0/
+      DATA ALPHD2 ( 1)/       0.00000000D0/
+      DATA F1ODM2 ( 1)/       0.25711330D0/
+      DATA F2ODM2 ( 1)/       1.29097121D0/
+      DATA G1ODM2 ( 1)/       0.64932010D0/
+      DATA G2ODM2 ( 1)/       0.46314833D0/
+      DATA ZSCOD2 ( 1)/       0.00000000D0/
+      DATA FSCOD2 ( 1)/       0.00000000D0/
+      DATA BSCOD2 ( 1)/       0.00000000D0/
+      DATA ASCOD2 ( 1)/       0.00000000D0/
+      DATA EISLD2 ( 1)/     -12.48937475D0/
+      DATA HYFOD2 ( 1)/       0.00000000D0/
+      DATA GSSOD2 ( 1)/      12.8480000D0/
+      DATA GSPOD2 ( 1)/       0.0000000D0/
+      DATA GPPOD2 ( 1)/       0.0000000D0/
+      DATA GP2OD2 ( 1)/       0.0000000D0/
+      DATA HSPOD2 ( 1)/       0.0000000D0/
+      DATA DDODM2 ( 1)/       0.0000000D0/
+      DATA QQODM2 ( 1)/       0.0000000D0/
+      DATA AMODM2 ( 1)/       0.4721793D0/
+      DATA ADODM2 ( 1)/       0.4721793D0/
+      DATA AQODM2 ( 1)/       0.4721793D0/
+C     DATA FOR ELEMENT  6        CARBON
+C     DATA REFODM2( 6)/'  C: (ODM2):  P.O. DRAL, X. WU, W. THIEL,
+C    1 TO BE PUBLISHED. '/
+      DATA USSOD2 ( 6)/     -51.23186063D0/
+      DATA UPPOD2 ( 6)/     -39.34045880D0/
+      DATA ZSOMD2 ( 6)/       1.38113662D0/
+      DATA ZPOMD2 ( 6)/       1.38113662D0/
+      DATA BETSD2 ( 6)/      -7.50866135D0/
+      DATA BETPD2 ( 6)/      -4.13979929D0/
+      DATA BTPID2 ( 6)/      -6.21901456D0/
+      DATA BTSHD2 ( 6)/      -6.58983035D0/
+      DATA BTPHD2 ( 6)/      -4.53309066D0/
+      DATA ALPSD2 ( 6)/       0.09431728D0/
+      DATA ALPPD2 ( 6)/       0.05372380D0/
+      DATA ALPID2 ( 6)/       0.10370542D0/
+      DATA ALSHD2 ( 6)/       0.10047864D0/
+      DATA ALPHD2 ( 6)/       0.05754390D0/
+      DATA F1ODM2 ( 6)/       0.48173972D0/
+      DATA F2ODM2 ( 6)/       0.88486717D0/
+      DATA G1ODM2 ( 6)/       0.18362749D0/
+      DATA G2ODM2 ( 6)/       0.99145627D0/
+      DATA ZSCOD2 ( 6)/       5.16802668D0/
+      DATA FSCOD2 ( 6)/    -305.68646337D0/
+      DATA BSCOD2 ( 6)/      -9.07185084D0/
+      DATA ASCOD2 ( 6)/       0.16985745D0/
+      DATA EISLD2 ( 6)/    -118.67463886D0/
+      DATA HYFOD2 ( 6)/       3.48735956D0/
+      DATA GSSOD2 ( 6)/      12.2300000D0/
+      DATA GSPOD2 ( 6)/      11.4700000D0/
+      DATA GPPOD2 ( 6)/      11.0800000D0/
+      DATA GP2OD2 ( 6)/       9.8400000D0/
+      DATA HSPOD2 ( 6)/       2.4300000D0/
+      DATA DDODM2 ( 6)/       0.6671063D0/
+      DATA QQODM2 ( 6)/       0.5728908D0/
+      DATA AMODM2 ( 6)/       0.4494671D0/
+      DATA ADODM2 ( 6)/       0.6837422D0/
+      DATA AQODM2 ( 6)/       0.7558142D0/
+C     DATA FOR ELEMENT  7        NITROGEN
+C     DATA REFODM2( 7)/'  N: (ODM2):  P.O. DRAL, X. WU, W. THIEL,
+C    1 TO BE PUBLISHED. '/
+      DATA USSOD2 ( 7)/     -73.38299795D0/
+      DATA UPPOD2 ( 7)/     -57.70164912D0/
+      DATA ZSOMD2 ( 7)/       1.29958384D0/
+      DATA ZPOMD2 ( 7)/       1.29958384D0/
+      DATA BETSD2 ( 7)/     -13.71974340D0/
+      DATA BETPD2 ( 7)/      -8.25662188D0/
+      DATA BTPID2 ( 7)/     -10.06577228D0/
+      DATA BTSHD2 ( 7)/      -9.28605650D0/
+      DATA BTPHD2 ( 7)/      -9.59598789D0/
+      DATA ALPSD2 ( 7)/       0.12110139D0/
+      DATA ALPPD2 ( 7)/       0.08742445D0/
+      DATA ALPID2 ( 7)/       0.13827427D0/
+      DATA ALSHD2 ( 7)/       0.11512537D0/
+      DATA ALPHD2 ( 7)/       0.11625375D0/
+      DATA F1ODM2 ( 7)/       0.67114023D0/
+      DATA F2ODM2 ( 7)/       0.29297257D0/
+      DATA G1ODM2 ( 7)/       0.12275808D0/
+      DATA G2ODM2 ( 7)/       0.76190787D0/
+      DATA ZSCOD2 ( 7)/       6.93980600D0/
+      DATA FSCOD2 ( 7)/    -407.39202305D0/
+      DATA BSCOD2 ( 7)/      -9.97910210D0/
+      DATA ASCOD2 ( 7)/       0.16173024D0/
+      DATA EISLD2 ( 7)/    -207.05594326D0/
+      DATA HYFOD2 ( 7)/       3.07689926D0/
+      DATA GSSOD2 ( 7)/      13.5900000D0/
+      DATA GSPOD2 ( 7)/      12.6600000D0/
+      DATA GPPOD2 ( 7)/      12.9800000D0/
+      DATA GP2OD2 ( 7)/      11.5900000D0/
+      DATA HSPOD2 ( 7)/       3.1400000D0/
+      DATA DDODM2 ( 7)/       0.5906863D0/
+      DATA QQODM2 ( 7)/       0.4791483D0/
+      DATA AMODM2 ( 7)/       0.4994487D0/
+      DATA ADODM2 ( 7)/       0.8196213D0/
+      DATA AQODM2 ( 7)/       0.8858938D0/
+C     DATA FOR ELEMENT  8        OXYGEN
+C     DATA REFODM2( 8)/'  O: (ODM2):  P.O. DRAL, X. WU, W. THIEL,
+C    1 TO BE PUBLISHED. '/
+      DATA USSOD2 ( 8)/    -102.59234481D0/
+      DATA UPPOD2 ( 8)/     -78.80113288D0/
+      DATA ZSOMD2 ( 8)/       1.49880729D0/
+      DATA ZPOMD2 ( 8)/       1.49880729D0/
+      DATA BETSD2 ( 8)/     -10.44716267D0/
+      DATA BETPD2 ( 8)/      -9.52283396D0/
+      DATA BTPID2 ( 8)/     -10.00369376D0/
+      DATA BTSHD2 ( 8)/      -6.12279073D0/
+      DATA BTPHD2 ( 8)/      -9.78113133D0/
+      DATA ALPSD2 ( 8)/       0.13492482D0/
+      DATA ALPPD2 ( 8)/       0.09874026D0/
+      DATA ALPID2 ( 8)/       0.13861427D0/
+      DATA ALSHD2 ( 8)/       0.13949313D0/
+      DATA ALPHD2 ( 8)/       0.10684454D0/
+      DATA F1ODM2 ( 8)/       1.19835125D0/
+      DATA F2ODM2 ( 8)/       0.98518300D0/
+      DATA G1ODM2 ( 8)/       0.53895482D0/
+      DATA G2ODM2 ( 8)/       1.80028762D0/
+      DATA ZSCOD2 ( 8)/       7.58579774D0/
+      DATA FSCOD2 ( 8)/    -514.45812327D0/
+      DATA BSCOD2 ( 8)/     -14.16551053D0/
+      DATA ASCOD2 ( 8)/       0.34390559D0/
+      DATA EISLD2 ( 8)/    -327.77922114D0/
+      DATA HYFOD2 ( 8)/       2.30000268D0/
+      DATA GSSOD2 ( 8)/      15.4200000D0/
+      DATA GSPOD2 ( 8)/      14.4800000D0/
+      DATA GPPOD2 ( 8)/      14.5200000D0/
+      DATA GP2OD2 ( 8)/      12.9800000D0/
+      DATA HSPOD2 ( 8)/       3.9400000D0/
+      DATA DDODM2 ( 8)/       0.4369227D0/
+      DATA QQODM2 ( 8)/       0.3087891D0/
+      DATA AMODM2 ( 8)/       0.5667034D0/
+      DATA ADODM2 ( 8)/       1.0719202D0/
+      DATA AQODM2 ( 8)/       1.2430674D0/
+C
+C     DATA FOR ELEMENT  9        FLUORINE
+C     DATA REFODM2( 9)/'  F: (ODM2):  P.O. DRAL, X. WU, W. THIEL,
+C    1 TO BE PUBLISHED. '/
+      DATA USSOD2 ( 9)/    -117.89864612D0/
+      DATA UPPOD2 ( 9)/    -107.04309769D0/
+      DATA ZSOMD2 ( 9)/       1.48240692D0/
+      DATA ZPOMD2 ( 9)/       1.48240692D0/
+      DATA BETSD2 ( 9)/      -3.58269305D0/
+      DATA BETPD2 ( 9)/     -13.71612319D0/
+      DATA BTPID2 ( 9)/     -15.32274646D0/
+      DATA BTSHD2 ( 9)/      -7.73941491D0/
+      DATA BTPHD2 ( 9)/     -11.60040200D0/
+      DATA ALPSD2 ( 9)/       0.25992551D0/
+      DATA ALPPD2 ( 9)/       0.12102605D0/
+      DATA ALPID2 ( 9)/       0.20389243D0/
+      DATA ALSHD2 ( 9)/       0.74053556D0/
+      DATA ALPHD2 ( 9)/       0.13290605D0/
+      DATA F1ODM2 ( 9)/       2.32598335D0/
+      DATA F2ODM2 ( 9)/       1.29045770D0/
+      DATA G1ODM2 ( 9)/       0.66523038D0/
+      DATA G2ODM2 ( 9)/       0.02575130D0/
+      DATA ZSCOD2 ( 9)/       8.71226515D0/
+      DATA FSCOD2 ( 9)/    -685.41988599D0/
+      DATA BSCOD2 ( 9)/      -9.17960365D0/
+      DATA ASCOD2 ( 9)/       0.99971548D0/
+      DATA EISLD2 ( 9)/    -456.64278069D0/
+      DATA HYFOD2 ( 9)/       2.03996429D0/
+      DATA GSSOD2 ( 9)/      16.9200000D0/
+      DATA GSPOD2 ( 9)/      17.2500000D0/
+      DATA GPPOD2 ( 9)/      16.7100000D0/
+      DATA GP2OD2 ( 9)/      14.9100000D0/
+      DATA HSPOD2 ( 9)/       4.8300000D0/
+      DATA DDODM2 ( 9)/       0.5106623D0/
+      DATA QQODM2 ( 9)/       0.3932237D0/
+      DATA AMODM2 ( 9)/       0.6218302D0/
+      DATA ADODM2 ( 9)/       1.0805856D0/
+      DATA AQODM2 ( 9)/       1.0999100D0/
+C     *
+C *** START OF ODM3 PARAMETERS.
+C     D3 PARAMETERS INITIALIZED IN PARAM
+C     *
+C     LIST OF ELEMENTS WITH ODM3 PARAMETERS.
+      DATA IMODM3/1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,
+     1            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     2            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+     3            25*0,                 0,0,0,0,0,0,1/
+C     DATA FOR ELEMENT  1        HYDROGEN
+C     DATA REFODM3( 1)/'  H: (ODM3):  P.O. DRAL, X. WU, W. THIEL,
+C    1 TO BE PUBLISHED. '/
+      DATA USSOD3 ( 1)/     -12.34522989D0/
+      DATA UPPOD3 ( 1)/       0.00000000D0/
+      DATA ZSOMD3 ( 1)/       1.19376951D0/
+      DATA ZPOMD3 ( 1)/       0.00000000D0/
+      DATA BETSD3 ( 1)/      -3.55853909D0/
+      DATA BETPD3 ( 1)/       0.00000000D0/
+      DATA BTPID3 ( 1)/       0.00000000D0/
+      DATA BTSHD3 ( 1)/      -3.55853909D0/
+      DATA BTPHD3 ( 1)/       0.00000000D0/
+      DATA ALPSD3 ( 1)/       0.06732426D0/
+      DATA ALPPD3 ( 1)/       0.00000000D0/
+      DATA ALPID3 ( 1)/       0.00000000D0/
+      DATA ALSHD3 ( 1)/       0.06732426D0/
+      DATA ALPHD3 ( 1)/       0.00000000D0/
+      DATA F1ODM3 ( 1)/       0.24779546D0/
+      DATA F2ODM3 ( 1)/       0.00000000D0/
+      DATA G1ODM3 ( 1)/       0.36151043D0/
+      DATA G2ODM3 ( 1)/       0.00000000D0/
+      DATA ZSCOD3 ( 1)/       0.00000000D0/
+      DATA FSCOD3 ( 1)/       0.00000000D0/
+      DATA BSCOD3 ( 1)/       0.00000000D0/
+      DATA ASCOD3 ( 1)/       0.00000000D0/
+      DATA EISLD3 ( 1)/     -12.34522989D0/
+      DATA HYFOD3 ( 1)/       0.00000000D0/
+      DATA GSSOD3 ( 1)/      12.8480000D0/
+      DATA GSPOD3 ( 1)/       0.0000000D0/
+      DATA GPPOD3 ( 1)/       0.0000000D0/
+      DATA GP2OD3 ( 1)/       0.0000000D0/
+      DATA HSPOD3 ( 1)/       0.0000000D0/
+      DATA DDODM3 ( 1)/       0.0000000D0/
+      DATA QQODM3 ( 1)/       0.0000000D0/
+      DATA AMODM3 ( 1)/       0.4721793D0/
+      DATA ADODM3 ( 1)/       0.4721793D0/
+      DATA AQODM3 ( 1)/       0.4721793D0/
+C     DATA FOR ELEMENT  6        CARBON
+C     DATA REFODM3( 6)/'  C: (ODM3):  P.O. DRAL, X. WU, W. THIEL,
+C    1 TO BE PUBLISHED. '/
+      DATA USSOD3 ( 6)/     -50.53809829D0/
+      DATA UPPOD3 ( 6)/     -39.18893465D0/
+      DATA ZSOMD3 ( 6)/       1.24063783D0/
+      DATA ZPOMD3 ( 6)/       1.24063783D0/
+      DATA BETSD3 ( 6)/      -7.22299220D0/
+      DATA BETPD3 ( 6)/      -3.89503707D0/
+      DATA BTPID3 ( 6)/      -5.98389263D0/
+      DATA BTSHD3 ( 6)/      -6.67027186D0/
+      DATA BTPHD3 ( 6)/      -4.66942670D0/
+      DATA ALPSD3 ( 6)/       0.08775193D0/
+      DATA ALPPD3 ( 6)/       0.05302831D0/
+      DATA ALPID3 ( 6)/       0.10244561D0/
+      DATA ALSHD3 ( 6)/       0.10456205D0/
+      DATA ALPHD3 ( 6)/       0.06145722D0/
+      DATA F1ODM3 ( 6)/       0.37629902D0/
+      DATA F2ODM3 ( 6)/       0.00000000D0/
+      DATA G1ODM3 ( 6)/       0.08125059D0/
+      DATA G2ODM3 ( 6)/       0.00000000D0/
+      DATA ZSCOD3 ( 6)/       5.70000000D0/
+      DATA FSCOD3 ( 6)/    -283.81699000D0/
+      DATA BSCOD3 ( 6)/     -22.48815939D0/
+      DATA ASCOD3 ( 6)/       0.15323932D0/
+      DATA EISLD3 ( 6)/    -116.98406588D0/
+      DATA HYFOD3 ( 6)/       3.88229335D0/
+      DATA GSSOD3 ( 6)/      12.2300000D0/
+      DATA GSPOD3 ( 6)/      11.4700000D0/
+      DATA GPPOD3 ( 6)/      11.0800000D0/
+      DATA GP2OD3 ( 6)/       9.8400000D0/
+      DATA HSPOD3 ( 6)/       2.4300000D0/
+      DATA DDODM3 ( 6)/       0.6671063D0/
+      DATA QQODM3 ( 6)/       0.5728908D0/
+      DATA AMODM3 ( 6)/       0.4494671D0/
+      DATA ADODM3 ( 6)/       0.6837422D0/
+      DATA AQODM3 ( 6)/       0.7558142D0/
+C     DATA FOR ELEMENT  7        NITROGEN
+C     DATA REFODM3( 7)/'  N: (ODM3):  P.O. DRAL, X. WU, W. THIEL,
+C    1 TO BE PUBLISHED. '/
+      DATA USSOD3 ( 7)/     -76.86911508D0/
+      DATA UPPOD3 ( 7)/     -57.30532511D0/
+      DATA ZSOMD3 ( 7)/       1.31794708D0/
+      DATA ZPOMD3 ( 7)/       1.31794708D0/
+      DATA BETSD3 ( 7)/     -11.27163531D0/
+      DATA BETPD3 ( 7)/      -5.19814028D0/
+      DATA BTPID3 ( 7)/      -9.42644204D0/
+      DATA BTSHD3 ( 7)/      -9.43111309D0/
+      DATA BTPHD3 ( 7)/      -7.96127622D0/
+      DATA ALPSD3 ( 7)/       0.08380547D0/
+      DATA ALPPD3 ( 7)/       0.06387304D0/
+      DATA ALPID3 ( 7)/       0.12706496D0/
+      DATA ALSHD3 ( 7)/       0.09898195D0/
+      DATA ALPHD3 ( 7)/       0.09655514D0/
+      DATA F1ODM3 ( 7)/       0.49200495D0/
+      DATA F2ODM3 ( 7)/       0.00000000D0/
+      DATA G1ODM3 ( 7)/       0.19511376D0/
+      DATA G2ODM3 ( 7)/       0.00000000D0/
+      DATA ZSCOD3 ( 7)/       6.73673665D0/
+      DATA FSCOD3 ( 7)/    -380.94261410D0/
+      DATA BSCOD3 ( 7)/     -22.78185605D0/
+      DATA ASCOD3 ( 7)/       0.15915338D0/
+      DATA EISLD3 ( 7)/    -212.83920549D0/
+      DATA HYFOD3 ( 7)/       3.03402816D0/
+      DATA GSSOD3 ( 7)/      13.5900000D0/
+      DATA GSPOD3 ( 7)/      12.6600000D0/
+      DATA GPPOD3 ( 7)/      12.9800000D0/
+      DATA GP2OD3 ( 7)/      11.5900000D0/
+      DATA HSPOD3 ( 7)/       3.1400000D0/
+      DATA DDODM3 ( 7)/       0.5906863D0/
+      DATA QQODM3 ( 7)/       0.4791483D0/
+      DATA AMODM3 ( 7)/       0.4994487D0/
+      DATA ADODM3 ( 7)/       0.8196213D0/
+      DATA AQODM3 ( 7)/       0.8858938D0/
+C     DATA FOR ELEMENT  8        OXYGEN
+C     DATA REFODM3( 8)/'  O: (ODM3):  P.O. DRAL, X. WU, W. THIEL,
+C    1 TO BE PUBLISHED. '/
+      DATA USSOD3 ( 8)/    -105.32281913D0/
+      DATA UPPOD3 ( 8)/     -78.61741113D0/
+      DATA ZSOMD3 ( 8)/       1.20420353D0/
+      DATA ZPOMD3 ( 8)/       1.20420353D0/
+      DATA BETSD3 ( 8)/     -13.99112485D0/
+      DATA BETPD3 ( 8)/      -9.57907838D0/
+      DATA BTPID3 ( 8)/     -13.14461173D0/
+      DATA BTSHD3 ( 8)/     -13.89205019D0/
+      DATA BTPHD3 ( 8)/     -10.28574783D0/
+      DATA ALPSD3 ( 8)/       0.12829059D0/
+      DATA ALPPD3 ( 8)/       0.09616309D0/
+      DATA ALPID3 ( 8)/       0.16588421D0/
+      DATA ALSHD3 ( 8)/       0.15947641D0/
+      DATA ALPHD3 ( 8)/       0.11563129D0/
+      DATA F1ODM3 ( 8)/       0.56899924D0/
+      DATA F2ODM3 ( 8)/       0.00000000D0/
+      DATA G1ODM3 ( 8)/       0.19048647D0/
+      DATA G2ODM3 ( 8)/       0.00000000D0/
+      DATA ZSCOD3 ( 8)/       7.74239776D0/
+      DATA FSCOD3 ( 8)/    -512.51900000D0/
+      DATA BSCOD3 ( 8)/     -26.13251784D0/
+      DATA ASCOD3 ( 8)/       0.18281098D0/
+      DATA EISLD3 ( 8)/    -332.50528278D0/
+      DATA HYFOD3 ( 8)/       2.86268949D0/
+      DATA GSSOD3 ( 8)/      15.4200000D0/
+      DATA GSPOD3 ( 8)/      14.4800000D0/
+      DATA GPPOD3 ( 8)/      14.5200000D0/
+      DATA GP2OD3 ( 8)/      12.9800000D0/
+      DATA HSPOD3 ( 8)/       3.9400000D0/
+      DATA DDODM3 ( 8)/       0.4369227D0/
+      DATA QQODM3 ( 8)/       0.3087891D0/
+      DATA AMODM3 ( 8)/       0.5667034D0/
+      DATA ADODM3 ( 8)/       1.0719202D0/
+      DATA AQODM3 ( 8)/       1.2430674D0/
+C
+C     DATA FOR ELEMENT  9        FLUORINE
+C     DATA REFODM3( 9)/'  F: (ODM3):  P.O. DRAL, X. WU, W. THIEL,
+C    1 TO BE PUBLISHED. '/
+      DATA USSOD3 ( 9)/    -119.94597476D0/
+      DATA UPPOD3 ( 9)/    -107.72538552D0/
+      DATA ZSOMD3 ( 9)/       1.11606475D0/
+      DATA ZPOMD3 ( 9)/       1.11606475D0/
+      DATA BETSD3 ( 9)/      -6.21626110D0/
+      DATA BETPD3 ( 9)/     -14.17975990D0/
+      DATA BTPID3 ( 9)/     -17.97416645D0/
+      DATA BTSHD3 ( 9)/     -10.28397098D0/
+      DATA BTPHD3 ( 9)/     -14.01190662D0/
+      DATA ALPSD3 ( 9)/       0.36826212D0/
+      DATA ALPPD3 ( 9)/       0.12592688D0/
+      DATA ALPID3 ( 9)/       0.21676922D0/
+      DATA ALSHD3 ( 9)/       0.40117629D0/
+      DATA ALPHD3 ( 9)/       0.15563457D0/
+      DATA F1ODM3 ( 9)/       0.95888963D0/
+      DATA F2ODM3 ( 9)/       0.00000000D0/
+      DATA G1ODM3 ( 9)/       0.15019006D0/
+      DATA G2ODM3 ( 9)/       0.00000000D0/
+      DATA ZSCOD3 ( 9)/       8.70367110D0/
+      DATA FSCOD3 ( 9)/    -685.41999336D0/
+      DATA BSCOD3 ( 9)/     -10.62649349D0/
+      DATA ASCOD3 ( 9)/       0.00010713D0/
+      DATA EISLD3 ( 9)/    -464.14887712D0/
+      DATA HYFOD3 ( 9)/       2.70957145D0/
+      DATA GSSOD3 ( 9)/      16.9200000D0/
+      DATA GSPOD3 ( 9)/      17.2500000D0/
+      DATA GPPOD3 ( 9)/      16.7100000D0/
+      DATA GP2OD3 ( 9)/      14.9100000D0/
+      DATA HSPOD3 ( 9)/       4.8300000D0/
+      DATA DDODM3 ( 9)/       0.5106623D0/
+      DATA QQODM3 ( 9)/       0.3932237D0/
+      DATA AMODM3 ( 9)/       0.6218302D0/
+      DATA ADODM3 ( 9)/       1.0805856D0/
+      DATA AQODM3 ( 9)/       1.0999100D0/
+      END
