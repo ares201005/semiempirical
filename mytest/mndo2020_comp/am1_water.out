@@ -1,0 +1,500 @@
+
+
+
+ PROGRAM MNDO2019.
+ VERSION 8.0 OF 15 AUGUST 2019.
+
+ COPYRIGHT BY WALTER THIEL,
+ MAX-PLANCK-INSTITUT FUER KOHLENFORSCHUNG,
+ D-45470 MUELHEIM, GERMANY.
+
+
+ ***** STANDARD INPUT USING KEYWORDS *****
+
+ JOP    =   -2     IGEOM  =    0     IFORM  =    1     INREFD =    2     NPRINT =    5
+ KCI    =    0
+
+
+ ***********************************************************************
+ * INPUT OF OPTIONS VIA KEYWORDS
+ *  SYMMETRY - SYMMETRY CONDITIONS TO BE IMPOSED            
+ *  AM1      - THE AM1 HAMILTONIAN TO BE USED               
+ *  AIGIN    - GEOMETRY MUST BE IN GAUSSIAN FORMAT          
+ * NUMBER OF MNDO97 KEYWORDS FOUND:  6
+ * NUMBER OF MOPAC  KEYWORDS FOUND:  3
+ ***********************************************************************
+
+
+
+ *** OPTIONS FROM THE FIRST LINE OF INPUT    ***
+ *** DEFINED EITHER EXPLICITLY OR BY DEFAULT ***
+
+ LIMIT  = 3600     IOP    =   -2     JOP    =   -2     IGEOM  =    0     IFORM  =    1
+ NEXMOL =    1     MPLIB  =    0     IEF    =    0     IDIIS  =    0     INREFD =    2
+ IPAROK =    0     MMINP  =    0     NMR    =    0     NSAV7  =    0     NSAV8  =    0
+ NSAV9  =    0     NSAV13 =    0     NSAV15 =    0     NSAV16 =    0     IMMOK  =    0
+ IHBOND =    0     IFLD1  =    0     IFLD2  =    0     IFLD3  =    0     ICUTS  =    0
+ ICUTG  =    0     IEXBAS =    0     ICOSMO =    0     IPSANA =    0     IMMDP  =   -1
+ INAC   =    0
+
+
+
+ AM1    
+
+ GRADIENT CALCULATION FOR INPUT GEOMETRY
+
+ INPUT IN INTERNAL COORDINATES
+
+ INPUT OF MOLECULAR DATA IN FREE FORMAT
+
+ EXPERIMENTAL REFERENCE DATA AS ADDITIONAL INPUT
+
+
+
+ *** OPTIONS FROM THE SECOND LINE OF INPUT   ***
+ *** DEFINED EITHER EXPLICITLY OR BY DEFAULT ***
+
+
+ MAXEND =    0     MAXLIN =    4     MAXRTL = 9999     ISCF   =    6     IPLSCF =    4
+ MIDDLE =    0     IPRINT =   -1     KPRINT =    0     LPRINT =    0     MPRINT =    0
+ JPRINT =    0     IPREC  =    1     ICONV  =    0     IHESS  =    0     IDFP   =    0
+ NREPET =    3     LINITG =   10     LCONVG =   10     LGDUM  =    0     IHDLC1 =    0
+ IHDLC2 =    0     IHDLC3 =    0     INGEOM =    0     INTDIR =    0     LINDMS =    0
+ LINDIA =    0     LINFRG =    0     INPFRG =    0     INP21  =    0     INP22  =    0
+ INP23  =    0     INP24  =    0     INP25  =    0     IATERG =    1
+
+
+
+                                                                                 
+ Water, Comparison to PYSEQM                                                     
+
+
+     INPUT GEOMETRY
+
+
+      ATOM      ATOMIC               BOND LENGTH          BOND ANGLE           TWIST ANGLE
+     NUMBER     NUMBER               (ANGSTROMS)           (DEGREES)            (DEGREES)
+        I                                NA I                NB NA I            NC NB NA I                NA     NB     NC
+
+        1          8
+        2          1                   1.00000                                                             1
+        3          1                   1.00000             90.00000                                        1      2
+
+
+
+     **********
+
+     *  VARIABLES TO BE OPTIMIZED, OF WHICH THERE ARE   0
+
+
+
+                                                                                     
+     Water, Comparison to PYSEQM                                                     
+
+
+     INITIAL CARTESIAN COORDINATES (ANGSTROMS)
+
+     ATOM NO.        ATOMIC NO.         X-COORDINATE        Y-COORDINATE        Z-COORDINATE       ATOMIC ORBITALS
+
+
+         1                 8                0.000000            0.000000            0.000000            1 TO   4
+         2                 1                1.000000            0.000000            0.000000            5 TO   5
+         3                 1                0.000000            1.000000            0.000000            6 TO   6
+
+
+
+     INITIAL INTERATOMIC DISTANCES (ANGSTROMS)
+
+
+             1           2           3
+ ----------------------------------------
+   1      0.00000
+   2      1.00000     0.00000
+   3      1.00000     1.41421     0.00000
+
+
+
+ MOLECULAR CHARGE         0
+ NUMBER OF ELECTRONS      8
+ DOUBLY OCCUPIED MOS      4
+
+
+ *** OPTIONS FOR THE MOLECULE UNDER STUDY    ***
+ *** DEFINED EITHER EXPLICITLY OR BY DEFAULT ***
+
+ KHARGE =    0     IMULT  =    0     KTRIAL =    0     KGEOM  =    0     IPUBO  =    0
+ IUHF   =   -1     KITSCF =  200     NPRINT =    5     IFAST  =    0     IDIAG  =    0
+ KSYM   =    1     NUMSYM =    0     KCI    =    0     NSTART =    4     NSTEP  =    4
+
+ RHF CALCULATION
+
+
+
+ EXPERIMENTAL REFERENCE DATA.
+
+ PROPERTY DEFINITION  EXPERIMENT EXPERIMENT LITERATURE
+ ID1 ID4 ID5 ID6 ID7     VALUE      ERROR    REFERENCE
+
+  22   0   0   0   0     0.00000    0.00000       0     CNORM                  
+
+ CHKANA: IPSANA =  0, ISKPA =  0, ISKPAF =  0
+
+
+
+ INITIAL DIAGONAL DENSITY MATRIX ELEMENTS.
+
+    1.50000   1.50000   1.50000   1.50000   1.00000   1.00000
+
+
+ TYPE OF INITIAL DENSITY MATRIX: MPDIAG = 1
+
+
+
+     DEBUG PRINT BEFORE STARTING THE SCF ITERATIONS.
+
+
+
+     CORE HAMILTONIAN MATRIX H(LM4).
+
+
+
+             1           2           3           4           5           6
+ ----------------------------------------------------------------------------
+   1   -117.91744
+   2     -1.73955   -98.23510
+   3     -1.73955    -0.00000   -98.23510
+   4      0.00000     0.00000     0.00000   -97.59787
+   5     -5.76288    -5.64524     0.00000     0.00000   -79.63839
+   6     -5.76288    -0.00000    -5.64524     0.00000    -1.94410   -79.63839
+
+
+
+     TWO-ELECTRON INTEGRALS W(LM6,LM6).
+
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1    15.42000     0.00000    14.48000     0.00000     0.00000    14.48000     0.00000     0.00000     0.00000    14.48000
+    2     0.00000     3.94000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3    14.48000     0.00000    14.52000     0.00000     0.00000    12.98000     0.00000     0.00000     0.00000    12.98000
+    4     0.00000     0.00000     0.00000     3.94000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.77000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6    14.48000     0.00000    12.98000     0.00000     0.00000    14.52000     0.00000     0.00000     0.00000    12.98000
+    7     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     3.94000     0.00000     0.00000     0.00000
+    8     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.77000     0.00000     0.00000
+    9     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.77000     0.00000
+   10    14.48000     0.00000    12.98000     0.00000     0.00000    12.98000     0.00000     0.00000     0.00000    14.52000
+
+   11    10.04372     1.73955    10.30497     0.00000     0.00000     9.66774     0.00000     0.00000     0.00000     9.66774
+   12    10.04372     0.00000     9.66774     1.73955     0.00000    10.30497     0.00000     0.00000     0.00000     9.66774
+
+
+            11          12
+
+    1    10.04372    10.04372
+    2     1.73955     0.00000
+    3    10.30497     9.66774
+    4     0.00000     1.73955
+    5     0.00000     0.00000
+    6     9.66774    10.30497
+    7     0.00000     0.00000
+    8     0.00000     0.00000
+    9     0.00000     0.00000
+   10     9.66774     9.66774
+
+   11    12.84800     7.97963
+   12     7.97963    12.84800
+
+
+
+     INFORMATION ON SCF ITERATIONS.
+
+     NITER            ENERGY              DELTAE              DELTAP           EXTRAP       FAST
+
+       0         -388.6275172579
+       0         -441.1638597891      -52.5363425313
+       0         -441.1638597891     -441.1638597891        0.0000000000         NO          NO  
+       1         -488.5488303232      -47.3849705340        0.2500000000         NO          NO  
+       2         -489.7321080123       -1.1832776892        0.0905848832         NO          NO  
+       3         -489.8468571245       -0.1147491122        0.0303738671         NO          YES 
+       4         -489.8608723075       -0.0140151830        0.0086901193         YES         YES 
+       5         -489.8567652745        0.0041070330        0.0000121020         NO          YES 
+       6         -489.8567671164       -0.0000018418        0.0001246716         NO          YES 
+       7         -489.8567672651       -0.0000001488        0.0000342622         NO          YES 
+       8         -489.8567672797       -0.0000000146        0.0000093013         NO          NO  
+
+
+
+                                                                                     
+     Water, Comparison to PYSEQM                                                     
+
+
+
+     CORE HAMILTONIAN MATRIX.
+
+
+
+             1           2           3           4           5           6
+ ----------------------------------------------------------------------------
+   1   -117.91744
+   2     -1.73955   -98.23510
+   3     -1.73955    -0.00000   -98.23510
+   4      0.00000     0.00000     0.00000   -97.59787
+   5     -5.76288    -5.64524     0.00000     0.00000   -79.63839
+   6     -5.76288    -0.00000    -5.64524     0.00000    -1.94410   -79.63839
+
+
+
+     FOCK MATRIX.
+
+
+
+             1           2           3           4           5           6
+ ----------------------------------------------------------------------------
+   1    -30.95383
+   2     -0.04099    -8.50366
+   3     -0.04099    -0.05343    -8.50366
+   4     -0.00000     0.00000     0.00000   -12.47114
+   5     -7.84589   -10.75764     0.11802     0.00000    -5.55520
+   6     -7.84589     0.11802   -10.75764    -0.00000    -2.12440    -5.55520
+
+
+     POINT GROUP Cs  ASSIGNED.
+
+
+     SYMMETRY ELEMENT AND SYMMETRY RELATIONS BETWEEN THE ATOMS.
+     SYMMETRY OPERATIONS PERMUTE THE ATOMS (1..N) AS FOLLOWS.
+
+     XY     1   2   3
+
+
+
+    MO     EIGENVALUE     LABEL     NSYM
+
+     1      -36.05073      A'        1
+     2      -17.10206      A'        1
+     3      -15.60199      A'        1
+     4      -12.47124      A''       2
+     5        4.46206      A'        1
+     6        5.22092      A'        1
+
+
+
+ DEBUG PRINT OF EIGENVALUES AND EIGENVECTORS FROM SUBROUTINE MOSYM.
+
+
+
+     EIGENVALUES AND EIGENVECTORS.
+
+
+                         1           2           3           4           5
+                    -36.05073   -17.10206   -15.60199   -12.47124     4.46206
+                        A'          A'          A'          A''         A'  
+
+  1  O (1)   s        0.89717     0.00000     0.37400    -0.00000    -0.23495
+  2  O (1)   x        0.11388     0.55337    -0.54613     0.00000    -0.43449
+  3  O (1)   y        0.11388    -0.55337    -0.54613     0.00000    -0.43449
+  4  O (1)   z       -0.00000     0.00000    -0.00000    -1.00000    -0.00000
+
+  5  H (2)   s        0.29081     0.44021    -0.36305     0.00000     0.53256
+
+  6  H (3)   s        0.29081    -0.44021    -0.36305     0.00000     0.53256
+
+
+
+                         6
+                      5.22092
+                        A'  
+
+  1  O (1)   s        0.00000
+  2  O (1)   x       -0.44021
+  3  O (1)   y        0.44021
+  4  O (1)   z       -0.00000
+
+  5  H (2)   s        0.55337
+
+  6  H (3)   s       -0.55337
+
+
+
+
+     EIGENVALUES AND EIGENVECTORS.
+
+
+                         1           2           3           4           5
+                    -36.05073   -17.10206   -15.60199   -12.47124     4.46206
+                        A'          A'          A'          A''         A'  
+
+  1  O (1)   s        0.89717     0.00000     0.37400    -0.00000    -0.23495
+  2  O (1)   x        0.11388     0.55337    -0.54613     0.00000    -0.43449
+  3  O (1)   y        0.11388    -0.55337    -0.54613     0.00000    -0.43449
+  4  O (1)   z       -0.00000     0.00000    -0.00000    -1.00000    -0.00000
+
+  5  H (2)   s        0.29081     0.44021    -0.36305     0.00000     0.53256
+
+  6  H (3)   s        0.29081    -0.44021    -0.36305     0.00000     0.53256
+
+
+
+                         6
+                      5.22092
+                        A'  
+
+  1  O (1)   s        0.00000
+  2  O (1)   x       -0.44021
+  3  O (1)   y        0.44021
+  4  O (1)   z       -0.00000
+
+  5  H (2)   s        0.55337
+
+  6  H (3)   s       -0.55337
+
+
+
+
+     DENSITY MATRIX.
+
+
+
+             1           2           3           4           5           6
+ ----------------------------------------------------------------------------
+   1      1.88959
+   2     -0.20417     1.23487
+   3     -0.20417     0.01001     1.23487
+   4      0.00000    -0.00000    -0.00000     2.00000
+   5      0.25025     0.94998    -0.02442    -0.00000     0.82033
+   6      0.25025    -0.02442     0.94998     0.00000     0.04519     0.82033
+
+
+
+     SCF HEAT OF FORMATION      -54.64859 KCAL/MOL
+     SCF BINDING ENERGY          -9.47104 EV
+     SCF TOTAL ENERGY          -348.36341 EV
+     ELECTRONIC ENERGY         -489.85677 EV
+     NUCLEAR ENERGY             141.49336 EV
+     IONIZATION ENERGY           12.47124 EV
+     SCF CYCLES                   8
+
+
+
+     NET ATOMIC CHARGES AND ORBITAL POPULATIONS.
+
+     ATOM    I        CHARGE      DENSITY        S          PX          PY          PZ
+
+      O      1       -0.35933     6.35933     1.88959     1.23487     1.23487     2.00000
+      H      2        0.17967     0.82033     0.82033
+      H      3        0.17967     0.82033     0.82033
+
+
+
+     DIPOLE              X           Y           Z         TOTAL
+
+     POINT-CHARGE     0.86297     0.86297     0.00000     1.22043
+     HYBRID           0.51777     0.51777    -0.00000     0.73223
+     SUM              1.38074     1.38074    -0.00000     1.95266
+
+
+
+     CARTESIAN COORDINATES FOR ORIGINAL AXES.
+
+        NI              X             Y             Z
+
+         8       0.0000000000   0.0000000000   0.0000000000
+         1       1.0000000000   0.0000000000   0.0000000000
+         1       0.0000000000   1.0000000000   0.0000000000
+
+
+
+     ROTATION MATRIX RELATING ORIGINAL AND PRINCIPAL AXES.
+
+         I              1             2             3
+
+         1       0.7071067812   0.7071067812   0.0000000000
+         2      -0.7071067812   0.7071067812   0.0000000000
+         3       0.0000000000   0.0000000000   1.0000000000
+
+
+
+     CARTESIAN COORDINATES FOR PRINCIPAL AXES.
+
+        NI              X             Y             Z
+
+         8       0.0000000000  -0.0791212892   0.0000000000
+         1       0.7071067812   0.6279854920   0.0000000000
+         1      -0.7071067812   0.6279854920   0.0000000000
+
+
+
+     CARTESIAN COORDINATES OF CENTER OF GRAVITY.
+
+                        X             Y             Z
+
+                 0.0559472001   0.0559472001   0.0000000000
+
+
+
+     MOLECULAR WEIGHT IN AMU                       18.01520
+
+     MOMENTS OF INERTIA IN AMU*ANGSTROM**2          0.89512        1.00790        1.90302
+
+     MOMENTS OF INERTIA IN 10**(-40)*G*CM**2        1.48641        1.67368        3.16009
+
+     ROTATIONAL CONSTANTS IN CM-1                  18.83324       16.72590        8.85856
+
+     ROTATIONAL CONSTANTS IN MHZ                  564606.28      501430.00      265573.07
+
+     THE MOLECULE IS AN ASYMMETRIC TOP
+
+
+     DIPOLE              A           B           C         TOTAL
+
+     PRINCIPAL AXIS   0.00000     1.95266    -0.00000     1.95266
+
+
+     POINT GROUP Cs  ASSIGNED.
+
+
+
+     TIME FOR ENERGY EVALUATION       0.009 SECONDS
+     TIME FOR GRADIENT EVALUATION     0.000 SECONDS
+
+
+
+                          COORDINATES (ANGSTROM)               GRADIENTS (KCAL/(MOL*ANGSTROM))
+
+        I   NI          X           Y           Z                X           Y           Z
+
+        1    8        0.00000     0.00000     0.00000        -57.74048   -57.74048     0.00000
+        2    1        1.00000     0.00000     0.00000         28.68931    29.05117     0.00000
+        3    1        0.00000     1.00000     0.00000         29.05117    28.68931     0.00000
+
+
+     CARTESIAN GRADIENT NORM                100.01010
+
+
+
+     GRADIENTS FOR GEOMETRY OPTIMIZATION
+
+        I   LOCATION             VARIABLE    GRADIENT
+
+
+
+     GRADIENT NORM                            0.00000
+
+
+
+ Water, Comparison to PYSEQM                                                     
+
+ COMPARISON OF THEORETICAL AND EXPERIMENTAL RESULTS.
+
+ PROPERTY DEFINITION  CALCULATED   OBSERVED  DEVIATION
+ ID1 ID4 ID5 ID6 ID7     VALUE       VALUE    CALC-OBS
+
+  22   0   0   0   0   100.01010    0.00000  100.01010   CNORM                  
+
+
+
+ COMPUTATION TIME                 0.011 SECONDS
+
+
