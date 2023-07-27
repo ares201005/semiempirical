@@ -13,7 +13,7 @@ from pyscf import lib
 from pyscf.lib import logger
 from pyscf import gto
 from pyscf import scf
-from pyscf.data.elements import _symbol
+from pyscf.data.elements import _symbol, _std_symbol
 from pyscf.semiempirical import mopac_param
 from .read_param import *
 #from .diatomic_overlap_matrix import *
@@ -52,18 +52,20 @@ au2ev = 27.21 # Constant used in MNDO2020
 
 def _make_mndo_mol(mol,model,params):
     assert(not mol.has_ecp())
-    def make_sto_6g(n, l, zeta, model): # CHECK make ECP-3G/STO-3G -CL
-        if model == 'OM2':
-            if l == 0:
-                es = mopac_param.gexps[(n, l)]
-                cs = mopac_param.gcoefs[(n, l)]
-            else:
-                es = mopac_param.gexps[(n, l)]
-                cs = mopac_param.gcoefs[(n, l)]
-        #else:
-        #    print('Not using OMx basis/ecp')
-        #    es = mopac_param.gexps[(n, l)]
-        #    cs = mopac_param.gcoefs[(n, l)]
+    def make_sqm_basis(n, l, charge, zeta, model): # CHECK make ECP-3G/STO-3G -CL | Make basis conform to PySCF -CL
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        basisfile = dir_path+'/basis-ecp_om2.dat'
+        print(f'charge: {charge} stdsymbl: {_std_symbol(charge)} n: {n} l: {l}')
+        symb = _std_symbol(charge)
+        sqm_basis = gto.basis.load(basisfile,symb)
+        #print(f'sqm_basis {sqm_basis}')
+
+        es_cs = np.array([basval for basval in sqm_basis[l][1:]])
+        es = es_cs[:,0]
+        cs = es_cs[:,1]
+        print(f'NEW: es {es} cs {cs}')
+        print(f'TEST: es_cs {es_cs}')
+        print(f'sqm_basis {sqm_basis}')
         return [l] + [(e*zeta**2, c) for e, c in zip(es, cs)]
 
     def principle_quantum_number(charge):
@@ -83,18 +85,15 @@ def _make_mndo_mol(mol,model,params):
     for charge in atom_types:
         n = principle_quantum_number(charge)
         l = 0
-        if model == 'OM2':
-            sto_6g_function = make_sto_6g(n, l, params.zeta_s[charge], model)
-            print('zeta_s: ',params.zeta_s[charge], mopac_param.ZS3[charge])
-        #else:
-        #    print('Not using OMx basis/ecp')
-        #    sto_6g_function = make_sto_6g(n, l, mopac_param.ZS3[charge], model)
+        #sto_6g_function = make_sqm_basis(n, l, params.zeta_s[charge], model)
+        sto_6g_function = make_sqm_basis(n, l, charge, params.zeta_s[charge], model)
+        print('zeta_s: ',params.zeta_s[charge], mopac_param.ZS3[charge])
         basis = [sto_6g_function]
 
         if charge > 2:  # include p functions
             l = 1
-            #sto_6g_function = make_sto_6g(n, l, mopac_param.ZP3[charge], model)
-            sto_6g_function = make_sto_6g(n, l, params.zeta_p[charge], model)
+            #sto_6g_function = make_sqm_basis(n, l, mopac_param.ZP3[charge], model)
+            sto_6g_function = make_sqm_basis(n, l, charge, params.zeta_p[charge], model)
             print('zeta_p: ',params.zeta_p[charge], mopac_param.ZP3[charge])
             basis.append(sto_6g_function)
 
@@ -105,6 +104,7 @@ def _make_mndo_mol(mol,model,params):
     mndo_mol.nelectron = int(z_eff.sum() - mol.charge)
 
     mndo_mol.build(0, 0)
+    print(f'basis_set: {basis_set}')
     return mndo_mol
 
 @lib.with_doc(scf.hf.get_hcore.__doc__)
@@ -166,6 +166,7 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             if zi > 1 or zj > 1:
                 Secp = diatomic_ecp_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
                 gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params)
+                print(f'gecp: {gecp}')
                 lterm = -np.einsum('ij,jk->ik', Secp, bloc)
                 cterm = -np.einsum('ij,jk->ik', bloc, Secp)
                 rterm = -np.einsum('ij,jk->ik', Secp, Secp)
