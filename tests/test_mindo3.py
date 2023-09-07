@@ -27,14 +27,14 @@ class KnownValues(unittest.TestCase):
 if __name__ == "__main__":
     print("Full Tests for addons")
     #unittest.main()
-    
+
     mol = pyscf.M(atom=[(8,(0,0,0)),(1,(1.,0,0))], spin=1)
     mol = pyscf.M(atom=[(8,(0,0,0)),(8,(1.,0,0))], spin=0)
     umf = semiempirical.UMINDO3(mol).run(conv_tol=1e-6)
 
     print('\nTDA excited states\n')
     tdA = umf.TDA().run(nstates=5)
-    
+
     print('\nTDHF excited states\n')
     tdA = umf.TDHF().run(nstates=6)
 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     tdg = td.Gradients()
     g1 = tdg.kernel()
 
-    
+
     '''
     tdg.verbose = 5
     g1 = tdg.kernel(z[0])
@@ -82,18 +82,18 @@ if __name__ == "__main__":
     method = scf.RHF(mol).run()
     g = method.Gradients().kernel()
     print('\n gradient=', g)
-    
+
     #mf = semiempirical.UMINDO3(mol)
     mf = scf.UHF(mol)
     mf.scf()
     g = mf.Gradients()
     print('\n uhf gradient=', g.grad())
-    
+
     td = tdscf.TDA(mf)
     td.nstates = 3
     e, z = td.kernel()
     tdg = td.Gradients()
-    
+
     tdg.verbose = 5
     g1 = tdg.kernel(z[0])
     print('\nexcited state gradient=',g1)
