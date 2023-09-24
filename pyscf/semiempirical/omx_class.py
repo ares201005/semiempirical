@@ -18,6 +18,7 @@ from pyscf.semiempirical import mopac_param
 from .read_param import *
 #from .diatomic_overlap_matrix import *
 from .diatomic_omx_overlap_matrix import *
+from .rotation_matrix import *
 from .diatomic_resonance_matrix import *
 from .diatomic_ecp_overlap_matrix import *
 from .diatomic_ecp_resonance_matrix import *
@@ -52,7 +53,7 @@ au2ev = 27.21 # Constant used in MNDO2020
 
 def _make_mndo_mol(mol,model,params):
     assert(not mol.has_ecp())
-    def make_sqm_basis(n, l, charge, zeta, model): # CHECK make ECP-3G/STO-3G -CL | Make basis conform to PySCF -CL
+    def make_sqm_basis(n, l, charge, zeta, model): # Make basis conform to PySCF -CL
         dir_path = os.path.dirname(os.path.realpath(__file__))
         basisfile = dir_path+'/basis-ecp_om2.dat'
         print(f'charge: {charge} stdsymbl: {_std_symbol(charge)} n: {n} l: {l}')
@@ -64,7 +65,6 @@ def _make_mndo_mol(mol,model,params):
         es = es_cs[:,0]
         cs = es_cs[:,1]
         print(f'NEW: es {es} cs {cs}')
-        print(f'TEST: es_cs {es_cs}')
         print(f'sqm_basis {sqm_basis}')
         return [l] + [(e*zeta**2, c) for e, c in zip(es, cs)]
 
@@ -154,8 +154,9 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             xij /= rij
             #print("zi, zj:", zi, zj)
             #print("xij:", xij, "rij:", rij)
+            testw = rotation_matrix(zi, zj, xij, rij, params.am, params.ad, params.aq, params.dd, params.qq, params.tore, old_pxpy_pxpy=False)
             di, Smn = diatomic_omx_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
-            bloc = diatomic_resonance_matrix(ia, ja, zi, zj, xij, rij, params)
+            #bloc = diatomic_resonance_matrix(ia, ja, zi, zj, xij, rij, params)
             #print('hcore:',hcore[i0:i1,j0:j1], np.shape(hcore[i0:i1,j0:j1]))
             #print('di core:',di, np.shape(di))
             #hcore[i0:i1,j0:j1] += di.T
@@ -167,13 +168,13 @@ def get_hcore_mndo(mol, model, python_integrals, params):
                 Secp = diatomic_ecp_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
                 gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params)
                 print(f'gecp: {gecp}')
-                lterm = -np.einsum('ij,jk->ik', Secp, bloc)
-                cterm = -np.einsum('ij,jk->ik', bloc, Secp)
-                rterm = -np.einsum('ij,jk->ik', Secp, Secp)
-                print(f'lterm: {lterm}')
-                print(f'cterm: {cterm}')
-                print(f'rterm: {rterm}')
-                vecp += np.sum(lterm + cterm + rterm*params.f_aa)
+                #lterm = -np.einsum('ij,jk->ik', Secp, bloc)
+                #cterm = -np.einsum('ij,jk->ik', bloc, Secp)
+                #rterm = -np.einsum('ij,jk->ik', Secp, Secp)
+                #print(f'lterm: {lterm}')
+                #print(f'cterm: {cterm}')
+                #print(f'rterm: {rterm}')
+                #vecp += np.sum(lterm + cterm + rterm*params.f_aa)
             #vj[:,idx,idx] = np.einsum('ij,xjj->xi', j_ints, dm_blk)
     print("hcore:", hcore)
     print("vecp:",vecp)
