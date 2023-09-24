@@ -90,12 +90,19 @@ def diatomic_omx_overlap_matrix(ia, ja, zi, zj, xij, rij, params): #generalize -
     if zi == 1 and zj == 1: # first row - first row
        jcall = 2 
        di = np.zeros((1,1))
-    elif (zi > 1 and zj == 1) or (zi == 1 and zj > 1): # first row - second row
+       beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
+    elif (zi > 1 and zj == 1): # first row - second row
        jcall = 3
-       di = np.zeros((4,1)) # original was 4,1
+       di = np.zeros((4,1)) 
+       beta = np.array([[params.beta_sh[zi],params.beta_ph[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
+    elif (zi == 1 and zj > 1): # first row - second row
+       jcall = 3
+       di = np.zeros((4,1)) 
+       beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_sh[zj],params.beta_ph[zj]]]) / 27.211386
     elif zi > 1 and zj > 1: # second row - second row #make else? -CL
        jcall = 4 
        di = np.zeros((4,4))
+       beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
     else:
        print('invalid combination of zi and zj')
        exit(-1)
@@ -126,13 +133,10 @@ def diatomic_omx_overlap_matrix(ia, ja, zi, zj, xij, rij, params): #generalize -
     print('sasb, sacb, casb, cacb',sasb, sacb, casb, cacb)
 
     zetas = np.array([params.zeta_s[zi], params.zeta_s[zj]])
-    #print("zetas:", zetas, zi, zj)
     zetap = np.array([params.zeta_p[zi], params.zeta_p[zj]]) #do we need zeta below? -CL
-    zeta = np.array([[zetas[0], zetap[0]], [zetas[1], zetap[1]]]) #np.concatenate(zetas.unsequeeze(1), zetap.unsequeeze(1))
-    #print("zeta:", zeta, zeta[0], zeta[1], zeta[0,0], zeta[1,0], zeta[0,1], zeta[1,1])
-    #print('Full Zeta:', zeta)
-    #if zi == 8 and zj == 8:
-    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
+    zeta = np.array([[zetas[0], zetap[0]], [zetas[1], zetap[1]]])
+    #beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
+    print(f'zeta {zeta} beta {beta}')
     A111,B111 = SET(rij, jcall, zeta[0,0],zeta[1,0])
     #Probably need to make SXX arrays dependent on jcall value. -CL ***
 

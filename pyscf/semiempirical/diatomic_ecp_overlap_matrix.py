@@ -120,16 +120,16 @@ def diatomic_ecp_overlap_matrix(ia, ja, zi, zj, xij, rij, params): #generalize -
     print("ca, cb, sa, sb=", ca, cb, sa, sb) 
     print('sasb, sacb, casb, cacb',sasb, sacb, casb, cacb)
 
-    zetas = np.array([params.zeta_ecp[zi], params.zeta_ecp[zj]])
+    zetas = np.array([params.zeta_s[zi], params.zeta_ecp[zj]])
     #print("zetas:", zetas, zi, zj)
-    zetap = np.array([params.zeta_ecp[zi], params.zeta_ecp[zj]]) #do we need zeta below? -CL
+    zetap = np.array([params.zeta_p[zi], params.zeta_ecp[zj]]) #do we need zeta below? -CL
     zeta = np.array([[zetas[0], zetap[0]], [zetas[1], zetap[1]]]) #np.concatenate(zetas.unsequeeze(1), zetap.unsequeeze(1))
     #print("zeta:", zeta, zeta[0], zeta[1], zeta[0,0], zeta[1,0], zeta[0,1], zeta[1,1])
-    #print('Full Zeta:', zeta)
     #if zi == 8 and zj == 8:
-    beta = np.array([[params.beta_ecp[zi],params.beta_ecp[zi]],[params.beta_ecp[zj],params.beta_ecp[zj]]]) / 27.211386
+    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_ecp[zj],params.beta_ecp[zj]]]) / 27.211386
     A111,B111 = SET(rij, jcall, zeta[0,0],zeta[1,0])
-    #Probably need to make SXX arrays dependent on jcall value. -CL ***
+    print('Full Zeta:', zeta)
+    print('Full Beta:', beta)
 
     if jcall == 2:
        S111 = math.pow(zeta[0,0]* zeta[1,0]* rij**2,1.5)* \

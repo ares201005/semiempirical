@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/chance/backup_sqm/semiempirical/mytest/test_om2.py", line 7, in <module>
+    mol = gto.M(atom='hno.xyz')
+  File "/home/chance/mambaforge/envs/pybase/lib/python3.10/site-packages/pyscf/gto/mole.py", line 118, in M
+    mol.build(**kwargs)
+  File "/home/chance/mambaforge/envs/pybase/lib/python3.10/site-packages/pyscf/gto/mole.py", line 2360, in build
+    self._atom = self.format_atom(self.atom, unit=self.unit)
+  File "/home/chance/mambaforge/envs/pybase/lib/python3.10/site-packages/pyscf/gto/mole.py", line 2460, in format_atom
+    return format_atom(atom, origin, axes, unit)
+  File "/home/chance/mambaforge/envs/pybase/lib/python3.10/site-packages/pyscf/gto/mole.py", line 359, in format_atom
+    fmt_atoms = from_zmatrix('\n'.join(fmt_atoms))
+  File "/home/chance/mambaforge/envs/pybase/lib/python3.10/site-packages/pyscf/gto/mole.py", line 3649, in from_zmatrix
+    atoms = list(zip([_atom_symbol(x) for x in symbols], coord))
+  File "/home/chance/mambaforge/envs/pybase/lib/python3.10/site-packages/pyscf/gto/mole.py", line 3649, in <listcomp>
+    atoms = list(zip([_atom_symbol(x) for x in symbols], coord))
+  File "/home/chance/mambaforge/envs/pybase/lib/python3.10/site-packages/pyscf/data/elements.py", line 935, in _atom_symbol
+    raise RuntimeError('Unsupported atom symbol %s' % a)
+RuntimeError: Unsupported atom symbol HNO.XYZ
