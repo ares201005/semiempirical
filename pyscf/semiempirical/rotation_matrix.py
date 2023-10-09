@@ -14,7 +14,7 @@ from math import sqrt, atan, acos, sin, cos
 from .matprint2d import *
 write = sys.stdout.write
 
-def rotation_matrix(zi, zj, xij, rij, am, ad, aq, dd, qq, tore, old_pxpy_pxpy):
+def rotation_matrix2(zi, zj, xij, rij, am, ad, aq, dd, qq, tore, old_pxpy_pxpy):
     ''' Transform local coordinates to molecular coordinates
     '''	
     # Matches MNDO2020 with -xij for NOH molecule.
@@ -222,6 +222,7 @@ def rotation_matrix(zi, zj, xij, rij, am, ad, aq, dd, qq, tore, old_pxpy_pxpy):
     #matrix_print_2d(w, 5, "w after rotation")
 
     #return w;
+    return T
 
 
 

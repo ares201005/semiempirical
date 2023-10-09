@@ -154,8 +154,12 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             xij /= rij
             #print("zi, zj:", zi, zj)
             #print("xij:", xij, "rij:", rij)
-            testw = rotation_matrix(zi, zj, xij, rij, params.am, params.ad, params.aq, params.dd, params.qq, params.tore, old_pxpy_pxpy=False)
-            di, Smn = diatomic_omx_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
+            rot_mat = rotation_matrix2(zi, zj, xij, rij, params.am, params.ad, params.aq, params.dd, params.qq, params.tore, old_pxpy_pxpy=False)
+            bloc = diatomic_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
+            print('bloc:\n',bloc)
+            exit(-1)
+            #di, Smn = diatomic_omx_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
+
             #bloc = diatomic_resonance_matrix(ia, ja, zi, zj, xij, rij, params)
             #print('hcore:',hcore[i0:i1,j0:j1], np.shape(hcore[i0:i1,j0:j1]))
             #print('di core:',di, np.shape(di))
