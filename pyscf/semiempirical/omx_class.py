@@ -24,8 +24,10 @@ from .diatomic_ecp_overlap_matrix import *
 from .diatomic_ecp_resonance_matrix import *
 from .python_integrals import *
 from math import sqrt, atan, acos, sin, cos
+from .matprint2d import *
 
-libsemiempirical = lib.load_library('/home/chance/pyscf_ext/semiempirical/pyscf/semiempirical/libsemiempirical.so') 
+#libsemiempirical = lib.load_library('/home/chance/pyscf_ext/semiempirical/pyscf/semiempirical/libsemiempirical.so') 
+libsemiempirical = lib.load_library('/Users/chancelander/Documents/Shao/semiempirical/code/semiempirical/build/lib.macosx-10.9-x86_64-cpython-38/pyscf/semiempirical/lib/libsemiempirical.so')
 ndpointer = numpy.ctypeslib.ndpointer
 libsemiempirical.MOPAC_rotate.argtypes = [
     ctypes.c_int, ctypes.c_int,
@@ -53,10 +55,10 @@ au2ev = 27.21 # Constant used in MNDO2020
 
 def _make_mndo_mol(mol,model,params):
     assert(not mol.has_ecp())
-    def make_sqm_basis(n, l, charge, zeta, model): # Make basis conform to PySCF -CL
+    def make_sqm_basis(n, l, charge, zeta, model): 
         dir_path = os.path.dirname(os.path.realpath(__file__))
         basisfile = dir_path+'/basis-ecp_om2.dat'
-        print(f'charge: {charge} stdsymbl: {_std_symbol(charge)} n: {n} l: {l}')
+        #print(f'charge: {charge} stdsymbl: {_std_symbol(charge)} n: {n} l: {l}')
         symb = _std_symbol(charge)
         sqm_basis = gto.basis.load(basisfile,symb)
         #print(f'sqm_basis {sqm_basis}')
@@ -64,8 +66,8 @@ def _make_mndo_mol(mol,model,params):
         es_cs = np.array([basval for basval in sqm_basis[l][1:]])
         es = es_cs[:,0]
         cs = es_cs[:,1]
-        print(f'NEW: es {es} cs {cs}')
-        print(f'sqm_basis {sqm_basis}')
+        #print(f'NEW: es {es} cs {cs}')
+        #print(f'sqm_basis {sqm_basis}')
         return [l] + [(e*zeta**2, c) for e, c in zip(es, cs)]
 
     def principle_quantum_number(charge):
@@ -87,24 +89,22 @@ def _make_mndo_mol(mol,model,params):
         l = 0
         #sto_6g_function = make_sqm_basis(n, l, params.zeta_s[charge], model)
         sto_6g_function = make_sqm_basis(n, l, charge, params.zeta_s[charge], model)
-        print('zeta_s: ',params.zeta_s[charge], mopac_param.ZS3[charge])
+        #print('zeta_s: ',params.zeta_s[charge], mopac_param.ZS3[charge])
         basis = [sto_6g_function]
 
         if charge > 2:  # include p functions
             l = 1
             #sto_6g_function = make_sqm_basis(n, l, mopac_param.ZP3[charge], model)
             sto_6g_function = make_sqm_basis(n, l, charge, params.zeta_p[charge], model)
-            print('zeta_p: ',params.zeta_p[charge], mopac_param.ZP3[charge])
+            #print('zeta_p: ',params.zeta_p[charge], mopac_param.ZP3[charge])
             basis.append(sto_6g_function)
 
         basis_set[_symbol(int(charge))] = basis
-    mndo_mol.basis = basis_set
 
+    mndo_mol.basis = basis_set
     z_eff = mopac_param.CORE[atom_charges]
     mndo_mol.nelectron = int(z_eff.sum() - mol.charge)
-
     mndo_mol.build(0, 0)
-    print(f'basis_set: {basis_set}')
     return mndo_mol
 
 @lib.with_doc(scf.hf.get_hcore.__doc__)
@@ -128,6 +128,10 @@ def get_hcore_mndo(mol, model, python_integrals, params):
 
     aoslices = mol.aoslice_by_atom()
     vecp = 0.0
+    ovlp1e = mol.intor("int1e_ovlp")
+    matrix_print_2d(ovlp1e, 9, 'Overlap 1e')
+    Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
+
     for ia in range(mol.natm):
         for ja in range(ia+1,mol.natm):
             if python_integrals == 0 or python_integrals == 2:
@@ -156,22 +160,19 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             #print("xij:", xij, "rij:", rij)
             rot_mat = rotation_matrix2(zi, zj, xij, rij, params.am, params.ad, params.aq, params.dd, params.qq, params.tore, old_pxpy_pxpy=False)
             bloc = diatomic_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
-            print('bloc:\n',bloc)
-            exit(-1)
             #di, Smn = diatomic_omx_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
+            #ovlp1e = mol.intor("int1e_ovlp")
+            #matrix_print_2d(ovlp1e, 9, 'Overlap 1e')
 
-            #bloc = diatomic_resonance_matrix(ia, ja, zi, zj, xij, rij, params)
-            #print('hcore:',hcore[i0:i1,j0:j1], np.shape(hcore[i0:i1,j0:j1]))
-            #print('di core:',di, np.shape(di))
-            #hcore[i0:i1,j0:j1] += di.T
-            #hcore[j0:j1,i0:i1] += di
-
-            hcore[i0:i1,j0:j1] += di #original -CL
-            hcore[j0:j1,i0:i1] += di.T #original -CL
+            #hcore[i0:i1,j0:j1] += di #original -CL
+            #hcore[j0:j1,i0:i1] += di.T #original -CL
+            hcore[i0:i1,j0:j1] += bloc
+            hcore[j0:j1,i0:i1] += bloc.T 
             if zi > 1 or zj > 1:
-                Secp = diatomic_ecp_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
-                gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params)
-                print(f'gecp: {gecp}')
+                #Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
+                #Secp = diatomic_ecp_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
+                gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
+                #print(f'gecp: {gecp}')
                 #lterm = -np.einsum('ij,jk->ik', Secp, bloc)
                 #cterm = -np.einsum('ij,jk->ik', bloc, Secp)
                 #rterm = -np.einsum('ij,jk->ik', Secp, Secp)
@@ -180,8 +181,8 @@ def get_hcore_mndo(mol, model, python_integrals, params):
                 #print(f'rterm: {rterm}')
                 #vecp += np.sum(lterm + cterm + rterm*params.f_aa)
             #vj[:,idx,idx] = np.einsum('ij,xjj->xi', j_ints, dm_blk)
-    print("hcore:", hcore)
-    print("vecp:",vecp)
+    #print("hcore:", hcore)
+    #print("vecp:",vecp)
 
     return hcore
 
@@ -345,7 +346,6 @@ class ROM2(scf.hf.RHF):
     def get_hcore(self, mol=None):
         if self._mndo_model == 'OM2':
            return get_hcore_mndo(self._mndo_mol, self._mndo_model, self.python_integrals, self.params)
-
 
     #@lib.with_doc(get_jk.__doc__)
     def get_jk(self, mol=None, dm=None, hermi=1, with_j=True, with_k=True):

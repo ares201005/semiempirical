@@ -19,55 +19,12 @@ from .read_param import *
 from .mndo_class import *
 from .diatomic_overlap_matrix import *
 from math import sqrt, atan, acos, sin, cos
+from .matprint2d import *
 write = sys.stdout.write
 
-def rotation_matrix(sij):
-
-    theta = acos(sij[2]) 
-    if abs(sij[0]) + abs(sij[1]) < 1e-8: 
-       phi = 0.0
-    elif abs(sij[0]) < 1e-8: 
-       if sij[1] > 0:
-          phi = numpy.pi / 2.0
-       else: 
-          phi = -numpy.pi / 2.0
-    else:
-       phi = atan(sij[1]/sij[0])
-    if abs(phi) < 1e-8 and sij[0] < -1.0e-8:
-       phi = numpy.pi
-    #print("38 sij:", sij, "theta:", theta, "phi:", phi)
-
-    T = numpy.array([[1.0, 0.0, 0.0, 0.0], [0.0, cos(theta)*cos(phi), cos(theta)*sin(phi), -sin(theta)], 
-                  [0.0, -sin(phi), cos(phi), 0.0], [0.0, sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)]])
-    matrix_print_2d(T, 5, "Rot T")
-    return T
-
-
-def matrix_print_2d(array, ncols, title):
-	""" printing a rectangular matrix, ncols columns per batch """
-
-	write(title+'\n')
-	m = array.shape[0]
-	n = array.shape[1]
-	#write('m=%d n=%d\n' % (m, n))
-	nbatches = int(n/ncols)
-	if nbatches * ncols < n: nbatches += 1
-	for k in range(0, nbatches):
-		write('     ')  
-		j1 = ncols*k
-		j2 = ncols*(k+1)
-		if k == nbatches-1: j2 = n 
-		for j in range(j1, j2):
-			write('   %7d  ' % (j+1))
-		write('\n')
-		for i in range(0, m): 
-			write(' %3d -' % (i+1))
-			for j in range(j1, j2):
-				if abs(array[i,j]) < 0.000001:  
-					write(' %11.6f' % abs(array[i,j]))
-				else:
-					write(' %11.6f' % array[i,j])
-			write('\n')
+'''
+Might need to transpose rotation matrix.
+'''
 
 def compute_W(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
 
@@ -88,7 +45,6 @@ def compute_W_hh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore, old_pxpy_pxpy):
 
     w = numpy.zeros((10,10))
    
-    #print("calling compute_W_hh")
     Xij  = numpy.subtract(xi, xj)
     rij  = numpy.linalg.norm(Xij)
     r05  = 0.5 * rij
@@ -96,14 +52,6 @@ def compute_W_hh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore, old_pxpy_pxpy):
     sij  = Xij
     if rij > 0.0000001: sij  *= 1/rij
     else: return w
-    #print("xi: ", xi, "xj:", xj)
-    #print("Xij:", Xij, "rij: ", rij, "sij:", sij)
-   # theta = acos(sij[2]) 
-   # if abs(sij[0]) < 1e-8: 
-   #    phi = 0.0
-   # else:
-   #    phi = atan(sij[1]/sij[0])
-   # print("theta:", theta, "phi:", phi)
 
     da = dd[zi] 
     db = dd[zj] 
@@ -118,9 +66,6 @@ def compute_W_hh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore, old_pxpy_pxpy):
     amb = 0.5 / am[zj]
     adb = 0.5 / ad[zj]
     aqb = 0.5 / aq[zj]
-    #print("zi: ", zi, "zj:", zj)
-    #print("i, ama, ada, aqa", ama, ada, aqa)
-    #print("j, amb, adb, aqb", amb, adb, aqb)
 
     phi_a = [[0,   1.0, ama, 0, 0, -r05], #s
              [1,  -0.5, ada,  da, 0, -r05], #px
@@ -202,54 +147,7 @@ def compute_W_hh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore, old_pxpy_pxpy):
     #This approximation is not necessary (Yihan)
     if old_pxpy_pxpy: w[4,4] = 0.5 * (w[2,2] - w[2,5])
 
-    T = rotation_matrix(sij)
-
-    #T = numpy.array([[1.0, 0.0, 0.0, 0.0], [0.0, cos(theta)*cos(phi), cos(theta)*sin(phi), -sin(theta)], 
-    #              [0.0, -sin(phi), cos(phi), 0.0], [0.0, sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)]])
-    #matrix_print_2d(T, 5, "T")
-
-    #theta = np.pi - theta
-    #phi = np.pi + phi
-    #Ti = numpy.array([[1.0, 0.0, 0.0, 0.0], [0.0, cos(theta)*cos(phi), cos(theta)*sin(phi), -sin(theta)], 
-    #              [0.0, -sin(phi), cos(phi), 0.0], [0.0, sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)]])
-    #matrix_print_2d(Ti, 5, "Ti")
-
-    #if zi == 6 and zj == 6:
-    #    b0 = np.array([[-0.374837775659561, 0.0, 0.0, -0.576732742305692], \
-    #                   [0.0, -0.323432528223110, 0.0, 0.0], \
-    #                   [0.0, 0.0, -0.323432528223110, 0.0], \
-    #                    [0.576732742305692, 0.0, 0.0, 0.877744865908655]])
-    #    matrix_print_2d(b0, 5, "b0")
-    #    b0_rotate = np.einsum('ji,kj,km->im', T, b0, T)
-    #    matrix_print_2d(b0_rotate, 5, "b0_rotate")
-    #elif zi == 8 and zj == 6:
-    #    '''
-    #    b0 = np.array([[-4.31387040770636, 0.0, 0.0, -4.29724336208594], \
-    #                   [0.0, -3.45358312631808, 0.0, 0.0], \
-    #                   [0.0, 0.0, -3.45358312631808, 0.0], \
-    #                   [4.56855505621003, 0.0, 0.0, 4.43123821003492]])
-    #    '''
-    #    b0 = np.array([[-4.31387040770636, 0.0, 0.0,-4.56855505621003], \
-    #                   [0.0, -3.45358312631808, 0.0, 0.0], \
-    #                   [0.0, 0.0, -3.45358312631808, 0.0], \
-    #                   [4.29724336208594, 0.0, 0.0, 4.43123821003492]])
-    #    matrix_print_2d(b0, 5, "b0")
-    #    b0_rotate = np.einsum('ji,kj,km->im', T, b0, T)
-    #    matrix_print_2d(b0_rotate, 5, "b0_rotate")
-    #elif zi == 6 and zj == 8:
-    #    '''
-    #    b0 = np.array([[-4.31387040770636, 0.0, 0.0, 4.56855505621003], \
-    #                   [0.0, -3.45358312631808, 0.0, 0.0], \
-    #                   [0.0, 0.0, -3.45358312631808, 0.0], \
-    #                   [-4.29724336208594, 0.0, 0.0, 4.43123821003492]])
-    #    '''
-    #    b0 = np.array([[-4.31387040770636, 0.0, 0.0, -4.29724336208594], \
-    #                   [0.0, -3.45358312631808, 0.0, 0.0], \
-    #                   [0.0, 0.0, -3.45358312631808, 0.0], \
-    #                   [4.56855505621003, 0.0, 0.0, 4.43123821003492]])
-    #    matrix_print_2d(b0, 5, "b0")
-    #    b0_rotate = np.einsum('ji,kj,km->im', T, b0, T)
-    #    matrix_print_2d(b0_rotate, 5, "b0_rotate")
+    T = rotation_matrix(sij) # CL 
 
     T2 = numpy.zeros((10,10))
     ii = 0
@@ -283,12 +181,6 @@ def compute_W_hl(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
     sij  = Xij
     if rij > 0.0000001: sij  *= 1/rij
     else: return w
-    #theta = acos(sij[2]) 
-    #if abs(sij[0]) < 1e-8: 
-    #   phi = 0.0
-    #else:
-    #   phi = atan(sij[1]/sij[0])
-    #print("theta:", theta, "phi:", phi)
 
     da = dd[zi] 
     qa  = qq[zi]
@@ -298,9 +190,6 @@ def compute_W_hl(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
     ada = 0.5 / ad[zi]
     aqa = 0.5 / aq[zi]
     amb = 0.5 / am[zj]
-    #print("zi: ", zi, "zj:", zj)
-    #print("i, ama, ada, aqa", ama, ada, aqa)
-    #print("j, amb", amb)
 
     phi_a = [[0,   1.0, ama, 0, 0, -r05], #s
              [1,  -0.5, ada,  da, 0, -r05], #px
@@ -350,9 +239,6 @@ def compute_W_hl(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
             w[iwa, iwb] += phi_a[ka][1] * phi_b[kb][1] / sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2] + v[3]*v[3])
 
     T = rotation_matrix(sij)
-    #T = numpy.array([[1.0, 0.0, 0.0, 0.0], [0.0, cos(theta)*cos(phi), cos(theta)*sin(phi), -sin(theta)], 
-    #              [0.0, -sin(phi), cos(phi), 0.0], [0.0, sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)]])
-    #matrix_print_2d(T, 5, "T")
 
     T2 = numpy.zeros((10,10))
     ii = 0
@@ -386,14 +272,6 @@ def compute_W_lh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
     sij  = Xij
     if rij > 0.0000001: sij  *= 1/rij
     else: return w
-    #print("xi: ", xi, "xj:", xj)
-    #print("Xij:", Xij, "rij: ", rij, "sij:", sij)
-    #theta = acos(sij[2]) 
-    #if abs(sij[0]) < 1e-8: 
-    #   phi = 0.0
-    #else:
-    #   phi = atan(sij[1]/sij[0])
-    #print("theta:", theta, "phi:", phi)
 
     db = dd[zj] 
     qb  = qq[zj]
@@ -454,9 +332,6 @@ def compute_W_lh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
             w[iwa, iwb] += phi_a[ka][1] * phi_b[kb][1] / sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2] + v[3]*v[3])
     
     T = rotation_matrix(sij)
-    #T = numpy.array([[1.0, 0.0, 0.0, 0.0], [0.0, cos(theta)*cos(phi), cos(theta)*sin(phi), -sin(theta)], 
-    #              [0.0, -sin(phi), cos(phi), 0.0], [0.0, sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)]])
-    #matrix_print_2d(T, 5, "T")
 
     T2 = numpy.zeros((10,10))
     ii = 0
@@ -495,11 +370,8 @@ def compute_W_ll(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
     ama = 0.5 / am[zi]
     amb = 0.5 / am[zj]
     #print("zi: ", zi, "zj:", zj)
-    #print("i, ama:", ama)
-    #print("j, amb:", amb)
 
     phi_a = [[0,   1.0, ama, 0, 0, -r05]] #s
-
     phi_b = [[0,   1.0, amb, 0, 0, r05]] #s
 
     v = numpy.zeros(4)
