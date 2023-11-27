@@ -53,6 +53,43 @@ repp = libsemiempirical.MOPAC_rotate
 #au2ev = 27.21138505
 au2ev = 27.21 # Constant used in MNDO2020
 
+
+def normalize_gaussians(us_es, cs, l):
+    norm = 0.0
+    if len(cs) < 2:
+        cs[0] = 1.0
+    else:
+        norm = cs[0]**2
+        for idx, ci in enumerate(cs):
+            if idx > 0: #Change to remove if
+                norm += ci**2
+                print('C(I)', ci)
+                for jdx, cj in enumerate(cs[0:idx]):
+                    print(f'idx: {idx}, jdx: {jdx}')
+                    sqrtfac = (2*np.sqrt(us_es[idx]*us_es[jdx])/(us_es[idx]+us_es[jdx]))**(l+1.5)
+                    norm += 2*ci*cj*sqrtfac
+                    print('E(I)', us_es[idx])
+                    print('E(J)', us_es[jdx])
+        normco = 1/np.sqrt(norm)
+        print('Normalized cs')
+        for idx, ci in enumerate(cs):
+            cs[idx] *= normco
+            print(f'{cs[idx]}')
+    return cs
+
+def scale_bf(us_es, cs, zeta, l):
+    gfac = (2/np.pi)**0.75
+    if l == 0:
+        for idx in range(len(us_es)):
+            cs[idx] *= gfac*(us_es[idx]*zeta**2)**0.75
+    if l == 1:
+        for idx in range(len(us_es)):
+            cs[idx] *= gfac*2*(us_es[idx]*zeta**2)**1.25
+    print('Scaled bf')
+    for c in cs:
+        print(f'{c}')
+    return cs
+
 def _make_mndo_mol(mol,model,params):
     assert(not mol.has_ecp())
     def make_sqm_basis(n, l, charge, zeta, model): 
@@ -66,7 +103,23 @@ def _make_mndo_mol(mol,model,params):
         es_cs = np.array([basval for basval in sqm_basis[l][1:]])
         es = es_cs[:,0]
         cs = es_cs[:,1]
-        #print(f'NEW: es {es} cs {cs}')
+        print(' ')
+        if l == 0:
+            print(f'S es\t cs')
+        else:
+            print('P es\t cs')
+        for idx in range(len(es)):
+            print(f'{es[idx]:>8.5f} {cs[idx]:>8.5f}')
+        print('Scaled es Scaled cs')
+        for e, c in zip(es,cs):
+            print(f'{e*zeta**2:>8.5f} {c:>8.5f}')
+        us_es = es_cs[:,0]
+        print('us_es',us_es)
+        #for idx, e in enumerate(us_es):
+        #    us_es[idx] = e*zeta**2
+        cs = normalize_gaussians(us_es, cs, l)
+        cs = scale_bf(us_es, cs, zeta, l)
+        #print([l] + [(e*zeta**2, c) for e, c in zip(es, cs)])
         #print(f'sqm_basis {sqm_basis}')
         return [l] + [(e*zeta**2, c) for e, c in zip(es, cs)]
 
@@ -130,7 +183,6 @@ def get_hcore_mndo(mol, model, python_integrals, params):
     vecp = 0.0
     ovlp1e = mol.intor("int1e_ovlp")
     matrix_print_2d(ovlp1e, 9, 'Overlap 1e')
-    Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
 
     for ia in range(mol.natm):
         for ja in range(ia+1,mol.natm):
@@ -171,6 +223,8 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             if zi > 1 or zj > 1:
                 #Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
                 #Secp = diatomic_ecp_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
+                Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
+                exit(-1)
                 gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
                 #print(f'gecp: {gecp}')
                 #lterm = -np.einsum('ij,jk->ik', Secp, bloc)

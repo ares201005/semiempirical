@@ -717,8 +717,6 @@ class UAM1(scf.uhf.UHF):
 
 
 def _make_mindo_mol(mol,tore,zeta_s,zeta_p): 
-    #gexps and gcoefs for Gaussians? zeta_s/p were ZS3/ZP3. Possible source of problems. -CL
-    #check to see how this is being used. May need to remove later. -CL
     assert(not mol.has_ecp())
     def make_sto_6g(n, l, zeta): #why definition nested in definition? -CL
         es = mopac_param.gexps[(n, l)]
@@ -769,7 +767,7 @@ def _to_ao_labels(mol, labels):
     return np.hstack(ao_labels)
 
 def _get_beta0(atnoi,atnoj):
-    "Resonanace integral for coupling between different atoms"
+    "Resonance integral for coupling between different atoms"
     return mopac_param.BETA3[atnoi-1,atnoj-1]
 
 def _get_alpha(atnoi,atnoj):
