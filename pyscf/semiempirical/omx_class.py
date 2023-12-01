@@ -221,11 +221,13 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             #hcore[j0:j1,i0:i1] += di.T #original -CL
             hcore[i0:i1,j0:j1] += bloc
             hcore[j0:j1,i0:i1] += bloc.T 
+            if zi + zj > 2:
+                print(f'zi: {zi} zj: {zj}')
+                diatomic_ecp_overlap_matrix(mol, zi, zj, params, rij)
             if zj > 1: #Check for AB vs BA indexing which atom is ecp -CL
                 #Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
                 #Secp = diatomic_ecp_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
                 #Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
-                diatomic_ecp_overlap_matrix(mol,params,atom_charges, rij)
                 gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
                 #print(f'gecp: {gecp}')
                 #lterm = -np.einsum('ij,jk->ik', Secp, bloc)

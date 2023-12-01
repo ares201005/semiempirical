@@ -4,7 +4,7 @@ from pyscf import gto, scf
 from pyscf.semiempirical import OMX
 from pyscf.semiempirical.mopac_param import HARTREE2EV
 
-#mol = gto.M(atom=[(8,(0,0,0)),(1,(0.,1.,0.)),(1,(0.0,0.0,1.0))]) #, spin=1)
+#mol = gto.M(atom=[(8,(0,0,0)),(8,(0.,1.,0.)),(8,(0.0,0.0,1.0))]) #, spin=1)
 #mol = gto.M(atom='ch2o2.xyz')
 mol = gto.M(atom='hno.xyz')
 #mol = gto.M(atom='co.xyz')
