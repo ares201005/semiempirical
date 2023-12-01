@@ -103,22 +103,23 @@ def _make_mndo_mol(mol,model,params):
         es_cs = np.array([basval for basval in sqm_basis[l][1:]])
         es = es_cs[:,0]
         cs = es_cs[:,1]
-        print(' ')
-        if l == 0:
-            print(f'S es\t cs')
-        else:
-            print('P es\t cs')
-        for idx in range(len(es)):
-            print(f'{es[idx]:>8.5f} {cs[idx]:>8.5f}')
-        print('Scaled es Scaled cs')
-        for e, c in zip(es,cs):
-            print(f'{e*zeta**2:>8.5f} {c:>8.5f}')
-        us_es = es_cs[:,0]
-        print('us_es',us_es)
-        #for idx, e in enumerate(us_es):
-        #    us_es[idx] = e*zeta**2
-        cs = normalize_gaussians(us_es, cs, l)
-        cs = scale_bf(us_es, cs, zeta, l)
+        #print(' ')
+        #if l == 0:
+        #    print(f'S es\t cs')
+        #else:
+        #    print('P es\t cs')
+        #for idx in range(len(es)):
+        #    print(f'{es[idx]:>8.5f} {cs[idx]:>8.5f}')
+        #print('Scaled es Scaled cs')
+        #for e, c in zip(es,cs):
+        #    print(f'{e*zeta**2:>8.5f} {c:>8.5f}')
+        #us_es = es_cs[:,0]
+        #us_cs = es_cs[:,1]
+        #print('us_es',us_es)
+        ##for idx, e in enumerate(us_es):
+        ##    us_es[idx] = e*zeta**2
+        #ncs = normalize_gaussians(us_es, us_cs, l)
+        #s_cs = scale_bf(us_es, ncs, zeta, l)
         #print([l] + [(e*zeta**2, c) for e, c in zip(es, cs)])
         #print(f'sqm_basis {sqm_basis}')
         return [l] + [(e*zeta**2, c) for e, c in zip(es, cs)]
@@ -220,11 +221,11 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             #hcore[j0:j1,i0:i1] += di.T #original -CL
             hcore[i0:i1,j0:j1] += bloc
             hcore[j0:j1,i0:i1] += bloc.T 
-            if zi > 1 or zj > 1:
+            if zj > 1: #Check for AB vs BA indexing which atom is ecp -CL
                 #Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
                 #Secp = diatomic_ecp_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
-                Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
-                exit(-1)
+                #Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
+                diatomic_ecp_overlap_matrix(mol,params,atom_charges, rij)
                 gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
                 #print(f'gecp: {gecp}')
                 #lterm = -np.einsum('ij,jk->ik', Secp, bloc)
