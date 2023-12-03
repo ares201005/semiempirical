@@ -89,33 +89,39 @@ def ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, l):
                 ovlp += orb_c[i]*ecp_c[j]*ecp_ex[j]*rij/(orb_ex[i]+ecp_ex[j])*fac*gauss #p-ecp
     return ovlp
 
-def make_mndo_mol_ecp(mol,zi,zj,params,rij):
-    print(f'zi: {zi} zj: {zj}')
+def overlap_ecp(mol,zi,zj,params,rij):
+    ovlpsam = 0.0
+    ovlppam = 0.0
+    ovlpsma = 0.0
+    ovlppma = 0.0
     if zi < 3: #H-ECP
         l = 0
         orb_ex, orb_c, ecp_ex, ecp_c = gaussian_terms(mol, l, zi, zj, params.zeta_ecp[zj], params.zeta_s[zi]) #orb-ecp
-        ovlp = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, l)
-        print('ovlpS:',ovlp)
+        ovlpsma = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, l)
+        #print('ovlpS:',ovlps)
     elif zj < 3: #ECP-H
         l = 0
         orb_ex, orb_c, ecp_ex, ecp_c = gaussian_terms(mol, l, zj, zi, params.zeta_ecp[zi], params.zeta_s[zj]) #ecp-orb
-        ovlp = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, l)
-        print('ovlpS:',ovlp)
+        ovlpsam = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, l)
+        #print('ovlpS:',ovlps)
     else: #ECP-ORB and ORB-ECP
         orb_ex, orb_c, ecp_ex, ecp_c = gaussian_terms(mol, 0, zi, zj, params.zeta_ecp[zj], params.zeta_s[zi]) #orb-ecp s
-        ovlp = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, 0)
-        print('ovlpS:',ovlp)
+        ovlpsma = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, 0)
+        #print('ovlpS:',ovlps)
         orb_ex, orb_c, ecp_ex, ecp_c = gaussian_terms(mol, 1, zi, zj, params.zeta_ecp[zj], params.zeta_p[zi]) #orb-ecp p
-        ovlp = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, 1)
-        print('ovlpP:',ovlp)
+        ovlppma = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, 1)
+        #print('ovlpP:',ovlpp)
         orb_ex, orb_c, ecp_ex, ecp_c = gaussian_terms(mol, 0, zj, zi, params.zeta_ecp[zi], params.zeta_s[zj]) #ecp-orb s
-        ovlp = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, 0)
-        print('ovlpS:',ovlp)
+        ovlpsam = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, 0)
+        #print('ovlpS:',ovlps)
         orb_ex, orb_c, ecp_ex, ecp_c = gaussian_terms(mol, 1, zj, zi, params.zeta_ecp[zi], params.zeta_p[zj]) #ecp-orb p
-        ovlp = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, 1)
-        print('ovlpP:',ovlp)
+        ovlppam = ecp_ovlp(mol, rij, orb_ex, orb_c, ecp_ex, ecp_c, 1)
+        #print('ovlpP:',ovlpp)
+
+    return ovlpsam, ovlpsma, ovlppam, ovlppma
 
 def diatomic_ecp_overlap_matrix(mol, zi, zj, params, rij):
     mol_ecp = copy.copy(mol)
-    mndo_mol_ecp = make_mndo_mol_ecp(mol_ecp,zi,zj,params,rij)
+    return overlap_ecp(mol_ecp,zi,zj,params,rij)
+
 

@@ -22,6 +22,7 @@ from .rotation_matrix import *
 from .diatomic_resonance_matrix import *
 from .diatomic_ecp_overlap_matrix import *
 from .diatomic_ecp_resonance_matrix import *
+from .ecp_correction import *
 from .python_integrals import *
 from math import sqrt, atan, acos, sin, cos
 from .matprint2d import *
@@ -177,7 +178,7 @@ def ort_correction(mol, S, B, params):
                 F1 =  0.25 * (F1a + F1b)
                 F2 = 0.625 * (F2a + F2b)
                 i0, i1 = aoslices[ia,2:]
-                j0, j1 = aoslices[ja,2:]
+                j0, j1 = aoslices[jb,2:]
                 Hort[i0:i1,i0:i1] -= 0.5*F1*np.einsum('mr,rn->mn',S[i0:i1,j0:j1], B[j0:j1,i0:i1])
                 Hort[i0:i1,i0:i1] -= 0.5*F1*np.einsum('mr,rn->mn',B[i0:i1,j0:j1], S[j0:j1,i0:i1])
                 for mu in range(i0, i1):
@@ -189,7 +190,8 @@ def ort_correction(mol, S, B, params):
                             else: Unu = params.U_pp[mol.atom_charges()[ia]]
                             if rho == i0: Unu = params.U_ss[mol.atom_charges()[jb]]
                             else: Urho = params.U_pp[mol.atom_charges()[jb]]
-                            Hort[mu,nu] += 0.125 * F2 * S[mu, rho] * S[rho, nu] * (HlocB[mu] + HlocB[nu] - 2 * HlocA[rho])
+                            #Uncomment after getting HlocB and HlocA
+                            #Hort[mu,nu] += 0.125 * F2 * S[mu, rho] * S[rho, nu] * (HlocB[mu] + HlocB[nu] - 2 * HlocA[rho])
 
     #three-center
     #for ia in range(0, mol.natm):
@@ -277,8 +279,12 @@ def get_hcore_mndo(mol, model, python_integrals, params):
 
             if zi + zj > 2:
                 print(f'zi: {zi} zj: {zj}')
-                diatomic_ecp_overlap_matrix(mol, zi, zj, params, rij)
-                gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
+                ovlpsam, ovlpsma, ovlppam, ovlppma = diatomic_ecp_overlap_matrix(mol, zi, zj, params, rij)
+                gssam, gssma, gpsam, gpsma = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
+                vecpma, vecpam = ecp_correction(zi, zj, gssma, gssam, gpsma, gpsam, ovlpsma, ovlpsam, ovlppma, ovlppam, params)
+                
+                #matrix_print_2d(gecp, 4, 'G-ECP Resonance')
+                #matrix_print_2d(gecp, 5, 'G-ECP Resonance')
             #if zj > 1: #Check for AB vs BA indexing which atom is ecp -CL
                 #gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
                 #print(f'gecp: {gecp}')

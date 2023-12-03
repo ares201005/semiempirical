@@ -21,34 +21,41 @@ def resonance_integral(betai, betaj, alphai, alphaj, rij):
     return 0.5*(betai+betaj)*np.sqrt(rij)*np.exp(-(alphai+alphaj)*rij**2)
 
 def diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat): 
-    gecp = np.zeros((4,4))
+    #gecp = np.zeros((4,4))
+    gssam = 0.0
+    gssma = 0.0
+    gpsam = 0.0
+    gpsma = 0.0
     nt = zi + zj
-    print(f'Atoms: {zi} {zj}')
-    if zi == 1 and zj == 1: # first row - first row: no ECP energy 
-       #jcall = 2 
-       pass # make this if impossible in omx.py loop
-    elif (zi > 1 and zj == 1): # second row - first
+    #print(f'Atoms: {zi} {zj}')
+    #if zi == 1 and zj == 1: # first row - first row: no ECP energy 
+    #   #jcall = 2 
+    #   pass # make this if impossible in omx.py loop
+    if (zi > 1 and zj == 1): # second row - first
        #jcall = 3
        # Only s(ecp)-s will be non-zero
        gssam = resonance_integral(params.beta_s[zj], params.beta_ecp[zi], params.alpha_s[zj], params.alpha_ecp[zi], rij)
        print(f'gssam: {gssam}')
-       gecp_rotate = np.einsum('ji,jk,km->im', rot_mat, gecp, rot_mat) 
+       #gecp_rotate = np.einsum('ji,jk,km->im', rot_mat, gecp, rot_mat) 
        #gecp_rotate = tmp_b0[:,0]
        #matrix_print_2d(gecp_rotate, 4, 'gecp_rotate')       
-       matrix_print_2d(gecp, 4, 'gecp')       
-       return gecp_rotate[:,0].reshape(4,1)
+       #matrix_print_2d(gecp, 4, 'gecp')       
+       #return gecp_rotate[:,0].reshape(4,1)
+       return gssam, gssma, gpsam, gpsma
 
     elif (zi == 1 and zj > 1): # first row - second row
        #jcall = 3
        # Only s-s(ecp) will be non-zero
        # No H-bond parameter if zj is ECP atom
        gssma = resonance_integral(params.beta_s[zi], params.beta_ecp[zj], params.alpha_s[zi], params.alpha_ecp[zj], rij)
+       #gecp[0,1] = gssma
        print(f'gssma: {gssma}')
-       gecp_rotate = np.einsum('ji,jk,km->im', rot_mat, gecp, rot_mat) 
+       #gecp_rotate = np.einsum('ji,jk,km->im', rot_mat, gecp, rot_mat) 
        #gecp_rotate = tmp_b0[0,:]
        #matrix_print_2d(gecp_rotate, 1, 'gecp_rotate')       
-       matrix_print_2d(gecp, 1, 'gecp')       
-       return gecp_rotate[0,:].reshape(1,4)
+       #matrix_print_2d(gecp, 1, 'gecp')       
+       #return gecp_rotate[0,:].reshape(1,4)
+       return gssam, gssma, gpsam, gpsma
 
     elif zi > 1 and zj > 1: 
        #jcall = 4 
@@ -60,12 +67,15 @@ def diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat):
        print(f'gssam: {gssam}')
        print(f'gpsma: {gpsma}')
        print(f'gpsam: {gpsam}')
+       
        #matrix_print_2d(rot_mat, 4, 'T')       
        #matrix_print_2d(gecp, 4, 'gecp')       
-       gecp_rotate = np.einsum('ji,jk,km->im', rot_mat, gecp, rot_mat) 
+       #gecp_rotate = np.einsum('ji,jk,km->im', rot_mat, gecp, rot_mat) 
        #matrix_print_2d(gecp_rotate, 4, 'gecp_rotate')       
-       matrix_print_2d(gecp, 4, 'gecp')       
-       return gecp_rotate # gecp
+       #matrix_print_2d(gecp, 4, 'gecp')       
+       #return gecp_rotate # gecp
+       return gssam, gssma, gpsam, gpsma
+
     else:
        print('invalid combination of zi and zj')
        exit(-1)
