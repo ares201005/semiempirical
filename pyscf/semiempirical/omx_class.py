@@ -161,6 +161,48 @@ def _make_mndo_mol(mol,model,params):
     mndo_mol.build(0, 0)
     return mndo_mol
 
+def ort_correction(mol, S, B, params):
+
+    Hort = np.zeros_like(B)
+    aoslices = mol.aoslice_by_atom()
+
+    #two-center 
+    for ia in range(0, mol.natm):
+        for jb in range(0, mol.natm):
+            if jb != ia:  #this is because B elements are zero for diagonal blocks
+                F1a = params.fval1[mol.atom_charges()[ia]]
+                F1b = params.fval1[mol.atom_charges()[jb]]
+                F2a = params.fval2[mol.atom_charges()[ia]]
+                F2b = params.fval2[mol.atom_charges()[jb]]
+                F1 =  0.25 * (F1a + F1b)
+                F2 = 0.625 * (F2a + F2b)
+                i0, i1 = aoslices[ia,2:]
+                j0, j1 = aoslices[ja,2:]
+                Hort[i0:i1,i0:i1] -= 0.5*F1*np.einsum('mr,rn->mn',S[i0:i1,j0:j1], B[j0:j1,i0:i1])
+                Hort[i0:i1,i0:i1] -= 0.5*F1*np.einsum('mr,rn->mn',B[i0:i1,j0:j1], S[j0:j1,i0:i1])
+                for mu in range(i0, i1):
+                    for nu in range(i0, i1):
+                        for rho in range(j0, j1):
+                            if mu == i0: Umu = params.U_ss[mol.atom_charges()[ia]]
+                            else: Umu = params.U_pp[mol.atom_charges()[ia]]
+                            if nu == i0: Unu = params.U_ss[mol.atom_charges()[ia]]
+                            else: Unu = params.U_pp[mol.atom_charges()[ia]]
+                            if rho == i0: Unu = params.U_ss[mol.atom_charges()[jb]]
+                            else: Urho = params.U_pp[mol.atom_charges()[jb]]
+                            Hort[mu,nu] += 0.125 * F2 * S[mu, rho] * S[rho, nu] * (HlocB[mu] + HlocB[nu] - 2 * HlocA[rho])
+
+    #three-center
+    #for ia in range(0, mol.natm):
+    #    for jb in range(0, mol.natm):
+    #        for kc in range(0, mol.natm):
+    #            if jb != ia: 
+    #            G1a = params.gval1[mol.atom_charges()[ia]]
+    #            G1b = params.gval1[mol.atom_charges()[jb]]
+    #            G2a = params.gval2[mol.atom_charges()[ia]]
+    #            G2b = params.gval2[mol.atom_charges()[jb]]
+
+    return Hort
+
 @lib.with_doc(scf.hf.get_hcore.__doc__)
 def get_hcore_mndo(mol, model, python_integrals, params):
     assert(not mol.has_ecp())

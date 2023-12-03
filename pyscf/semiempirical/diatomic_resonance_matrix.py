@@ -37,38 +37,27 @@ def diatomic_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat):
        return np.atleast_1d(b0_rotate)
     elif (zi > 1 and zj == 1): # second row - first
        #jcall = 3
-       if nt == 9 or nt == 8:
-          bss = resonance_integral(params.beta_sh[zi], params.beta_s[zj], params.alpha_sh[zi], params.alpha_s[zj], rij)
-          bps = resonance_integral(params.beta_ph[zi], params.beta_s[zj], params.alpha_ph[zi], params.alpha_s[zj], rij)
-       else:
-          bss = resonance_integral(params.beta_s[zi], params.beta_s[zj], params.alpha_s[zi], params.alpha_s[zj], rij)
-          bps = resonance_integral(params.beta_p[zi], params.beta_s[zj], params.alpha_p[zi], params.alpha_s[zj], rij)
+       bss = resonance_integral(params.beta_sh[zi], params.beta_s[zj], params.alpha_sh[zi], params.alpha_s[zj], rij)
+       bps = resonance_integral(params.beta_ph[zi], params.beta_s[zj], params.alpha_ph[zi], params.alpha_s[zj], rij)
        bloc[0][0] = bss
        bloc[0][1] = bsp
        bloc[1][0] = -1.0*bps
        #print(f'bss: {bss}')
        #print(f'bps: {-bps}')
        #print(f'bsp: {bsp}')
-       b0_rotate = np.einsum('ji,kj,km->im', rot_mat, bloc, rot_mat) 
+       b0_rotate = np.einsum('ji,jk,km->im', rot_mat, bloc, rot_mat) 
        #b0_rotate = tmp_b0[:,0]
        #matrix_print_2d(b0_rotate, 4, 'b0_rotate')       
        return b0_rotate[:,0].reshape(4,1)
 
     elif (zi == 1 and zj > 1): # first row - second row
        #jcall = 3
-       if nt == 9 or nt == 8:
-          bss = resonance_integral(params.beta_s[zi], params.beta_sh[zj], params.alpha_s[zi], params.alpha_sh[zj], rij)
-          bsp = resonance_integral(params.beta_s[zi], params.beta_ph[zj], params.alpha_s[zi], params.alpha_ph[zj], rij)
-       else:
-          bss = resonance_integral(params.beta_s[zi], params.beta_s[zj], params.alpha_s[zi], params.alpha_s[zj], rij)
-          bsp = resonance_integral(params.beta_s[zi], params.beta_p[zj], params.alpha_s[zi], params.alpha_p[zj], rij)
+       bss = resonance_integral(params.beta_s[zi], params.beta_sh[zj], params.alpha_s[zi], params.alpha_sh[zj], rij)
+       bsp = resonance_integral(params.beta_s[zi], params.beta_ph[zj], params.alpha_s[zi], params.alpha_ph[zj], rij)
        bloc[0][0] = bss
        bloc[0][1] = bsp
        bloc[1][0] = -1.0*bps
-       #print(f'bss: {bss}')
-       #print(f'bps: {-bps}')
-       #print(f'bsp: {bsp}')
-       b0_rotate = np.einsum('ji,kj,km->im', rot_mat, bloc, rot_mat) 
+       b0_rotate = np.einsum('ji,jk,km->im', rot_mat, bloc, rot_mat) 
        #b0_rotate = tmp_b0[0,:]
        #matrix_print_2d(b0_rotate, 1, 'b0_rotate')       
        return b0_rotate[0,:].reshape(1,4)
@@ -96,17 +85,10 @@ def diatomic_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat):
 
        #matrix_print_2d(rot_mat, 4, 'T')       
        #matrix_print_2d(bloc, 4, 'bloc')       
-       b0_rotate = np.einsum('ji,kj,km->im', rot_mat, bloc, rot_mat) 
+       b0_rotate = np.einsum('ji,jk,km->im', rot_mat, bloc, rot_mat) 
        #matrix_print_2d(b0_rotate, 4, 'b0_rotate')       
        return b0_rotate # bloc
     else:
        print('invalid combination of zi and zj')
        exit(-1)
-
-    #print(f'T(1) = {bss}')
-    #print(f'T(2) = {-bps}')
-    #print(f'T(3) = {bsp}')
-    #print(f'T(4) = {-bpp}')
-    #print(f'T(5) = {bpi}')
-    #print(f'T45 =  {bpmpi}')
 

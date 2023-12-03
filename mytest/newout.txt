@@ -2,7 +2,8 @@ Python 3.8.17
 model: OM2
 pyscf-semiempirical version 0.1.0
 pyscf-semiempirical path /Users/chancelander/Documents/Shao/semiempirical/code/semiempirical
-GIT HEAD (branch develop_chance) 4cdcf9f91d7a22acc5d021f448b1bc7d225af21e
+GIT ORIG_HEAD 85fe15ce60c5553bcab9e59f05acd2256b3650bc
+GIT HEAD (branch develop_chance) aaf32acfe6deefcc3deea9862cbb3d0cd4063da9
 
 
 ******** <class 'pyscf.semiempirical.omx_class.ROM2'> ********
@@ -18,7 +19,7 @@ SCF conv_tol_grad = None
 SCF max_cycles = 50
 direct_scf = True
 direct_scf_tol = 1e-13
-chkfile to save SCF result = /var/folders/cm/dxbrpnn958s0gr686nw_3fxc0000gn/T/tmpr8w8t5ib
+chkfile to save SCF result = /var/folders/cm/dxbrpnn958s0gr686nw_3fxc0000gn/T/tmp6h4wtdcz
 max_memory 4000 MB (current use 0 MB)
 Set gradient conv threshold to 0.001
 Overlap 1e
@@ -95,7 +96,7 @@ Rot T
   Nuclear Energy:      13.4333993 Eh,  365.5414147 eV
 
 init E= 8.42222715078545
-  HOMO = 5.43054964354267  LUMO = 5.43920656143484
+  HOMO = 4.60293418895517  LUMO = 5.43054964354266
 Rot T
               1           2           3           4  
    1 -    1.000000    0.000000    0.000000    0.000000
@@ -114,11 +115,11 @@ Rot T
    2 -    0.000000    0.000000    0.000000   -1.000000
    3 -    0.000000    0.462885    0.886418    0.000000
    4 -    0.000000    0.886418   -0.462885    0.000000
-  Electronic Energy:  -40.4380686 Eh, -1100.3758942 eV
+  Electronic Energy:  -46.5683692 Eh, -1267.1898691 eV
   Nuclear Energy:      13.4333993 Eh,  365.5414147 eV
 
-cycle= 1 E= -27.0046692800879  delta_E= -35.4  |g|= 0.186  |ddm|= 2.76
-  HOMO = 5.3532015006465  LUMO = 5.7050032852592
+cycle= 1 E= -33.1349698429062  delta_E= -41.6  |g|= 0.101  |ddm|= 2.78
+  HOMO = 4.48087529485081  LUMO = 5.62669578402544
 Rot T
               1           2           3           4  
    1 -    1.000000    0.000000    0.000000    0.000000
@@ -137,11 +138,11 @@ Rot T
    2 -    0.000000    0.000000    0.000000   -1.000000
    3 -    0.000000    0.462885    0.886418    0.000000
    4 -    0.000000    0.886418   -0.462885    0.000000
-  Electronic Energy:  -40.4405912 Eh, -1100.4445375 eV
+  Electronic Energy:  -46.5688407 Eh, -1267.2027009 eV
   Nuclear Energy:      13.4333993 Eh,  365.5414147 eV
 
-cycle= 2 E= -27.0071918743476  delta_E= -0.00252  |g|= 0.00655  |ddm|= 0.0376
-  HOMO = 5.35028902978824  LUMO = 5.70231038791766
+cycle= 2 E= -33.1354414005014  delta_E= -0.000472  |g|= 0.00253  |ddm|= 0.0144
+  HOMO = 4.48095667472262  LUMO = 5.62698448703755
 Rot T
               1           2           3           4  
    1 -    1.000000    0.000000    0.000000    0.000000
@@ -160,11 +161,11 @@ Rot T
    2 -    0.000000    0.000000    0.000000   -1.000000
    3 -    0.000000    0.462885    0.886418    0.000000
    4 -    0.000000    0.886418   -0.462885    0.000000
-  Electronic Energy:  -40.4405942 Eh, -1100.4446201 eV
+  Electronic Energy:  -46.5688413 Eh, -1267.2027163 eV
   Nuclear Energy:      13.4333993 Eh,  365.5414147 eV
 
-cycle= 3 E= -27.0071949083719  delta_E= -3.03e-06  |g|= 0.000156  |ddm|= 0.00132
-  HOMO = 5.35028646842455  LUMO = 5.70230521934955
+cycle= 3 E= -33.1354419678326  delta_E= -5.67e-07  |g|= 0.000109  |ddm|= 0.000653
+  HOMO = 4.48096047967114  LUMO = 5.62699678186005
 Rot T
               1           2           3           4  
    1 -    1.000000    0.000000    0.000000    0.000000
@@ -183,32 +184,9 @@ Rot T
    2 -    0.000000    0.000000    0.000000   -1.000000
    3 -    0.000000    0.462885    0.886418    0.000000
    4 -    0.000000    0.886418   -0.462885    0.000000
-  Electronic Energy:  -40.4405942 Eh, -1100.4446201 eV
+  Electronic Energy:  -46.5688413 Eh, -1267.2027164 eV
   Nuclear Energy:      13.4333993 Eh,  365.5414147 eV
 
-cycle= 4 E= -27.0071949096572  delta_E= -1.29e-09  |g|= 4.63e-06  |ddm|= 2.61e-05
-  HOMO = 5.35028626562149  LUMO = 5.70230499630805
-Rot T
-              1           2           3           4  
-   1 -    1.000000    0.000000    0.000000    0.000000
-   2 -    0.000000    0.000000    0.000000   -1.000000
-   3 -    0.000000    0.000000    1.000000    0.000000
-   4 -    0.000000    1.000000    0.000000    0.000000
-Rot T
-              1           2           3           4  
-   1 -    1.000000    0.000000    0.000000    0.000000
-   2 -    0.000000    0.000000    0.000000   -1.000000
-   3 -    0.000000    0.866025    0.500000    0.000000
-   4 -    0.000000    0.500000   -0.866025    0.000000
-Rot T
-              1           2           3           4  
-   1 -    1.000000    0.000000    0.000000    0.000000
-   2 -    0.000000    0.000000    0.000000   -1.000000
-   3 -    0.000000    0.462885    0.886418    0.000000
-   4 -    0.000000    0.886418   -0.462885    0.000000
-  Electronic Energy:  -40.4405942 Eh, -1100.4446201 eV
-  Nuclear Energy:      13.4333993 Eh,  365.5414147 eV
-
-Extra cycle  E= -27.0071949096592  delta_E= -2e-12  |g|= 3.01e-07  |ddm|= 1.17e-06
-converged SCF energy = -27.0071949096592
-Heat of formation = -5029.0546486609 kcal/mol, -8.01415164379171 Eh
+Extra cycle  E= -33.135441969144  delta_E= -1.31e-09  |g|= 7.6e-06  |ddm|= 3.27e-05
+converged SCF energy = -33.135441969144
+Heat of formation = -8874.66310885509 kcal/mol, -14.1423987032765 Eh
