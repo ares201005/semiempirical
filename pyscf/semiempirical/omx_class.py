@@ -278,6 +278,7 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             if zi + zj > 2:
                 print(f'zi: {zi} zj: {zj}')
                 diatomic_ecp_overlap_matrix(mol, zi, zj, params, rij)
+                gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
             #if zj > 1: #Check for AB vs BA indexing which atom is ecp -CL
                 #gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
                 #print(f'gecp: {gecp}')

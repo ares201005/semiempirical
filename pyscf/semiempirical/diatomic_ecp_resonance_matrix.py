@@ -32,7 +32,7 @@ def diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat):
        # Only s(ecp)-s will be non-zero
        gssam = resonance_integral(params.beta_s[zj], params.beta_ecp[zi], params.alpha_s[zj], params.alpha_ecp[zi], rij)
        print(f'gssam: {gssam}')
-       gecp_rotate = np.einsum('ji,kj,km->im', rot_mat, gecp, rot_mat) 
+       gecp_rotate = np.einsum('ji,jk,km->im', rot_mat, gecp, rot_mat) 
        #gecp_rotate = tmp_b0[:,0]
        #matrix_print_2d(gecp_rotate, 4, 'gecp_rotate')       
        matrix_print_2d(gecp, 4, 'gecp')       
@@ -44,7 +44,7 @@ def diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat):
        # No H-bond parameter if zj is ECP atom
        gssma = resonance_integral(params.beta_s[zi], params.beta_ecp[zj], params.alpha_s[zi], params.alpha_ecp[zj], rij)
        print(f'gssma: {gssma}')
-       gecp_rotate = np.einsum('ji,kj,km->im', rot_mat, gecp, rot_mat) 
+       gecp_rotate = np.einsum('ji,jk,km->im', rot_mat, gecp, rot_mat) 
        #gecp_rotate = tmp_b0[0,:]
        #matrix_print_2d(gecp_rotate, 1, 'gecp_rotate')       
        matrix_print_2d(gecp, 1, 'gecp')       
@@ -62,7 +62,7 @@ def diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat):
        print(f'gpsam: {gpsam}')
        #matrix_print_2d(rot_mat, 4, 'T')       
        #matrix_print_2d(gecp, 4, 'gecp')       
-       gecp_rotate = np.einsum('ji,kj,km->im', rot_mat, gecp, rot_mat) 
+       gecp_rotate = np.einsum('ji,jk,km->im', rot_mat, gecp, rot_mat) 
        #matrix_print_2d(gecp_rotate, 4, 'gecp_rotate')       
        matrix_print_2d(gecp, 4, 'gecp')       
        return gecp_rotate # gecp
