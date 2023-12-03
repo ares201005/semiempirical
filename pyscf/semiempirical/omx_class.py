@@ -225,7 +225,11 @@ def get_hcore_mndo(mol, model, python_integrals, params):
     aoslices = mol.aoslice_by_atom()
     vecp = 0.0
     ovlp1e = mol.intor("int1e_ovlp")
-    matrix_print_2d(ovlp1e, 9, 'Overlap 1e')
+    matrix_print_2d(ovlp1e, 5, 'Overlap 1e')
+
+    # Yihan, 12/1/2023, resonance integrals
+    B = np.zeros_like(hcore)
+    Hloc = np.zeros((B.shape[0], mol.natm))
 
     for ia in range(mol.natm):
         for ja in range(ia+1,mol.natm):
@@ -239,9 +243,11 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             j0, j1 = aoslices[ja,2:]
             hcore[j0:j1,j0:j1] += e2a
             hcore[i0:i1,i0:i1] += e1b
-            #print("i:", i0, i1, "j:", j0, j1)
-            #print("e2a:", e2a)
-            #print("e1b:", e1b)
+            print("e2a:", e2a)
+            print("e1b:", e1b)
+            Hloc[j0:j1,ia] = np.diag(e2a)
+            Hloc[i0:i1,ja] = np.diag(e1b)
+            print("i:", i0, i1, "j:", j0, j1)
 
             # off-diagonal block 
             zi = mol.atom_charge(ia)
@@ -253,6 +259,7 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             xij /= rij
             #print("zi, zj:", zi, zj)
             #print("xij:", xij, "rij:", rij)
+
             rot_mat = rotation_matrix2(zi, zj, xij, rij, params.am, params.ad, params.aq, params.dd, params.qq, params.tore, old_pxpy_pxpy=False)
             bloc = diatomic_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
             #di, Smn = diatomic_omx_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
@@ -261,16 +268,18 @@ def get_hcore_mndo(mol, model, python_integrals, params):
 
             #hcore[i0:i1,j0:j1] += di #original -CL
             #hcore[j0:j1,i0:i1] += di.T #original -CL
+            print("i0, i1, j0, j1:", i0, i1, j0, j1)
             hcore[i0:i1,j0:j1] += bloc
             hcore[j0:j1,i0:i1] += bloc.T 
+
+            B[i0:i1,j0:j1] += bloc
+            B[j0:j1,i0:i1] += bloc.T
+
             if zi + zj > 2:
                 print(f'zi: {zi} zj: {zj}')
                 diatomic_ecp_overlap_matrix(mol, zi, zj, params, rij)
-            if zj > 1: #Check for AB vs BA indexing which atom is ecp -CL
-                #Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
-                #Secp = diatomic_ecp_overlap_matrix(ia, ja, zi, zj, xij, rij, params)
-                #Secp = diatomic_ecp_overlap_matrix(mol,params,atom_charges)
-                gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
+            #if zj > 1: #Check for AB vs BA indexing which atom is ecp -CL
+                #gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
                 #print(f'gecp: {gecp}')
                 #lterm = -np.einsum('ij,jk->ik', Secp, bloc)
                 #cterm = -np.einsum('ij,jk->ik', bloc, Secp)
@@ -282,6 +291,11 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             #vj[:,idx,idx] = np.einsum('ij,xjj->xi', j_ints, dm_blk)
     #print("hcore:", hcore)
     #print("vecp:",vecp)
+
+    matrix_print_2d(B, 5, 'B matrix')
+    matrix_print_2d(Hloc, 5, 'Hloc')
+
+    Hort = ort_correction(mol, ovlp1e, B, params)
 
     return hcore
 
