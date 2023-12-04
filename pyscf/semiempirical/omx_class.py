@@ -162,48 +162,81 @@ def _make_mndo_mol(mol,model,params):
     mndo_mol.build(0, 0)
     return mndo_mol
 
-def ort_correction(mol, S, B, params):
+def ort_correction(mol, S, B, VnucB, params):
 
-    Hort = np.zeros_like(B)
     aoslices = mol.aoslice_by_atom()
 
+    #Hloc
+    nbas = B.shape[0]
+    Hloc = np.zeros((nbas, mol.natm))
+    for ia in range(0, mol.natm):
+        for jb in range(0, mol.natm):
+            i0, i1 = aoslices[ia,2:]
+            for mu in range(i0, i1):
+                if mu == i0:
+                    Hloc[mu, jb] = params.U_ss[mol.atom_charges()[ia]] 
+                else:            
+                    Hloc[mu, jb] = params.U_pp[mol.atom_charges()[ia]]
+                Hloc[mu, jb] += VnucB[mu, mu, jb] 
+    matrix_print_2d(Hloc*27.21, 5, 'Hloc')
+
     #two-center 
+    Hort = np.zeros_like(B)
     for ia in range(0, mol.natm):
         for jb in range(0, mol.natm):
             if jb != ia:  #this is because B elements are zero for diagonal blocks
                 F1a = params.fval1[mol.atom_charges()[ia]]
-                F1b = params.fval1[mol.atom_charges()[jb]]
-                F2a = params.fval2[mol.atom_charges()[ia]]
-                F2b = params.fval2[mol.atom_charges()[jb]]
-                F1 =  0.25 * (F1a + F1b)
-                F2 = 0.625 * (F2a + F2b)
+                F2a = params.fval2[mol.atom_charges()[ia]] #scaled by 27.21 in read_param.py 
                 i0, i1 = aoslices[ia,2:]
                 j0, j1 = aoslices[jb,2:]
-                Hort[i0:i1,i0:i1] -= 0.5*F1*np.einsum('mr,rn->mn',S[i0:i1,j0:j1], B[j0:j1,i0:i1])
-                Hort[i0:i1,i0:i1] -= 0.5*F1*np.einsum('mr,rn->mn',B[i0:i1,j0:j1], S[j0:j1,i0:i1])
+                Hort[i0:i1,i0:i1] -= 0.5*F1a*np.einsum('mr,rn->mn',S[i0:i1,j0:j1], B[j0:j1,i0:i1])
+                Hort[i0:i1,i0:i1] -= 0.5*F1a*np.einsum('mr,rn->mn',B[i0:i1,j0:j1], S[j0:j1,i0:i1])
                 for mu in range(i0, i1):
                     for nu in range(i0, i1):
                         for rho in range(j0, j1):
-                            if mu == i0: Umu = params.U_ss[mol.atom_charges()[ia]]
-                            else: Umu = params.U_pp[mol.atom_charges()[ia]]
-                            if nu == i0: Unu = params.U_ss[mol.atom_charges()[ia]]
-                            else: Unu = params.U_pp[mol.atom_charges()[ia]]
-                            if rho == i0: Unu = params.U_ss[mol.atom_charges()[jb]]
-                            else: Urho = params.U_pp[mol.atom_charges()[jb]]
-                            #Uncomment after getting HlocB and HlocA
-                            #Hort[mu,nu] += 0.125 * F2 * S[mu, rho] * S[rho, nu] * (HlocB[mu] + HlocB[nu] - 2 * HlocA[rho])
+                            Hort[mu,nu] += 0.125 * F2a * S[mu, rho] * S[rho, nu] * (Hloc[mu, jb] + Hloc[nu, jb] - 2 * Hloc[rho, ia])
 
     #three-center
-    #for ia in range(0, mol.natm):
-    #    for jb in range(0, mol.natm):
-    #        for kc in range(0, mol.natm):
-    #            if jb != ia: 
-    #            G1a = params.gval1[mol.atom_charges()[ia]]
-    #            G1b = params.gval1[mol.atom_charges()[jb]]
-    #            G2a = params.gval2[mol.atom_charges()[ia]]
-    #            G2b = params.gval2[mol.atom_charges()[jb]]
+    for ia in range(0, mol.natm):
+        for jb in range(0, mol.natm):
+            for kc in range(0, mol.natm):
+                if jb != ia and kc != ia and kc != jb:
+                    G1a = params.gval1[mol.atom_charges()[ia]]
+                    G1b = params.gval1[mol.atom_charges()[jb]]
+                    G2a = params.gval2[mol.atom_charges()[ia]]
+                    G2b = params.gval2[mol.atom_charges()[jb]]
+                    G1 = 0.5 * (G1a + G1b) 
+                    G2 = 0.5 * (G2a + G2b) * 27.21
+                    i0, i1 = aoslices[ia,2:]
+                    j0, j1 = aoslices[jb,2:]
+                    k0, k1 = aoslices[kc,2:]
+                    Hort[i0:i1,j0:j1] -= 0.5*G1*np.einsum('mr,rl->ml',S[i0:i1,k0:k1], B[k0:k1,j0:j1])
+                    Hort[i0:i1,j0:j1] -= 0.5*G1*np.einsum('mr,rl->ml',B[i0:i1,k0:k1], S[k0:k1,j0:j1])
+
+                    for mu in range(i0, i1):
+                        for lm in range(j0, j1):
+                            for rho in range(k0, k1):
+                                Hort[mu,lm] += 0.125 * G2 * S[mu, rho] * S[rho, lm] * (Hloc[mu, kc] + Hloc[lm, kc] - Hloc[rho, ia] - Hloc[rho, jb])
 
     return Hort
+
+def compute_VAC_analytical(mol, ia, jb, aoslices):
+    print("ia, jb:", ia, jb)
+    charge_a =  mol.atom_charge(ia)
+    charge_b =  mol.atom_charge(jb)
+    if charge_a > 1: charge_a -= 2
+    if charge_b > 1: charge_b -= 2
+    print("charges:", charge_a, charge_b)
+    i0, i1 = aoslices[ia,2:]
+    j0, j1 = aoslices[jb,2:]
+
+    mol.set_rinv_origin(mol.atom_coord(ia))
+    e2a = -charge_a * mol.intor('int1e_rinv')[j0:j1, j0:j1]
+    matrix_print_2d(e2a, 5, "e2a analytical")
+
+    mol.set_rinv_origin(mol.atom_coord(jb))
+    e1b = -charge_b * mol.intor('int1e_rinv')[i0:i1, i0:i1]
+    matrix_print_2d(e1b, 5, "e1b analytical")
 
 @lib.with_doc(scf.hf.get_hcore.__doc__)
 def get_hcore_mndo(mol, model, python_integrals, params):
@@ -229,9 +262,12 @@ def get_hcore_mndo(mol, model, python_integrals, params):
     ovlp1e = mol.intor("int1e_ovlp")
     matrix_print_2d(ovlp1e, 5, 'Overlap 1e')
 
+    vnuc = mol.intor_symmetric('int1e_nuc')
+    matrix_print_2d(vnuc, 5, "vnuc")
+
     # Yihan, 12/1/2023, resonance integrals
     B = np.zeros_like(hcore)
-    Hloc = np.zeros((B.shape[0], mol.natm))
+    VnucB = np.zeros((B.shape[0], B.shape[1], mol.natm))
 
     for ia in range(mol.natm):
         for ja in range(ia+1,mol.natm):
@@ -241,15 +277,18 @@ def get_hcore_mndo(mol, model, python_integrals, params):
                #e1b, e2a = compute_VAC(zi, zj, ri, rj, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
                e1b, e2a = compute_VAC(mol.atom_charge(ia), mol.atom_charge(ja), mol.atom_coord(ia), mol.atom_coord(ja),
                                       params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+
+            e2a2 = compute_VAC_analytical(mol, ia, ja, aoslices)
+
             i0, i1 = aoslices[ia,2:]
             j0, j1 = aoslices[ja,2:]
             hcore[j0:j1,j0:j1] += e2a
             hcore[i0:i1,i0:i1] += e1b
+            print("i:", i0, i1, "j:", j0, j1)
             print("e2a:", e2a)
             print("e1b:", e1b)
-            Hloc[j0:j1,ia] = np.diag(e2a)
-            Hloc[i0:i1,ja] = np.diag(e1b)
-            print("i:", i0, i1, "j:", j0, j1)
+            VnucB[j0:j1,j0:j1,ia] = e2a
+            VnucB[i0:i1,i0:i1,ja] = e1b
 
             # off-diagonal block 
             zi = mol.atom_charge(ia)
@@ -283,26 +322,21 @@ def get_hcore_mndo(mol, model, python_integrals, params):
                 gssam, gssma, gpsam, gpsma = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
                 vecpma, vecpam = ecp_correction(zi, zj, gssma, gssam, gpsma, gpsam, ovlpsma, ovlpsam, ovlppma, ovlppam, params)
                 
-                #matrix_print_2d(gecp, 4, 'G-ECP Resonance')
-                #matrix_print_2d(gecp, 5, 'G-ECP Resonance')
-            #if zj > 1: #Check for AB vs BA indexing which atom is ecp -CL
-                #gecp = diatomic_ecp_resonance_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat)
-                #print(f'gecp: {gecp}')
-                #lterm = -np.einsum('ij,jk->ik', Secp, bloc)
-                #cterm = -np.einsum('ij,jk->ik', bloc, Secp)
-                #rterm = -np.einsum('ij,jk->ik', Secp, Secp)
-                #print(f'lterm: {lterm}')
-                #print(f'cterm: {cterm}')
-                #print(f'rterm: {rterm}')
-                #vecp += np.sum(lterm + cterm + rterm*params.f_aa)
+
+                print(f'hcore[i0:i1,j0:j1] {hcore[i0:i1,j0:j1]}')
+                print(f'vecpma {vecpma}')
+                print(f'hcore[j0:j1,i0:i1] {hcore[j0:j1,i0:i1]}')
+                print(f'vecpam {vecpam}')
+
+                hcore[i0:i1,j0:j1] += vecpma
+                hcore[j0:j1,i0:i1] += vecpam 
+
             #vj[:,idx,idx] = np.einsum('ij,xjj->xi', j_ints, dm_blk)
-    #print("hcore:", hcore)
-    #print("vecp:",vecp)
 
     matrix_print_2d(B, 5, 'B matrix')
-    matrix_print_2d(Hloc, 5, 'Hloc')
 
-    Hort = ort_correction(mol, ovlp1e, B, params)
+    Hort = ort_correction(mol, ovlp1e, B, VnucB, params)
+    matrix_print_2d(Hort, 5, "Hort")
 
     return hcore
 
