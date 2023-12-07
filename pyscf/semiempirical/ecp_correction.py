@@ -25,6 +25,4 @@ def ecp_correction(zi, zj, gssma, gssam, gpsma, gpsam, ovlpsma, ovlpsam, ovlppma
         vecpam[0][1] = vecpam[1][0]
         vecpam[1][1] = -1*(ovlppam*gpsam + gpsam*ovlppam + ovlppam*ovlppam*params.f_aa[zi])
         #print(f'ovlpsam {ovlpsam} gssam {gssam}')
-    print('vecpam',vecpam)
-    print('vecpma',vecpma)
     return vecpma, vecpam

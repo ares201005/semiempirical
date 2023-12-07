@@ -574,7 +574,7 @@ def compute_VAC(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
     if zj == zi: 
        if zj == 1:
           e2a = core[0]
-          #print("e2a new:", e2a)
+          #print("577 e2a new:", e2a)
        elif zj >= 2:
           e2a = numpy.copy(e1b)
           for i in range(1,4):
@@ -583,8 +583,9 @@ def compute_VAC(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
           #print("e2a new:", e2a)
     elif zj != zi:
        if zj == 1:
-          e2a = -tore[zi] * ri[0]
-          #print("e2a new:", e2a) 
+          #e2a = -tore[zi] * ri[0]
+          e2a = np.array(-tore[zi] * ri[0]) #clean up -CL
+          #print("587 e2a new:", e2a) 
        elif zj>2:
           aed = .5 / am[zi] + 0.5/ad[zj] 
           aed *= aed
@@ -602,6 +603,8 @@ def compute_VAC(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
           e2a = np.zeros((4,4))
           e2a[numpy.triu_indices(4)] = e2a_ut
           e2a = e2a + e2a.transpose() - numpy.diag(numpy.diag(e2a))
-          #print("e2a new:", e2a)
+          #print('e1b type:',type(e1b))
+          #print('e2a type:',type(e2a))
+          print("607 e2a new:", e2a)
     return e1b, e2a
 

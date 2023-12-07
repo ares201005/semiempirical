@@ -96,8 +96,8 @@ class omx_parameters():
         parameters = read_param(model, elements)
         constants, monopole_constants  = read_constants(elements)
         self.tore = constants['tore']
-        self.U_ss = parameters['U_ss']/27.21
-        self.U_pp = parameters['U_pp']/27.21
+        self.U_ss = parameters['U_ss']
+        self.U_pp = parameters['U_pp']
 
         self.zeta_s = parameters['zeta_s']
         self.zeta_p = parameters['zeta_s']
@@ -117,7 +117,7 @@ class omx_parameters():
         self.fval1 = parameters['fval1']
         self.fval2 = parameters['fval2']*27.21
         self.gval1 = parameters['gval1']
-        self.gval2 = parameters['gval2']
+        self.gval2 = parameters['gval2']*27.21
 
         self.zeta_ecp = parameters['zeta_ecp']
         self.f_aa = parameters['f_aa']
