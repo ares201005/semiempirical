@@ -2,7 +2,7 @@ Python 3.8.17
 pyscf-semiempirical version 0.1.0
 pyscf-semiempirical path /Users/chancelander/Documents/Shao/semiempirical/code/semiempirical
 GIT ORIG_HEAD 85fe15ce60c5553bcab9e59f05acd2256b3650bc
-GIT HEAD (branch develop_chance) e5d8d4cd4fead522369fd6e63f5297841d251088
+GIT HEAD (branch develop_chance) 1a25de407382170e7cca84d957c728cbb238f179
 
 
 ******** <class 'pyscf.semiempirical.omx_class.ROM2'> ********
@@ -18,7 +18,7 @@ SCF conv_tol_grad = None
 SCF max_cycles = 50
 direct_scf = True
 direct_scf_tol = 1e-13
-chkfile to save SCF result = /var/folders/cm/dxbrpnn958s0gr686nw_3fxc0000gn/T/tmpj7u46p0y
+chkfile to save SCF result = /var/folders/cm/dxbrpnn958s0gr686nw_3fxc0000gn/T/tmpbo18wljh
 max_memory 4000 MB (current use 0 MB)
 Set gradient conv threshold to 0.001
 Hcore

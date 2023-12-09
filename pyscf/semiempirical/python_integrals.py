@@ -38,6 +38,22 @@ def rotation_matrix(sij):
     return T
 
 
+def T2_matrix(T):
+    T2 = numpy.zeros((10,10))
+    ii = 0
+    for j in range(0, 4):
+        for i in range(0, j+1):
+            prod = numpy.einsum('m,n->mn', T[:,i], T[:,j])
+            kk = 0
+            for l in range(0, 4):
+                for k in range(0, l+1):
+                    T2[kk, ii] = prod[k, l]
+                    if k != l: T2[kk, ii] += prod[l, k] 
+                    kk += 1    
+            ii += 1
+    #matrix_print_2d(T2, 5, "T2")
+    return T2
+
 def matrix_print_2d(array, ncols, title):
 	""" printing a rectangular matrix, ncols columns per batch """
 
@@ -246,18 +262,7 @@ def compute_W_hh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore, old_pxpy_pxpy):
     #    b0_rotate = np.einsum('ji,kj,km->im', T, b0, T)
     #    matrix_print_2d(b0_rotate, 5, "b0_rotate")
 
-    T2 = numpy.zeros((10,10))
-    ii = 0
-    for j in range(0, 4):
-        for i in range(0, j+1):
-            prod = numpy.einsum('m,n->mn', T[:,i], T[:,j])
-            kk = 0
-            for l in range(0, 4):
-                for k in range(0, l+1):
-                    T2[kk, ii] = prod[k, l]
-                    if k != l: T2[kk, ii] += prod[l, k] 
-                    kk += 1    
-            ii += 1
+    T2 = T2_matrix(T)
     #matrix_print_2d(T2, 5, "T2")
 
     #matrix_print_2d(w, 5, "w before rotation")
@@ -349,18 +354,7 @@ def compute_W_hl(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
     #              [0.0, -sin(phi), cos(phi), 0.0], [0.0, sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)]])
     #matrix_print_2d(T, 5, "T")
 
-    T2 = numpy.zeros((10,10))
-    ii = 0
-    for j in range(0, 4):
-        for i in range(0, j+1):
-            prod = numpy.einsum('m,n->mn', T[:,i], T[:,j])
-            kk = 0
-            for l in range(0, 4):
-                for k in range(0, l+1):
-                    T2[kk, ii] = prod[k, l]
-                    if k != l: T2[kk, ii] += prod[l, k] 
-                    kk += 1    
-            ii += 1
+    T2 = T2_matrix(T)
     #matrix_print_2d(T2, 5, "T2")
 
     #matrix_print_2d(w, 5, "w before rotation")
@@ -453,18 +447,7 @@ def compute_W_lh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
     #              [0.0, -sin(phi), cos(phi), 0.0], [0.0, sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)]])
     #matrix_print_2d(T, 5, "T")
 
-    T2 = numpy.zeros((10,10))
-    ii = 0
-    for j in range(0, 4):
-        for i in range(0, j+1):
-            prod = numpy.einsum('m,n->mn', T[:,i], T[:,j])
-            kk = 0
-            for l in range(0, 4):
-                for k in range(0, l+1):
-                    T2[kk, ii] = prod[k, l]
-                    if k != l: T2[kk, ii] += prod[l, k] 
-                    kk += 1    
-            ii += 1
+    T2 = T2_matrix(T)
     #matrix_print_2d(T2, 5, "T2")
 
     #matrix_print_2d(w, 5, "w before rotation")
@@ -529,6 +512,26 @@ def compute_VAC(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
                       [0,0,sij[0]*sij[0],1-sij[0]*sij[0]],[0,0,sij[0]*sij[1],-sij[0]*sij[1]], [0,0,sij[0]*sij[2],-sij[0]*sij[2]],
                       [0,0,sij[1]*sij[1],1-sij[1]*sij[1]],[0,0,sij[1]*sij[2],-sij[1]*sij[2]],
                       [0,0,sij[2]*sij[2],1-sij[2]*sij[2]]])                        
+    matrix_print_2d(T2, 5, "T2")
+ 
+    #let us reorder the T2
+    T2o = numpy.array([[1,0,0,0], #ss
+                      [0,-sij[0],0,0], #sx
+                      [0,0,sij[0]*sij[0],1-sij[0]*sij[0]], #xx
+                      [0,-sij[1],0,0], #sy 
+                      [0,0,sij[0]*sij[1],-sij[0]*sij[1]], #xy
+                      [0,0,sij[1]*sij[1],1-sij[1]*sij[1]], #yy
+                      [0,-sij[2],0,0], #sz
+                      [0,0,sij[0]*sij[2],-sij[0]*sij[2]], #xz
+                      [0,0,sij[1]*sij[2],-sij[1]*sij[2]], #yz
+                      [0,0,sij[2]*sij[2],1-sij[2]*sij[2]]]) #zz                        
+    matrix_print_2d(T2o, 5, "T2o")
+
+    T = rotation_matrix(sij)
+    #matrix_print_2d(T, 5, "T")
+    T22 = T2_matrix(T)
+    #print("diff:", np.amax(np.abs((T22-T2).ravel())))
+    matrix_print_2d(T22, 5, "T22")
 
     da = dd[zi] 
     db = dd[zj] 
@@ -543,7 +546,8 @@ def compute_VAC(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
 
     if zi == 1:
        core[0] = - tore[zj] * ri[0]
-       e1b = core[0]
+       e1b = np.zeros((1,1))
+       e1b[0,0] = core[0]
        #print("e1b new:", e1b)
     elif zi>2:
        #electron integrals
@@ -568,8 +572,9 @@ def compute_VAC(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
 
     if zj == zi: 
        if zj == 1:
-          e2a = core[0]
-          #print("577 e2a new:", e2a)
+          e2a = np.zeros((1,1))
+          e2a[0,0] = core[0]
+          #print("e2a new:", e2a)
        elif zj >= 2:
           e2a = numpy.copy(e1b)
           for i in range(1,4):
@@ -578,9 +583,9 @@ def compute_VAC(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
           #print("e2a new:", e2a)
     elif zj != zi:
        if zj == 1:
-          #e2a = -tore[zi] * ri[0]
-          e2a = np.array(-tore[zi] * ri[0]) #clean up -CL
-          #print("587 e2a new:", e2a) 
+          e2a = np.zeros((1,1))
+          e2a[0,0] = -tore[zi] * ri[0]
+          #print("e2a new:", e2a) 
        elif zj>2:
           aed = .5 / am[zi] + 0.5/ad[zj] 
           aed *= aed
@@ -598,7 +603,5 @@ def compute_VAC(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
           e2a = np.zeros((4,4))
           e2a[numpy.triu_indices(4)] = e2a_ut
           e2a = e2a + e2a.transpose() - numpy.diag(numpy.diag(e2a))
-          #print('e1b type:',type(e1b))
-          #print('e2a type:',type(e2a))
     return e1b, e2a
 

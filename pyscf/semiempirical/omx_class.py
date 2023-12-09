@@ -23,7 +23,8 @@ from math import sqrt, atan, acos, sin, cos
 from .matprint2d import *
 
 #libsemiempirical = lib.load_library('/home/chance/pyscf_ext/semiempirical/pyscf/semiempirical/libsemiempirical.so') 
-libsemiempirical = lib.load_library('/Users/chancelander/Documents/Shao/semiempirical/code/semiempirical/build/lib.macosx-10.9-x86_64-cpython-38/pyscf/semiempirical/lib/libsemiempirical.so')
+#libsemiempirical = lib.load_library('/Users/chancelander/Documents/Shao/semiempirical/code/semiempirical/build/lib.macosx-10.9-x86_64-cpython-38/pyscf/semiempirical/lib/libsemiempirical.so')
+libpsemiempirical = lib.load_library(os.environ['LIBSEMI'])
 ndpointer = numpy.ctypeslib.ndpointer
 libsemiempirical.MOPAC_rotate.argtypes = [
     ctypes.c_int, ctypes.c_int,
@@ -240,6 +241,7 @@ def get_hcore_mndo(mol, model, python_integrals, params):
     Hort = ort_correction(mol, ovlp1e, B, VnucB, params)
     hcore += Hort
     matrix_print_2d(hcore, 5, "Hcore")
+    hcore /=27.21
     return hcore
 
 def _get_jk_2c_ints(mol, model, python_integrals, ia, ja, params):
@@ -489,7 +491,7 @@ def get_energy_nuc_om2(mol,method,params):
             e1b, e2a = compute_VAC_analytical(mol, ia, ja, aoslices)
 
             aee = 0.5/params.am[ni] + 0.5/params.am[nj]
-            R0_semi = 1.0/sqrt(rij*rij+aee*aee)
+            R0_semi = -1.0/sqrt(rij*rij+aee*aee)
             fKO = R0_semi * params.tore[nj] / e1b.flat[0]
             enuc += params.tore[ni] * params.tore[nj] * fKO / rij #EN(A,B) = ZZ*fKO/rij 
 
