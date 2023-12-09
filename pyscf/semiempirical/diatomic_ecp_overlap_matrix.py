@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # flake8: noqa
 
-'''
-whatever
-'''
-
 import os
 import ctypes
 import copy

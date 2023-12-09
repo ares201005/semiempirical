@@ -2,10 +2,6 @@
 #
 #
 
-'''
-whatever
-'''
-
 import os, sys
 import copy
 import numpy
