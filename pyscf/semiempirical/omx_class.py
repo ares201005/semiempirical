@@ -24,7 +24,7 @@ from .matprint2d import *
 
 #libsemiempirical = lib.load_library('/home/chance/pyscf_ext/semiempirical/pyscf/semiempirical/libsemiempirical.so') 
 #libsemiempirical = lib.load_library('/Users/chancelander/Documents/Shao/semiempirical/code/semiempirical/build/lib.macosx-10.9-x86_64-cpython-38/pyscf/semiempirical/lib/libsemiempirical.so')
-libpsemiempirical = lib.load_library(os.environ['LIBSEMI'])
+libsemiempirical = lib.load_library(os.environ['LIBSEMI'])
 ndpointer = numpy.ctypeslib.ndpointer
 libsemiempirical.MOPAC_rotate.argtypes = [
     ctypes.c_int, ctypes.c_int,
