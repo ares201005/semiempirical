@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # flake8: noqa
 
-'''
-whatever
-'''
-
 import ctypes
 import copy
 import math
@@ -54,12 +50,7 @@ def diatomic_omx_overlap_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat):
        bloc[0][0] = bss
        bloc[0][1] = bsp
        bloc[1][0] = -1.0*bps
-       #print(f'bss: {bss}')
-       #print(f'bps: {-bps}')
-       #print(f'bsp: {bsp}')
        b0_rotate = np.einsum('ji,kj,km->im', rot_mat, bloc, rot_mat) 
-       #b0_rotate = tmp_b0[0,:]
-       matrix_print_2d(b0_rotate, 1, 'b0_rotate')       
        return b0_rotate[0,:].reshape(1,4)
 
     elif zi > 1 and zj > 1: # second row - second row #make else? -CL
@@ -83,19 +74,8 @@ def diatomic_omx_overlap_matrix(ia, ja, zi, zj, xij, rij, params, rot_mat):
        bloc[2][2] = bpi 
        bloc[3][3] = bpi
 
-       #matrix_print_2d(rot_mat, 4, 'T')       
-       #matrix_print_2d(bloc, 4, 'bloc')       
        b0_rotate = np.einsum('ji,kj,km->im', rot_mat, bloc, rot_mat) 
-       matrix_print_2d(b0_rotate, 4, 'b0_rotate')       
        return b0_rotate # bloc
     else:
        print('invalid combination of zi and zj')
        exit(-1)
-
-    #print(f'T(1) = {bss}')
-    #print(f'T(2) = {-bps}')
-    #print(f'T(3) = {bsp}')
-    #print(f'T(4) = {-bpp}')
-    #print(f'T(5) = {bpi}')
-    #print(f'T45 =  {bpmpi}')
-

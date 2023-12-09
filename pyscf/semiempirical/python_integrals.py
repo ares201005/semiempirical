@@ -39,7 +39,6 @@ def rotation_matrix(sij):
 
     T = numpy.array([[1.0, 0.0, 0.0, 0.0], [0.0, cos(theta)*cos(phi), cos(theta)*sin(phi), -sin(theta)], 
                   [0.0, -sin(phi), cos(phi), 0.0], [0.0, sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)]])
-    matrix_print_2d(T, 5, "Rot T")
     return T
 
 
@@ -605,6 +604,5 @@ def compute_VAC(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
           e2a = e2a + e2a.transpose() - numpy.diag(numpy.diag(e2a))
           #print('e1b type:',type(e1b))
           #print('e2a type:',type(e2a))
-          print("607 e2a new:", e2a)
     return e1b, e2a
 

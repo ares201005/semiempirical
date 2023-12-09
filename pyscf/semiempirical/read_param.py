@@ -115,9 +115,9 @@ class omx_parameters():
         self.alpha_ph = parameters['alpha_ph']
 
         self.fval1 = parameters['fval1']
-        self.fval2 = parameters['fval2']*27.21
+        self.fval2 = parameters['fval2']#*27.21
         self.gval1 = parameters['gval1']
-        self.gval2 = parameters['gval2']*27.21
+        self.gval2 = parameters['gval2']#*27.21
 
         self.zeta_ecp = parameters['zeta_ecp']
         self.f_aa = parameters['f_aa']

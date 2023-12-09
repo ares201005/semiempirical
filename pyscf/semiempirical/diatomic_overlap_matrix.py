@@ -224,7 +224,5 @@ def diatomic_overlap_matrix(ia, ja, zi, zj, xij, rij, params): #generalize -CL *
        di[0,1:4] *= (beta[0,0] + beta[1,1]) /2.0
        di[1:4,1:4] *= (beta[0,1] + beta[1,1]) /2.0
 
-    print("di:", di)
-
     return di
 
