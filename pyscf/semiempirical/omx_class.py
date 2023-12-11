@@ -96,6 +96,27 @@ def _make_mndo_mol(mol,model,params):
     mndo_mol.build(0, 0)
     return mndo_mol
 
+def get_fko(mol, zi, zj, zeta):
+    symb = _std_symbol(zi)
+    sqm_basis_i = gto.basis.load(basisfile,symb)
+    es_cs_i = np.array([basval for basval in sqm_basis_i[0][1:]]) 
+    es_i = es_cs_i[:,0]
+    cs_i = es_cs_i[:,1]
+    symb = _std_symbol(zj)
+    sqm_basis_j = gto.basis.load(basisfile,symb)
+    es_cs_j = np.array([basval for basval in sqm_basis_j[0][1:]]) 
+    es_j = es_cs_j[:,0]
+    cs_j = es_cs_j[:,1]
+    const = np.power(np.pi, 1.5)*2
+    d_arr = np.zeros(3)
+    exp_arr = np.zeros(3)
+    for k in range(len(es_i)):
+         exp_arr[k] = es_i[k]+es_j[k]
+         d_arr[k] = const/(exp_arr[k])*cs_i[k]*cs_j[k]
+         sq[k] = 1/np.sqrt(2*exp_arr[k])
+    #see SP0000
+    return fko
+
 def ort_correction(mol, S, B, VnucB, params):
 
     aoslices = mol.aoslice_by_atom()
