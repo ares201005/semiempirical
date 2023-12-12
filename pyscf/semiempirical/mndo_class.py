@@ -128,6 +128,9 @@ def get_hcore_mndo(mol, model, python_integrals, params):
     #print("zeta_s:", zeta_s)
     #print("zeta_p:", zeta_p)
 
+    # YZ: this part is hard to vectorize,
+    # replace it with c code (openmp)
+
     aoslices = mol.aoslice_by_atom()
     for ia in range(mol.natm):
         for ja in range(ia+1,mol.natm): #Was ia -CL
@@ -579,6 +582,7 @@ def _get_reference_energy(mol):
     Eat = mopac_param.EISOL3[atom_charges].sum()
     return Hf - Eat * mopac_param.EV2KCAL
 
+# YZ: this can be vectorized in the same as get_energy_nuc_indo
 def get_energy_nuc_mndo(mol,method,params):
     atom_charges = mol.atom_charges()
     atom_coords = mol.atom_coords()
