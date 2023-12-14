@@ -1,0 +1,311 @@
+Python 3.8.17
+pyscf-semiempirical version 0.1.0
+pyscf-semiempirical path /Users/chancelander/Documents/Shao/semiempirical/code/semiempirical
+GIT ORIG_HEAD 85fe15ce60c5553bcab9e59f05acd2256b3650bc
+GIT HEAD (branch develop_chance) 743937e17e13c9ec9da663714714f92ef282317e
+
+
+******** <class 'pyscf.semiempirical.omx_class.ROM2'> ********
+method = ROM2-RHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+SCF conv_tol = 1e-06
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /var/folders/cm/dxbrpnn958s0gr686nw_3fxc0000gn/T/tmpvt9pypev
+max_memory 4000 MB (current use 0 MB)
+Set gradient conv threshold to 0.001
+FKO 0.7727244461415739
+FKO 0.7161732505856346
+FKO 0.8825946177653761
+Hcore
+              1           2           3           4           5  
+   1 - -138.064024  -11.990490   -1.697168    0.000000   -5.008437
+   2 -  -11.990490 -127.010218    0.384891    0.000000   -5.089133
+   3 -   -1.697168    0.384891 -120.148366    0.000000   -0.015546
+   4 -    0.000000    0.000000    0.000000 -119.479366    0.000000
+   5 -   -5.198061   -4.293420   -0.015546    0.000000 -153.256172
+   6 -    5.924853    5.270621   -0.002103    0.000000    7.492891
+   7 -   -0.008294   -0.001003   -3.658871    0.000000   -0.353537
+   8 -    0.000000    0.000000    0.000000   -3.660051    0.000000
+   9 -   -3.238171    2.411972   -3.713620    0.000000   -0.489109
+              6           7           8           9  
+   1 -    5.129140   -0.008294    0.000000   -4.357328
+   2 -    5.914713   -0.001003    0.000000    2.411972
+   3 -   -0.002103   -3.658871    0.000000   -3.713620
+   4 -    0.000000    0.000000   -3.660051    0.000000
+   5 -    7.492891   -0.353537    0.000000   -0.494734
+   6 - -132.504761    0.082343    0.000000    0.441044
+   7 -    0.082343 -130.224232    0.000000   -0.177875
+   8 -    0.000000    0.000000 -130.181239    0.000000
+   9 -    0.441044   -0.177875    0.000000  -99.441758
+e1b [[-6.59792126  0.70204951 -0.36660813 -0.        ]
+ [ 0.70204951 -6.7070987   0.09901903 -0.        ]
+ [-0.36660813  0.09901903 -6.56918606 -0.        ]
+ [-0.         -0.         -0.         -6.51747862]]
+dim e1b (4, 4)
+e2a [[-39.58457486]]
+dim e2a (1, 1)
+  Electronic Energy:  -31.4730976 Eh, -856.4266062 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+init E= -18.0158807867593
+  HOMO = -0.244047909011199  LUMO = -0.178251668780072
+  Electronic Energy:  -34.0817606 Eh, -927.4119421 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 1 E= -20.6245437905241  delta_E= -2.61  |g|= 0.193  |ddm|= 2.76
+  HOMO = -0.40132312004328  LUMO = 0.0139237078557668
+  Electronic Energy:  -34.1020663 Eh, -927.9644901 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 2 E= -20.6448495537642  delta_E= -0.0203  |g|= 0.06  |ddm|= 0.399
+  HOMO = -0.402255784103063  LUMO = 0.0156797008543934
+  Electronic Energy:  -34.1028725 Eh, -927.9864264 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 3 E= -20.6456556984382  delta_E= -0.000806  |g|= 0.0483  |ddm|= 0.0554
+  HOMO = -0.401141500654326  LUMO = 0.0161376692122566
+  Electronic Energy:  -34.1027972 Eh, -927.9843793 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 4 E= -20.6455804686297  delta_E= 7.52e-05  |g|= 0.0499  |ddm|= 0.0129
+  HOMO = -0.401533882357531  LUMO = 0.0148369919535358
+  Electronic Energy:  -34.1031690 Eh, -927.9944955 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 5 E= -20.6459522332503  delta_E= -0.000372  |g|= 0.0469  |ddm|= 0.067
+  HOMO = -0.401844204333538  LUMO = 0.0137558520888026
+  Electronic Energy:  -34.1023485 Eh, -927.9721674 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 6 E= -20.6451316891478  delta_E= 0.000821  |g|= 0.0522  |ddm|= 0.117
+  HOMO = -0.403627932110417  LUMO = 0.00828887573532518
+  Electronic Energy:  -34.1033312 Eh, -927.9989086 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 7 E= -20.6461144109537  delta_E= -0.000983  |g|= 0.0445  |ddm|= 0.196
+  HOMO = -0.408262369316463  LUMO = -0.00205460609695891
+  Electronic Energy:  -34.1028923 Eh, -927.9869651 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 8 E= -20.6456754973892  delta_E= 0.000439  |g|= 0.0421  |ddm|= 0.0916
+  HOMO = -0.414076017782465  LUMO = -0.00644754308898235
+  Electronic Energy:  -34.1027337 Eh, -927.9826509 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 9 E= -20.6455169539604  delta_E= 0.000159  |g|= 0.0417  |ddm|= 0.0726
+  HOMO = -0.404175502822744  LUMO = 0.016887308017292
+  Electronic Energy:  -34.1030777 Eh, -927.9920122 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 10 E= -20.6458609725524  delta_E= -0.000344  |g|= 0.0504  |ddm|= 0.189
+  HOMO = -0.398374544664982  LUMO = 0.0195607000117156
+  Electronic Energy:  -34.1030501 Eh, -927.9912605 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 11 E= -20.6458333505112  delta_E= 2.76e-05  |g|= 0.0505  |ddm|= 0.0147
+  HOMO = -0.417789193764281  LUMO = 0.00944693332713109
+  Electronic Energy:  -34.1027439 Eh, -927.9829268 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 12 E= -20.6455270931455  delta_E= 0.000306  |g|= 0.0507  |ddm|= 0.0297
+  HOMO = -0.39847638596895  LUMO = 0.0160371316160383
+  Electronic Energy:  -34.1030367 Eh, -927.9908961 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 13 E= -20.6458199582338  delta_E= -0.000293  |g|= 0.0499  |ddm|= 0.062
+  HOMO = -0.397218220634093  LUMO = 0.0192408323562797
+  Electronic Energy:  -34.1029639 Eh, -927.9889135 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 14 E= -20.6457470991313  delta_E= 7.29e-05  |g|= 0.0493  |ddm|= 0.048
+  HOMO = -0.399561103904501  LUMO = 0.0182755436546993
+  Electronic Energy:  -34.1033312 Eh, -927.9989086 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 15 E= -20.646114411997  delta_E= -0.000367  |g|= 0.0457  |ddm|= 0.0848
+  HOMO = -0.400145679756919  LUMO = 0.0174826573430721
+  Electronic Energy:  -34.1027723 Eh, -927.9837005 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 16 E= -20.645555524984  delta_E= 0.000559  |g|= 0.0499  |ddm|= 0.106
+  HOMO = -0.401295049629954  LUMO = 0.0166760677496339
+  Electronic Energy:  -34.1030645 Eh, -927.9916508 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 17 E= -20.6458476911491  delta_E= -0.000292  |g|= 0.0481  |ddm|= 0.0387
+  HOMO = -0.400708879042692  LUMO = 0.0178935636228268
+  Electronic Energy:  -34.1027344 Eh, -927.9826695 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 18 E= -20.6455176361486  delta_E= 0.00033  |g|= 0.0523  |ddm|= 0.0418
+  HOMO = -0.401152464632062  LUMO = 0.0172528058820013
+  Electronic Energy:  -34.1031077 Eh, -927.9928265 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 19 E= -20.6458909003642  delta_E= -0.000373  |g|= 0.0489  |ddm|= 0.0376
+  HOMO = -0.402115837752416  LUMO = 0.0175020090577956
+  Electronic Energy:  -34.1030609 Eh, -927.9915535 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 20 E= -20.6458441171954  delta_E= 4.68e-05  |g|= 0.0477  |ddm|= 0.0273
+  HOMO = -0.402736547307105  LUMO = 0.0170642393194648
+  Electronic Energy:  -34.1031944 Eh, -927.9951876 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 21 E= -20.645977667819  delta_E= -0.000134  |g|= 0.0462  |ddm|= 0.0757
+  HOMO = -0.402499945038793  LUMO = 0.0170361712739544
+  Electronic Energy:  -34.1031941 Eh, -927.9951794 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 22 E= -20.6459773673688  delta_E= 3e-07  |g|= 0.0492  |ddm|= 0.056
+  HOMO = -0.402886748212436  LUMO = 0.0208313669401668
+  Electronic Energy:  -34.1030085 Eh, -927.9901277 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 23 E= -20.6457917189382  delta_E= 0.000186  |g|= 0.0485  |ddm|= 0.0368
+  HOMO = -0.402946473594495  LUMO = 0.0168271404799088
+  Electronic Energy:  -34.1034378 Eh, -928.0018088 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 24 E= -20.6462209920593  delta_E= -0.000429  |g|= 0.0453  |ddm|= 0.0756
+  HOMO = -0.404760095664911  LUMO = 0.0134604516315351
+  Electronic Energy:  -34.1022256 Eh, -927.9688250 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 25 E= -20.645008861299  delta_E= 0.00121  |g|= 0.0523  |ddm|= 0.169
+  HOMO = -0.404830613248519  LUMO = 0.0163194219013303
+  Electronic Energy:  -34.1033123 Eh, -927.9983943 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 26 E= -20.6460955106153  delta_E= -0.00109  |g|= 0.0476  |ddm|= 0.129
+  HOMO = -0.402877340576183  LUMO = 0.0176539775110294
+  Electronic Energy:  -34.1028974 Eh, -927.9871036 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 27 E= -20.6456805846089  delta_E= 0.000415  |g|= 0.0521  |ddm|= 0.0626
+  HOMO = -0.404407479097463  LUMO = 0.0179883856596463
+  Electronic Energy:  -34.1033705 Eh, -927.9999792 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 28 E= -20.6461537540853  delta_E= -0.000473  |g|= 0.0479  |ddm|= 0.0743
+  HOMO = -0.403993468014844  LUMO = 0.017285532315455
+  Electronic Energy:  -34.1033409 Eh, -927.9991731 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 29 E= -20.6461241312736  delta_E= 2.96e-05  |g|= 0.0482  |ddm|= 0.0237
+  HOMO = -0.404411906257532  LUMO = 0.0166880964218137
+  Electronic Energy:  -34.1033482 Eh, -927.9993708 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 30 E= -20.6461313975159  delta_E= -7.27e-06  |g|= 0.0472  |ddm|= 0.0276
+  HOMO = -0.404893783007273  LUMO = 0.0189351427170518
+  Electronic Energy:  -34.1033529 Eh, -927.9994997 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 31 E= -20.6461361328176  delta_E= -4.74e-06  |g|= 0.0475  |ddm|= 0.0299
+  HOMO = -0.405840887048383  LUMO = 0.0157359874453545
+  Electronic Energy:  -34.1033721 Eh, -928.0000209 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 32 E= -20.6461552864216  delta_E= -1.92e-05  |g|= 0.0479  |ddm|= 0.0292
+  HOMO = -0.40603752238331  LUMO = 0.0159341933606353
+  Electronic Energy:  -34.1033415 Eh, -927.9991905 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 33 E= -20.646124770285  delta_E= 3.05e-05  |g|= 0.049  |ddm|= 0.00567
+  HOMO = -0.407058823324385  LUMO = 0.0137522246499633
+  Electronic Energy:  -34.1018859 Eh, -927.9595794 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 34 E= -20.6446690920093  delta_E= 0.00146  |g|= 0.0521  |ddm|= 0.156
+  HOMO = -0.407182243429628  LUMO = 0.0154666112354535
+  Electronic Energy:  -34.1033440 Eh, -927.9992582 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 35 E= -20.6461272612227  delta_E= -0.00146  |g|= 0.0454  |ddm|= 0.172
+  HOMO = -0.405425969729304  LUMO = 0.0159920061605404
+  Electronic Energy:  -34.1030844 Eh, -927.9921921 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 36 E= -20.6458675854977  delta_E= 0.00026  |g|= 0.0499  |ddm|= 0.0727
+  HOMO = -0.406495918585585  LUMO = 0.0157293973859472
+  Electronic Energy:  -34.1034636 Eh, -928.0025124 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 37 E= -20.6462468498968  delta_E= -0.000379  |g|= 0.0461  |ddm|= 0.0681
+  HOMO = -0.406155875034767  LUMO = 0.0135070608877615
+  Electronic Energy:  -34.1033052 Eh, -927.9982030 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 38 E= -20.6460884804389  delta_E= 0.000158  |g|= 0.0462  |ddm|= 0.0687
+  HOMO = -0.403501365525932  LUMO = 0.0178542018853581
+  Electronic Energy:  -34.1033324 Eh, -927.9989417 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 39 E= -20.6461156267971  delta_E= -2.71e-05  |g|= 0.0498  |ddm|= 0.103
+  HOMO = -0.402664279735961  LUMO = 0.0218909273085558
+  Electronic Energy:  -34.1032766 Eh, -927.9974244 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 40 E= -20.646059869524  delta_E= 5.58e-05  |g|= 0.0478  |ddm|= 0.0518
+  HOMO = -0.403525747567475  LUMO = 0.0197750263791213
+  Electronic Energy:  -34.1033153 Eh, -927.9984754 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 41 E= -20.6460984938013  delta_E= -3.86e-05  |g|= 0.0491  |ddm|= 0.0295
+  HOMO = -0.40346938509753  LUMO = 0.018569644397479
+  Electronic Energy:  -34.1032924 Eh, -927.9978525 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 42 E= -20.6460756020395  delta_E= 2.29e-05  |g|= 0.0494  |ddm|= 0.0298
+  HOMO = -0.404405896904035  LUMO = 0.0167677558905075
+  Electronic Energy:  -34.1019510 Eh, -927.9613515 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 43 E= -20.6447342132017  delta_E= 0.00134  |g|= 0.053  |ddm|= 0.153
+  HOMO = -0.404534205573143  LUMO = 0.017215470050743
+  Electronic Energy:  -34.1032567 Eh, -927.9968832 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 44 E= -20.6460399805653  delta_E= -0.00131  |g|= 0.0469  |ddm|= 0.151
+  HOMO = -0.403475568136044  LUMO = 0.0179565596371144
+  Electronic Energy:  -34.1031218 Eh, -927.9932114 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 45 E= -20.6459050430125  delta_E= 0.000135  |g|= 0.0504  |ddm|= 0.0526
+  HOMO = -0.403034596697006  LUMO = 0.0191986282732034
+  Electronic Energy:  -34.1031293 Eh, -927.9934158 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 46 E= -20.6459125554048  delta_E= -7.51e-06  |g|= 0.0511  |ddm|= 0.0149
+  HOMO = -0.405565998209946  LUMO = 0.0150740463414844
+  Electronic Energy:  -34.1032967 Eh, -927.9979707 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 47 E= -20.6460799454951  delta_E= -0.000167  |g|= 0.0456  |ddm|= 0.129
+  HOMO = -0.402798119403935  LUMO = 0.0198665417009956
+  Electronic Energy:  -34.1032007 Eh, -927.9953577 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 48 E= -20.6459839193701  delta_E= 9.6e-05  |g|= 0.05  |ddm|= 0.114
+  HOMO = -0.400921158748011  LUMO = 0.0223668971175459
+  Electronic Energy:  -34.1032093 Eh, -927.9955929 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 49 E= -20.645992562956  delta_E= -8.64e-06  |g|= 0.046  |ddm|= 0.051
+  HOMO = -0.401622301188573  LUMO = 0.0202822480798513
+  Electronic Energy:  -34.1033851 Eh, -928.0003766 eV
+  Nuclear Energy:      13.4572168 Eh,  366.1895199 eV
+
+cycle= 50 E= -20.6461683607477  delta_E= -0.000176  |g|= 0.0474  |ddm|= 0.0342
+SCF not converged.
+SCF energy = -20.6461683607477
+Heat of formation = -1037.37199054197 kcal/mol, -1.65312509488022 Eh

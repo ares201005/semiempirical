@@ -188,10 +188,28 @@ def compute_VAC_analytical(mol, ia, jb, aoslices):
     i0, i1 = aoslices[ia,2:]
     j0, j1 = aoslices[jb,2:]
     mol.set_rinv_origin(mol.atom_coord(ia))
-    e2a = -charge_a * mol.intor('int1e_rinv')[j0:j1, j0:j1]
+    #e2a = -charge_a * mol.intor('int1e_rinv')[j0:j1, j0:j1]
+    #print('e2a',e2a)
+    e2a = -charge_a * mol.intor('int1e_rinv',shls_slice=(aoslices[jb,0], aoslices[jb,1], aoslices[jb,0], aoslices[jb,1]))
+    #e2a2 = mol.intor('int2e',shls_slice=(aoslices[jb,0], aoslices[jb,1], aoslices[jb,0], aoslices[jb,1], \
+    #                                             aoslices[ia,0], aoslices[ia,1], aoslices[ia,0], aoslices[ia,1]))
+    #print('e2a2',e2a2[0][0][0][0])
 
     mol.set_rinv_origin(mol.atom_coord(jb))
-    e1b = -charge_b * mol.intor('int1e_rinv')[i0:i1, i0:i1]
+    #e1b = -charge_b * mol.intor('int1e_rinv')[i0:i1, i0:i1]
+    #print('e1b',e1b)
+    e1b = -charge_b * mol.intor('int1e_rinv', shls_slice=(aoslices[ia,0], aoslices[ia,1], aoslices[ia,0], aoslices[ia,1]))
+    #e1b2 = mol.intor('int2e',shls_slice=(aoslices[ia,0], aoslices[ia,1], aoslices[ia,0], aoslices[ia,1], \
+    #                                              aoslices[jb,0], aoslices[jb,1], aoslices[jb,0], aoslices[jb,1]))
+    #print('e1b2',e1b2[0][0][0][0])
+    #print('e1b point', e1b)
+
+    #mol.nucmod = 1
+    #e1b = -charge_b * mol.intor('int1e_rinv', shls_slice=(0, 1, 0, 1))
+    #print('e1b gaussian blur', e1b)
+    #exit(-1)
+
+    #print(mol.ao_labels())
 
     return e1b, e2a
 
@@ -222,7 +240,6 @@ def get_hcore_mndo(mol, model, python_integrals, params):
         for ja in range(ia+1,mol.natm):
             zi = mol.atom_charge(ia)
             zj = mol.atom_charge(ja)
-            e1b, e2a = compute_VAC_analytical(mol, ia, ja, aoslices)
             xij = mol.atom_coord(ja)-mol.atom_coord(ia)
             rij = np.linalg.norm(xij)
             xij /= rij
@@ -230,10 +247,26 @@ def get_hcore_mndo(mol, model, python_integrals, params):
             #fKO 
             aee = 0.5/params.am[zi] + 0.5/params.am[zj]
             R0_semi = -1.0/sqrt(rij*rij+aee*aee)
-            fKO_e1b = R0_semi * params.tore[zj] / e1b[0,0]
-            fKO_e2a = R0_semi * params.tore[zi] / e2a[0,0]
-            e1b *= fKO_e1b * 27.21
-            e2a *= fKO_e2a * 27.21 #keep this fko scaling?
+            #fKO_e1b = R0_semi * params.tore[zj] / e1b[0,0]
+            #fKO_e2a = R0_semi * params.tore[zi] / e2a[0,0]
+
+            old = False
+            if old:
+                e1b, e2a = compute_VAC_analytical(mol, ia, ja, aoslices)
+                fKO_e1b = R0_semi * params.tore[zj] / e1b[0][0]
+                fKO_e2a = R0_semi * params.tore[zi] / e2a[0][0]
+                print('FKOb',fKO_e1b)
+                print('FKOa',fKO_e2a)
+                e1b *= fKO_e1b * 27.21
+                e2a *= fKO_e2a * 27.21
+            else: 
+                e1b, e2a = compute_VAC_analytical(mol, ia, ja, aoslices)
+                e2ab = mol.intor('int2e',shls_slice=(aoslices[ia,0], aoslices[ia,1], aoslices[ia,0], aoslices[ia,1], \
+                                                     aoslices[ja,0], aoslices[ja,1], aoslices[ja,0], aoslices[ja,1]))
+                fKO_e1b = -R0_semi / e2ab[0][0][0][0]
+                print('FKO',fKO_e1b)
+                e1b *= fKO_e1b * 27.21
+                e2a *= fKO_e1b * 27.21
 
             i0, i1 = aoslices[ia,2:]
             j0, j1 = aoslices[ja,2:]
@@ -263,6 +296,10 @@ def get_hcore_mndo(mol, model, python_integrals, params):
     hcore += Hort
     matrix_print_2d(hcore, 5, "Hcore")
     hcore /=27.21
+    print('e1b', e1b)
+    print('dim e1b', np.shape(e1b))
+    print('e2a', e2a)
+    print('dim e2a', np.shape(e2a))
     return hcore
 
 def _get_jk_2c_ints(mol, model, python_integrals, ia, ja, params):
@@ -507,14 +544,14 @@ def get_energy_nuc_om2(mol,method,params):
             if charge_b > 1: charge_b -= 2
             xij = mol.atom_coord(ja)-mol.atom_coord(ia)
             rij = np.linalg.norm(xij)
-
             aoslices = mol.aoslice_by_atom()
-            e1b, e2a = compute_VAC_analytical(mol, ia, ja, aoslices)
-
             aee = 0.5/params.am[ni] + 0.5/params.am[nj]
             R0_semi = -1.0/sqrt(rij*rij+aee*aee)
-            fKO = R0_semi * params.tore[nj] / e1b.flat[0]
-            enuc += params.tore[ni] * params.tore[nj] * fKO / rij #EN(A,B) = ZZ*fKO/rij 
+            e1b, e2a = compute_VAC_analytical(mol, ia, ja, aoslices)
+            e2ab = mol.intor('int2e',shls_slice=(aoslices[ja,0], aoslices[ja,1], aoslices[ja,0], aoslices[ja,1], \
+                                                 aoslices[ia,0], aoslices[ia,1], aoslices[ia,0], aoslices[ia,1]))
+            fKO_e1b = -R0_semi / e2ab[0][0][0][0]
+            enuc += params.tore[ni] * params.tore[nj] * fKO_e1b / rij #EN(A,B) = ZZ*fKO/rij 
 
     return enuc
 
