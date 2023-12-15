@@ -147,8 +147,8 @@ def ort_correction(mol, S, B, VnucB, params):
                 F2a = params.fval2[mol.atom_charges()[ia]]
                 i0, i1 = aoslices[ia,2:]
                 j0, j1 = aoslices[jb,2:]
-                Hort[i0:i1,i0:i1] -= 0.5*F1a*lib.einsum('mr,rn->mn',S[i0:i1,j0:j1], B[j0:j1,i0:i1])
-                Hort[i0:i1,i0:i1] -= 0.5*F1a*lib.einsum('mr,rn->mn',B[i0:i1,j0:j1], S[j0:j1,i0:i1])
+                Hort[i0:i1,i0:i1] -= 0.5*F1a*np.einsum('mr,rn->mn',S[i0:i1,j0:j1], B[j0:j1,i0:i1])
+                Hort[i0:i1,i0:i1] -= 0.5*F1a*np.einsum('mr,rn->mn',B[i0:i1,j0:j1], S[j0:j1,i0:i1])
                 for mu in range(i0, i1):
                     for nu in range(i0, i1):
                         for rho in range(j0, j1):
@@ -169,8 +169,8 @@ def ort_correction(mol, S, B, VnucB, params):
             for kc in range(0, mol.natm):
                 if kc != ia and kc != jb:
                     k0, k1 = aoslices[kc,2:]
-                    Hort3c[i0:i1,j0:j1] -= 0.5*G1*lib.einsum('mr,rl->ml',S[i0:i1,k0:k1], B[k0:k1,j0:j1])
-                    Hort3c[i0:i1,j0:j1] -= 0.5*G1*lib.einsum('mr,rl->ml',B[i0:i1,k0:k1], S[k0:k1,j0:j1])
+                    Hort3c[i0:i1,j0:j1] -= 0.5*G1*np.einsum('mr,rl->ml',S[i0:i1,k0:k1], B[k0:k1,j0:j1])
+                    Hort3c[i0:i1,j0:j1] -= 0.5*G1*np.einsum('mr,rl->ml',B[i0:i1,k0:k1], S[k0:k1,j0:j1])
                     for mu in range(i0, i1):
                         for lm in range(j0, j1):
                             for rho in range(k0, k1):
@@ -327,25 +327,25 @@ def get_jk_mndo(mol, dm, model, python_integrals, params):
         dm_blk = dm[:,p0:p1,p0:p1]
         idx = np.arange(p0, p1)
         # J[i,i] = (ii|jj)*dm_jj
-        vj[:,idx,idx] = lib.einsum('ij,xjj->xi', j_ints, dm_blk)
+        vj[:,idx,idx] = np.einsum('ij,xjj->xi', j_ints, dm_blk)
         # J[i,j] = (ij|ij)*dm_ji +  (ij|ji)*dm_ij
         vj[:,p0:p1,p0:p1] += 2*k_ints * dm_blk
         # K[i,i] = (ij|ji)*dm_jj
-        vk[:,idx,idx] = lib.einsum('ij,xjj->xi', k_ints, dm_blk)
+        vk[:,idx,idx] = np.einsum('ij,xjj->xi', k_ints, dm_blk)
         # K[i,j] = (ii|jj)*dm_ij + (ij|ij)*dm_ji
         vk[:,p0:p1,p0:p1] += (j_ints+k_ints) * dm_blk
 
     # Two-center contributions to the J/K matrices
     for ia, (i0, i1) in enumerate(aoslices[:,2:]):
         w = _get_jk_2c_ints(mol, model, python_integrals, ia, ia, params)[0]
-        vj[:,i0:i1,i0:i1] += lib.einsum('ijkl,xkl->xij', w, dm[:,i0:i1,i0:i1])
-        vk[:,i0:i1,i0:i1] += lib.einsum('ijkl,xjk->xil', w, dm[:,i0:i1,i0:i1])
+        vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w, dm[:,i0:i1,i0:i1])
+        vk[:,i0:i1,i0:i1] += np.einsum('ijkl,xjk->xil', w, dm[:,i0:i1,i0:i1])
         for ja, (j0, j1) in enumerate(aoslices[:ia,2:]):
             w = _get_jk_2c_ints(mol, model, python_integrals, ia, ja, params)[0]
-            vj[:,i0:i1,i0:i1] += lib.einsum('ijkl,xkl->xij', w, dm[:,j0:j1,j0:j1])
-            vj[:,j0:j1,j0:j1] += lib.einsum('klij,xkl->xij', w, dm[:,i0:i1,i0:i1])
-            vk[:,i0:i1,j0:j1] += lib.einsum('ijkl,xjk->xil', w, dm[:,i0:i1,j0:j1])
-            vk[:,j0:j1,i0:i1] += lib.einsum('klij,xjk->xil', w, dm[:,j0:j1,i0:i1])
+            vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w, dm[:,j0:j1,j0:j1])
+            vj[:,j0:j1,j0:j1] += np.einsum('klij,xkl->xij', w, dm[:,i0:i1,i0:i1])
+            vk[:,i0:i1,j0:j1] += np.einsum('ijkl,xjk->xil', w, dm[:,i0:i1,j0:j1])
+            vk[:,j0:j1,i0:i1] += np.einsum('klij,xjk->xil', w, dm[:,j0:j1,i0:i1])
 
     vj = vj.reshape(dm_shape)
     vk = vk.reshape(dm_shape)

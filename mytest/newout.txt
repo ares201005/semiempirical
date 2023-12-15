@@ -2,7 +2,7 @@ Python 3.8.17
 pyscf-semiempirical version 0.1.0
 pyscf-semiempirical path /Users/chancelander/Documents/Shao/semiempirical/code/semiempirical
 GIT ORIG_HEAD 85fe15ce60c5553bcab9e59f05acd2256b3650bc
-GIT HEAD (branch develop_chance) 743937e17e13c9ec9da663714714f92ef282317e
+GIT HEAD (branch develop_chance) 0b187b2d19c162d1779ef85240bbbda6143c8c99
 
 
 ******** <class 'pyscf.semiempirical.omx_class.ROM2'> ********
@@ -18,7 +18,7 @@ SCF conv_tol_grad = None
 SCF max_cycles = 50
 direct_scf = True
 direct_scf_tol = 1e-13
-chkfile to save SCF result = /var/folders/cm/dxbrpnn958s0gr686nw_3fxc0000gn/T/tmph9d5nc6g
+chkfile to save SCF result = /var/folders/cm/dxbrpnn958s0gr686nw_3fxc0000gn/T/tmp2415baw_
 max_memory 4000 MB (current use 0 MB)
 Set gradient conv threshold to 0.001
 FKO 0.7727244461415735
@@ -45,13 +45,6 @@ Hcore
    7 -    0.082343 -130.224232    0.000000   -0.177875
    8 -    0.000000    0.000000 -130.181239    0.000000
    9 -    0.441044   -0.177875    0.000000  -99.441758
-e1b [[-6.59792126  0.70204951 -0.36660813 -0.        ]
- [ 0.70204951 -6.7070987   0.09901903 -0.        ]
- [-0.36660813  0.09901903 -6.56918606 -0.        ]
- [-0.         -0.         -0.         -6.51747862]]
-dim e1b (4, 4)
-e2a [[-39.58457486]]
-dim e2a (1, 1)
   Electronic Energy:  -31.4730976 Eh, -856.4266062 eV
   Nuclear Energy:      13.5816392 Eh,  369.5752267 eV
 
