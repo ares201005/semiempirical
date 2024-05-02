@@ -45,7 +45,7 @@ def scale_bf(us_es, cs, zeta, l):
 
 def gaussian_terms(mol, l, zi, zj, zecp, zeta): 
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    basisfile = dir_path+'/basis-ecp_om2.dat'
+    basisfile = dir_path+'/basis_sqm/om2_basis.dat'
     symb = _std_symbol(zi)
     sqm_basis = gto.basis.load(basisfile,symb)
     #sqm_basis = mol.basis[symb] #orbital basis #problem: uses scaled bf

@@ -54,7 +54,7 @@ def _make_mndo_mol(mol,model,params):
     assert(not mol.has_ecp())
     def make_sqm_basis(n, l, charge, zeta, model): 
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        basisfile = dir_path+'/basis-ecp_om2.dat'
+        basisfile = dir_path+'/basis_sqm/om2_basis.dat'
         symb = _std_symbol(charge)
         sqm_basis = gto.basis.load(basisfile,symb)
 
@@ -276,6 +276,55 @@ def get_hcore_mndo(mol, model, python_integrals, params):
     hcore /=27.21
     return hcore
 
+def _get_jk_2c_ints(mol, model, python_integrals, ia, ja, params): #should be ok -CL
+    zi = mol.atom_charge(ia)
+    zj = mol.atom_charge(ja)
+    ri = mol.atom_coord(ia) #?*lib.param.BOHR
+    rj = mol.atom_coord(ja) #?*lib.param.BOHR
+    w = np.zeros((10,10))
+    e1b = np.zeros(10)
+    e2a = np.zeros(10)
+    enuc = np.zeros(1)
+    AM1_MODEL = 2
+    #print('zi:', zi, zj, ri, rj)
+    #print('alpha:', alpha)
+    #print('dd:', dd)
+    #print('am:', am)
+    #print('K1:', K[1], L[1], M[1])
+    #print('L6:', K[6], L[6], M[6])
+    #print('M8:', K[8], L[8], M[8])
+    if python_integrals == 0 or python_integrals == 1:
+        repp(zi, zj, ri, rj, w, e1b, e2a, enuc, params.alpha, params.dd, params.qq, params.am, params.ad, params.aq,
+            params.K, params.L, params.M, AM1_MODEL)
+    #print("enuc:", enuc, e1b, e2a)
+    #print("e1b", e1b)
+    #print("e2a", e2a)
+    #a, b = compute_VAC(zi, zj, ri, rj, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+    #print("w:", w)
+        matrix_print_2d(w, 5, "w")
+    elif python_integrals == 2 or python_integrals == 3:
+        w = compute_W_ori(zi, zj, ri, rj, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+        matrix_print_2d(w, 5, "w new "+str(ia)+ " " + str(ja))
+
+    tril2sq = lib.square_mat_in_trilu_indices(4)
+    w = w[:,tril2sq][tril2sq]
+    e1b = e1b[tril2sq]
+    e2a = e2a[tril2sq]
+
+    if params.tore[zj] <= 1: #check same as mopac_param.CORE[zj]
+        e2a = e2a[:1,:1]
+        w = w[:,:,:1,:1]
+    if params.tore[zi] <= 1:
+        e1b = e1b[:1,:1]
+        w = w[:1,:1]
+    #print('w',w)
+    #print('e1b',e1b)
+    #print('e2a',e2a)
+    #print('tore[zj]',tore[zj])
+    #print('tore[zi]',tore[zi])
+    return w, e1b, e2a, enuc[0]
+
+'''
 def _get_jk_2c_ints(mol, model, python_integrals, ia, ja, params):
     zi = mol.atom_charge(ia)
     zj = mol.atom_charge(ja)
@@ -304,7 +353,68 @@ def _get_jk_2c_ints(mol, model, python_integrals, ia, ja, params):
         e1b = e1b[:1,:1]
         w = w[:1,:1]
     return w, e1b, e2a, enuc[0]
+'''
 
+@lib.with_doc(scf.hf.get_jk.__doc__)
+def get_jk_mndo(mol, dm, model, python_integrals, params):
+    dm = np.asarray(dm)
+    dm_shape = dm.shape
+    nao = dm_shape[-1]
+
+    dm = dm.reshape(-1,nao,nao)
+    vj = np.zeros_like(dm)
+    vk = np.zeros_like(dm)
+
+    # One-center contributions to the J/K matrices
+    atom_charges = mol.atom_charges()
+    jk_ints = {z: _get_jk_1c_ints_mndo(z, params) for z in set(atom_charges)}
+    #print('jk_ints',jk_ints)
+
+    aoslices = mol.aoslice_by_atom()
+    for ia, (p0, p1) in enumerate(aoslices[:,2:]):
+        z = atom_charges[ia]
+        j_ints, k_ints = jk_ints[z]
+
+        dm_blk = dm[:,p0:p1,p0:p1]
+        idx = np.arange(p0, p1)
+        # J[i,i] = (ii|jj)*dm_jj
+        vj[:,idx,idx] = np.einsum('ij,xjj->xi', j_ints, dm_blk)
+        # J[i,j] = (ij|ij)*dm_ji +  (ij|ji)*dm_ij
+        vj[:,p0:p1,p0:p1] += 2*k_ints * dm_blk
+
+        # K[i,i] = (ij|ji)*dm_jj
+        vk[:,idx,idx] = np.einsum('ij,xjj->xi', k_ints, dm_blk)
+        # K[i,j] = (ii|jj)*dm_ij + (ij|ij)*dm_ji
+        vk[:,p0:p1,p0:p1] += (j_ints+k_ints) * dm_blk
+
+    # Two-center contributions to the J/K matrices
+    for ia, (i0, i1) in enumerate(aoslices[:,2:]):
+        w = _get_jk_2c_ints(mol, model, python_integrals, ia, ia, params)[0]
+        print("ia:", ia, "i0:", i0, "i1:", i1)
+        #w2 = compute_W(mol.atom_charge(ia), mol.atom_charge(ia), mol.atom_coord(ia), mol.atom_coord(ia),
+        #               params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+        #print("w diag:", w)
+        vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w, dm[:,i0:i1,i0:i1])
+        vk[:,i0:i1,i0:i1] += np.einsum('ijkl,xjk->xil', w, dm[:,i0:i1,i0:i1])
+        for ja, (j0, j1) in enumerate(aoslices[:ia,2:]):
+            print("w, ia:", ia, "ja:", ja)
+            w = _get_jk_2c_ints(mol, model, python_integrals, ia, ja, params)[0]
+            #print("w:", w)
+            #w2 = compute_W(mol.atom_charge(ia), mol.atom_charge(ja), mol.atom_coord(ia), mol.atom_coord(ja),
+            #               params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+            #print("w2:", w2)
+            #matrix_print_2d(w2, 10, "w2")
+            vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w, dm[:,j0:j1,j0:j1])
+            vj[:,j0:j1,j0:j1] += np.einsum('klij,xkl->xij', w, dm[:,i0:i1,i0:i1])
+            vk[:,i0:i1,j0:j1] += np.einsum('ijkl,xjk->xil', w, dm[:,i0:i1,j0:j1])
+            vk[:,j0:j1,i0:i1] += np.einsum('klij,xjk->xil', w, dm[:,j0:j1,i0:i1])
+
+    vj = vj.reshape(dm_shape)
+    vk = vk.reshape(dm_shape)
+    #print("dm:", dm)
+    return vj, vk
+
+'''
 @lib.with_doc(scf.hf.get_jk.__doc__)
 def get_jk_mndo(mol, dm, model, python_integrals, params):
     dm = np.asarray(dm)
@@ -350,6 +460,7 @@ def get_jk_mndo(mol, dm, model, python_integrals, params):
     vj = vj.reshape(dm_shape)
     vk = vk.reshape(dm_shape)
     return vj, vk
+'''
 
 def get_init_guess(mol):
     '''Average occupation density matrix'''
@@ -375,6 +486,7 @@ def energy_tot(mf, dm=None, h1e=None, vhf=None):
 class ROM2(scf.hf.RHF):
     '''RHF-OM2 calculations for closed-shell systems'''
     def __init__(self, mol, model, python_integrals=0):
+        print('DICT OM2: ', mol.__dict__)
         scf.hf.RHF.__init__(self, mol)
         self.conv_tol = 1e-5
         self.e_heat_formation = None

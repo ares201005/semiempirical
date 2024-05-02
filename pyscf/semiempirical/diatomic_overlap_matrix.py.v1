@@ -11,9 +11,75 @@ from pyscf.lib import logger
 from pyscf import gto
 from pyscf import scf
 from pyscf.data.elements import _symbol
-from .compute_hcore_overlap import *
 
-def diatomic_overlap_matrix_ori(ia, ja, zi, zj, xij, rij, params): #generalize -CL ***
+def SET(rij, jcall, z1, z2):
+    """
+    get the A integrals and B integrals for diatom_overlap_matrix
+    """
+    #alpha, beta below is used in aintgs and bintgs, not the parameters for AM1/MNDO/PM3
+    #rij: distance between atom i and j in atomic unit
+    #print('SET:')
+    #print('rij',rij)
+    #print('z1',z1)
+    #print('z2',z2)
+
+    alp = 0.5*rij*(z1+z2)
+    beta  = 0.5*rij*(z1-z2)
+    #print("alpha, beta:", alp, beta)
+    A = aintgs(alp, jcall)
+    B = bintgs(beta, jcall)
+    #print("A=", A)
+    #print("B=", B)
+    return A, B
+
+
+def aintgs(x, jcall):
+    """
+    A integrals for diatom_overlap_matrix
+    """
+    a1 = np.exp(-x)/x
+    a2 = a1 +a1/x
+    a3 = a1 + 2.0*a2/x
+    a4 = a1+3.0*a3/x
+    a5 = a1+4.0*a4/x
+    #print("a1, a2, a3, a4, a5:", a1, a2, a3, a4, a5)
+    return np.array([a1, a2, a3, a4, a5])
+
+def bintgs(x, jcall):
+    """
+    B integrals for diatom_overlap_matrix
+    """
+    absx = abs(x)
+    #cond1 = absx > 0.5
+
+    b1 = 2.0 
+    b2 = 0.0 
+    b3 = 2.0/3.0 
+    b4 = 0.0 
+    b5 = 2.0/5.0 
+
+    if absx>0.5:
+
+       b1 =   np.exp(x)/x - np.exp(-x)/x
+       b2 = - np.exp(x)/x - np.exp(-x)/x + b1/x
+       b3 =   np.exp(x)/x - np.exp(-x)/x + 2*b2/x
+       b4 = - np.exp(x)/x - np.exp(-x)/x + 3*b3/x
+       b5 =   np.exp(x)/x - np.exp(-x)/x + 4*b4/x
+       #print("406, b1, b2, b3, b4, b5:", b1, b2, b3, b4, b5)
+
+    elif absx > 1.0e-6: 
+
+       b1 = 2.0     + x**2/3.0 + x**4/60.0 + x**6/2520.0
+       b3 = 2.0/3.0 + x**2/5.0 + x**4/84.0 + x**6/3240.0
+       b5 = 2.0/5.0 + x**2/7.0 + x**4/108.0 + x**6/3960.0
+
+       b2 = -2.0/3.0*x - x**3/15.0 - x**5/420.0
+       b4 = -2.0/5.0*x - x**3/21.0 - x**5/540.0
+       #print("488, b1, b2, b3, b4, b5:", b1, b2, b3, b4, b5)
+
+    return np.array([b1, b2, b3, b4, b5])
+
+def diatomic_overlap_matrix(ia, ja, zi, zj, xij, rij, params): #generalize -CL ***
     #Plan to generalize: PYSEQM uses zi, zj, xij, rij as arrays and builds with jcall using arrays. 
     #Either call diat_overlap multiple times or pass zi zj arrays. 
     #if zi == 8 and zj == 8: jcall = 4
@@ -63,7 +129,7 @@ def diatomic_overlap_matrix_ori(ia, ja, zi, zj, xij, rij, params): #generalize -
     #print('Full Zeta:', zeta)
     #if zi == 8 and zj == 8:
     beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
-    A111,B111 = SET(rij, zeta[0,0],zeta[1,0])
+    A111,B111 = SET(rij, jcall, zeta[0,0],zeta[1,0])
     #Probably need to make SXX arrays dependent on jcall value. -CL ***
 
     if jcall == 2:
@@ -79,7 +145,7 @@ def diatomic_overlap_matrix_ori(ia, ja, zi, zj, xij, rij, params): #generalize -
     #print("S111:", S111)
     di[0,0] = S111
     if jcall == 3:
-       A211,B211 = SET(rij, zeta[0,1],zeta[1,0])
+       A211,B211 = SET(rij, jcall, zeta[0,1],zeta[1,0])
        #print('A211 zeta [0,1] [1,0]', zeta[0,1],zeta[1,0])
        S211 = math.pow(zeta[1,0],1.5)* math.pow(zeta[0,1],2.5)* rij**4 * \
                   (A211[2]*B211[0]-B211[2]*A211[0]+ \
@@ -89,7 +155,7 @@ def diatomic_overlap_matrix_ori(ia, ja, zi, zj, xij, rij, params): #generalize -
        di[3,0] = S211*cb
        #print("S211:", S211)
     elif jcall == 4:
-       A211,B211 = SET(rij, zeta[0,1],zeta[1,0])
+       A211,B211 = SET(rij, jcall, zeta[0,1],zeta[1,0])
        S211 = math.pow(zeta[1,0]* zeta[0,1],2.5)* rij**5 * \
                   (A211[3]*(B211[0]-B211[2]) \
                   -A211[1]*(B211[2]-B211[4]) \
@@ -101,7 +167,7 @@ def diatomic_overlap_matrix_ori(ia, ja, zi, zj, xij, rij, params): #generalize -
        di[3,0] = S211*cb
        #print("S211:", S211)
     if jcall == 4:
-       A121,B121 = SET(rij, zeta[0,0],zeta[1,1])
+       A121,B121 = SET(rij, jcall, zeta[0,0],zeta[1,1])
        #print('A121 zeta [0,0] [1,1]', zeta[0,0],zeta[1,1])
        S121 = math.pow(zeta[1,1]* zeta[0,0],2.5)* rij**5 * \
                   (A121[3]*(B121[0]-B121[2]) \
@@ -114,7 +180,7 @@ def diatomic_overlap_matrix_ori(ia, ja, zi, zj, xij, rij, params): #generalize -
        di[0,2] = -S121*sasb
        di[0,3] = -S121*cb
     if jcall == 4:
-       A22,B22 = SET(rij, zeta[0,1],zeta[1,1]) #Can cause div by 0. Fix with if? -CL
+       A22,B22 = SET(rij, jcall, zeta[0,1],zeta[1,1]) #Can cause div by 0. Fix with if? -CL
        #print('A22 zeta [0,1] [1,1]', zeta[0,1],zeta[1,1])
        S221 = -math.pow(zeta[1,1]* zeta[0,1],2.5)* rij**5/16.0 * \
                   (B22[2]*(A22[4]+A22[0]) \

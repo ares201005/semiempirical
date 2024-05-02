@@ -20,6 +20,7 @@ from pyscf import gto
 from pyscf import scf
 from pyscf.data.elements import _symbol
 from pyscf.semiempirical import mopac_param
+from .mndo_class import matrix_print_2d # remove later
 
 
 @lib.with_doc(scf.hf.get_hcore.__doc__)
@@ -61,6 +62,7 @@ def get_hcore(mol):
     for ia, (p0, p1) in enumerate(aoslices[:,2:]):
         idx = numpy.arange(p0, p1)
         hcore[idx,idx] -= vnuc[ia]
+    matrix_print_2d(hcore, len(hcore[0]), 'Old Hcore')
     return hcore
 
 
@@ -153,6 +155,9 @@ def energy_tot(mf, dm=None, h1e=None, vhf=None):
     mol = mf._mindo_mol
     e_tot = mf.energy_elec(dm, h1e, vhf)[0] + mf.energy_nuc()
     e_ref = _get_reference_energy(mol)
+
+    print(f'  Electronic Energy: {(e_tot-mf.energy_nuc()): 12.7f} Eh, {(e_tot-mf.energy_nuc())*27.211386: 12.7f} eV')
+    print(f'  Nuclear Energy:    {(mf.energy_nuc()): 12.7f} Eh, {(mf.energy_nuc())*27.211386: 12.7f} eV\n')
 
     mf.e_heat_formation = e_tot * mopac_param.HARTREE2KCAL + e_ref
     logger.debug(mf, 'E(ref) = %.15g  Heat of Formation = %.15g kcal/mol',

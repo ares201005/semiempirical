@@ -1,0 +1,84 @@
+Python 3.8.17
+pyscf-semiempirical version 0.1.0
+pyscf-semiempirical path /Users/chancelander/Documents/Shao/semiempirical/code/semiempirical
+GIT ORIG_HEAD 85fe15ce60c5553bcab9e59f05acd2256b3650bc
+GIT HEAD (branch develop_chance) 9bdbd6cacbcfe6f8bcbe26592e9ef0105847408c
+
+
+******** <class 'pyscf.semiempirical.mindo3.UMINDO3'> ********
+method = UMINDO3-UHF
+initial guess = minao
+damping factor = 0
+level_shift factor = 0
+DIIS = <class 'pyscf.scf.diis.CDIIS'>
+diis_start_cycle = 1
+diis_space = 8
+SCF conv_tol = 1e-06
+SCF conv_tol_grad = None
+SCF max_cycles = 50
+direct_scf = True
+direct_scf_tol = 1e-13
+chkfile to save SCF result = /var/folders/cm/dxbrpnn958s0gr686nw_3fxc0000gn/T/tmpevcsv3cu
+max_memory 4000 MB (current use 0 MB)
+number electrons alpha = 5  beta = 4
+Set gradient conv threshold to 0.001
+Old Hcore
+              1           2           3           4           5  
+   1 -   -3.731395   -0.000000   -0.000000   -0.000000   -0.189267
+   2 -   -0.000000   -3.256226   -0.000000   -0.000000   -0.193248
+   3 -   -0.000000   -0.000000   -3.256226   -0.000000   -0.000000
+   4 -   -0.000000   -0.000000   -0.000000   -3.256226   -0.000000
+   5 -   -0.189267   -0.193248   -0.000000   -0.000000   -2.621828
+  Electronic Energy:  -13.1449227 Eh, -357.6915647 eV
+  Nuclear Energy:       2.3406827 Eh,   63.6932217 eV
+
+init E= -10.8042399225091
+  alpha nocc = 4  HOMO = -0.417472303382509  LUMO = -0.0711858048484658
+
+WARN: beta  nocc = 3  HOMO -0.417472303382509 >= LUMO -0.417472303382509
+
+
+WARN: system HOMO -0.417472303382509 >= system LUMO -0.417472303382509
+
+  Electronic Energy:  -14.2174263 Eh, -386.8758739 eV
+  Nuclear Energy:       2.3406827 Eh,   63.6932217 eV
+
+cycle= 1 E= -11.876743515436  delta_E= -1.07  |g|= 0.0933  |ddm|= 1.33
+  alpha nocc = 4  HOMO = -0.48345873185537  LUMO = 0.119952183519927
+  beta  nocc = 3  HOMO = -0.455161753545112  LUMO = -0.00645252605387636
+  Electronic Energy:  -14.2319808 Eh, -387.2719228 eV
+  Nuclear Energy:       2.3406827 Eh,   63.6932217 eV
+
+cycle= 2 E= -11.8912980423778  delta_E= -0.0146  |g|= 0.0303  |ddm|= 0.169
+  alpha nocc = 4  HOMO = -0.505267775742407  LUMO = 0.123912321986798
+  beta  nocc = 3  HOMO = -0.474779642649844  LUMO = -0.0260704151586089
+  Electronic Energy:  -14.2338921 Eh, -387.3239323 eV
+  Nuclear Energy:       2.3406827 Eh,   63.6932217 eV
+
+cycle= 3 E= -11.8932093586989  delta_E= -0.00191  |g|= 0.00612  |ddm|= 0.0782
+  alpha nocc = 4  HOMO = -0.507162033648143  LUMO = 0.122903811840595
+  beta  nocc = 3  HOMO = -0.476300649563097  LUMO = -0.0275914220718618
+  Electronic Energy:  -14.2339671 Eh, -387.3259722 eV
+  Nuclear Energy:       2.3406827 Eh,   63.6932217 eV
+
+cycle= 4 E= -11.893284323491  delta_E= -7.5e-05  |g|= 0.00107  |ddm|= 0.0167
+  alpha nocc = 4  HOMO = -0.507181394035163  LUMO = 0.123779528217574
+  beta  nocc = 3  HOMO = -0.476227846290619  LUMO = -0.0275186187993836
+  Electronic Energy:  -14.2339712 Eh, -387.3260846 eV
+  Nuclear Energy:       2.3406827 Eh,   63.6932217 eV
+
+cycle= 5 E= -11.893288451638  delta_E= -4.13e-06  |g|= 0.000258  |ddm|= 0.0046
+  alpha nocc = 4  HOMO = -0.507204761191237  LUMO = 0.123339185533778
+  beta  nocc = 3  HOMO = -0.476226812377915  LUMO = -0.0275175848866797
+  Electronic Energy:  -14.2339714 Eh, -387.3260906 eV
+  Nuclear Energy:       2.3406827 Eh,   63.6932217 eV
+
+cycle= 6 E= -11.893288671468  delta_E= -2.2e-07  |g|= 3.96e-05  |ddm|= 0.00122
+  alpha nocc = 4  HOMO = -0.507204616875171  LUMO = 0.123329857619529
+  beta  nocc = 3  HOMO = -0.476220478712342  LUMO = -0.0275112512211066
+  Electronic Energy:  -14.2339714 Eh, -387.3260906 eV
+  Nuclear Energy:       2.3406827 Eh,   63.6932217 eV
+
+Extra cycle  E= -11.8932886736015  delta_E= -2.13e-09  |g|= 1.77e-05  |ddm|= 5.36e-05
+converged SCF energy = -11.8932886736015  <S^2> = 0.75254025  2S+1 = 2.0025386
+Heat of formation = 18.0824796549214 kcal/mol, 0.0288157007975456 Eh

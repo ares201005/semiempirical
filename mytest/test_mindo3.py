@@ -28,6 +28,9 @@ if __name__ == "__main__":
     print("Full Tests for addons")
     #unittest.main()
     
+    mol = pyscf.M(atom=[(16,(0,0,0)),(1,(1.4,0,0)),(1,(0,1.4,0))])
+    rmf = semiempirical.RMINDO3(mol).run(conv_tol=1e-6)
+    exit(-1)
     mol = pyscf.M(atom=[(8,(0,0,0)),(1,(1.,0,0))], spin=1)
     mol = pyscf.M(atom=[(8,(0,0,0)),(8,(1.,0,0))], spin=0)
     umf = semiempirical.UMINDO3(mol).run(conv_tol=1e-6)
