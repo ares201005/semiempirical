@@ -18,8 +18,10 @@ from math import sqrt, atan, acos, sin, cos
 write = sys.stdout.write
 
 def get_rij_sij(mol, ia, ja):
-    Xij  = mol.atom_coord(ia) - mol.atom_coord(ja)
-    rij  = numpy.linalg.norm(Xij)
+    #Xij  = mol.atom_coord(ia) - mol.atom_coord(ja)
+    #rij  = numpy.linalg.norm(Xij)
+    Xij  = copy.copy(mol.xij[ia,ja])
+    rij  = copy.copy(mol.pair_dist[ia,ja])
     sij  = Xij
     sij  *= 1/rij
     return rij, sij
@@ -90,7 +92,7 @@ def compute_VAC(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
 
 def compute_VAC_hh(zi, zj, rij, sij, am, ad, aq, dd, qq, tore):
 
-    print("calling compute_VAC_hh")
+    #print("calling compute_VAC_hh")
     rij2 = rij*rij
     T2 = numpy.array([[1,0,0,0],[0,-sij[0],0,0],[0,-sij[1],0,0],[0,-sij[2],0,0],
                       [0,0,sij[0]*sij[0],1-sij[0]*sij[0]],[0,0,sij[0]*sij[1],-sij[0]*sij[1]], [0,0,sij[0]*sij[2],-sij[0]*sij[2]],
@@ -151,7 +153,7 @@ def compute_VAC_hh(zi, zj, rij, sij, am, ad, aq, dd, qq, tore):
 
 def compute_VAC_hl(zi, zj, rij, sij, am, ad, aq, dd, qq, tore):
 
-    print("calling compute_VAC_hl")
+    #print("calling compute_VAC_hl")
     rij2 = rij*rij
     T2 = numpy.array([[1,0,0,0],[0,-sij[0],0,0],[0,-sij[1],0,0],[0,-sij[2],0,0],
                       [0,0,sij[0]*sij[0],1-sij[0]*sij[0]],[0,0,sij[0]*sij[1],-sij[0]*sij[1]], [0,0,sij[0]*sij[2],-sij[0]*sij[2]],
@@ -191,7 +193,7 @@ def compute_VAC_hl(zi, zj, rij, sij, am, ad, aq, dd, qq, tore):
 
 def compute_VAC_lh(zi, zj, rij, sij, am, ad, aq, dd, qq, tore):
 
-    print("calling compute_VAC_lh")
+    #print("calling compute_VAC_lh")
     rij2 = rij*rij
     T2 = numpy.array([[1,0,0,0],[0,-sij[0],0,0],[0,-sij[1],0,0],[0,-sij[2],0,0],
                       [0,0,sij[0]*sij[0],1-sij[0]*sij[0]],[0,0,sij[0]*sij[1],-sij[0]*sij[1]], [0,0,sij[0]*sij[2],-sij[0]*sij[2]],
@@ -233,7 +235,7 @@ def compute_VAC_lh(zi, zj, rij, sij, am, ad, aq, dd, qq, tore):
 
 def compute_VAC_ll(zi, zj, rij, am, ad, aq, dd, qq, tore):
 
-    print("calling compute_VAC_ll")
+    #print("calling compute_VAC_ll")
     rij2 = rij*rij
     ri   = numpy.zeros(8)
     core = numpy.zeros(8)

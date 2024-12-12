@@ -1,0 +1,405 @@
+Python 3.8.17
+  Electronic Energy:  -22014.4315001 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -2493.6219304 eV
+
+  Electronic Energy:  -23508.4627395 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -3987.6531699 eV
+
+  Electronic Energy:  -23234.1185696 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -3713.3089999 eV
+
+  Electronic Energy:  -23500.7900511 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -3979.9804814 eV
+
+  Electronic Energy:  -23551.8392996 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4031.0297299 eV
+
+  Electronic Energy:  -23560.3128769 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4039.5033073 eV
+
+  Electronic Energy:  -23563.2745576 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4042.4649879 eV
+
+  Electronic Energy:  -23565.1027998 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4044.2932302 eV
+
+  Electronic Energy:  -23565.6828482 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4044.8732786 eV
+
+  Electronic Energy:  -23565.7659804 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4044.9564108 eV
+
+  Electronic Energy:  -23565.8565138 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.0469442 eV
+
+  Electronic Energy:  -23565.9945556 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.1849859 eV
+
+  Electronic Energy:  -23566.0431251 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.2335555 eV
+
+  Electronic Energy:  -23566.1084498 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.2988801 eV
+
+  Electronic Energy:  -23566.1742573 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.3646877 eV
+
+  Electronic Energy:  -23566.2477391 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.4381694 eV
+
+  Electronic Energy:  -23566.2848741 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.4753044 eV
+
+  Electronic Energy:  -23566.3152034 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5056337 eV
+
+  Electronic Energy:  -23566.3125586 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5029890 eV
+
+  Electronic Energy:  -23566.3266678 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5170981 eV
+
+  Electronic Energy:  -23566.3350619 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5254923 eV
+
+  Electronic Energy:  -23566.3358155 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5262458 eV
+
+  Electronic Energy:  -23566.3363216 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5267520 eV
+
+  Electronic Energy:  -23566.3363567 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5267870 eV
+
+  Electronic Energy:  -23566.3359433 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5263736 eV
+
+  Electronic Energy:  -23566.3359834 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5264138 eV
+
+  Electronic Energy:  -23566.3357847 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5262151 eV
+
+  Electronic Energy:  -23566.3357549 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5261852 eV
+
+  Electronic Energy:  -23566.3357568 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5261871 eV
+
+  Electronic Energy:  -23566.3357671 eV
+  Nuclear Energy:     19520.8095697 eV
+  Total Energy:    -4045.5261974 eV
+
+converged SCF energy = -148.677919786902
+am1
+  Electronic Energy:  -21628.6883469 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     499631.4765769 eV
+
+  Electronic Energy:  -22426.4632009 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498833.7017228 eV
+
+  Electronic Energy:  -22432.8416932 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498827.3232306 eV
+
+  Electronic Energy:  -22434.2049578 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498825.9599660 eV
+
+  Electronic Energy:  -22434.3470682 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498825.8178556 eV
+
+  Electronic Energy:  -22434.3863437 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498825.7785800 eV
+
+  Electronic Energy:  -22434.3956409 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498825.7692829 eV
+
+  Electronic Energy:  -22434.3987482 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498825.7661756 eV
+
+  Electronic Energy:  -22434.3995364 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498825.7653874 eV
+
+  Electronic Energy:  -22434.3998264 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498825.7650974 eV
+
+  Electronic Energy:  -22434.3998629 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498825.7650609 eV
+
+  Electronic Energy:  -22434.3998657 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498825.7650580 eV
+
+  Electronic Energy:  -22434.3998659 eV
+  Nuclear Energy:     521260.1649238 eV
+  Total Energy:     498825.7650578 eV
+
+converged SCF energy = 18332.4426702615
+mindo3
+  Electronic Energy:  -22007.9961584 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -2466.7126797 eV
+
+  Electronic Energy:  -23502.0501235 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -3960.7666448 eV
+
+  Electronic Energy:  -23262.8996406 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -3721.6161619 eV
+
+  Electronic Energy:  -23493.0888039 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -3951.8053253 eV
+
+  Electronic Energy:  -23554.7463639 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4013.4628853 eV
+
+  Electronic Energy:  -23560.1186740 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4018.8351953 eV
+
+  Electronic Energy:  -23562.0223123 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4020.7388336 eV
+
+  Electronic Energy:  -23563.1540290 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4021.8705503 eV
+
+  Electronic Energy:  -23563.7658533 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4022.4823746 eV
+
+  Electronic Energy:  -23564.1578322 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4022.8743536 eV
+
+  Electronic Energy:  -23564.3726817 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.0892031 eV
+
+  Electronic Energy:  -23564.4733382 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.1898596 eV
+
+  Electronic Energy:  -23564.4933019 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2098232 eV
+
+  Electronic Energy:  -23564.5042210 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2207424 eV
+
+  Electronic Energy:  -23564.5091286 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2256499 eV
+
+  Electronic Energy:  -23564.5123254 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2288467 eV
+
+  Electronic Energy:  -23564.5152890 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2318104 eV
+
+  Electronic Energy:  -23564.5174695 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2339908 eV
+
+  Electronic Energy:  -23564.5180136 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2345350 eV
+
+  Electronic Energy:  -23564.5180505 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2345718 eV
+
+  Electronic Energy:  -23564.5179639 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2344852 eV
+
+  Electronic Energy:  -23564.5178960 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2344173 eV
+
+  Electronic Energy:  -23564.5178558 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2343771 eV
+
+  Electronic Energy:  -23564.5178270 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2343483 eV
+
+  Electronic Energy:  -23564.5177999 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2343213 eV
+
+  Electronic Energy:  -23564.5177956 eV
+  Nuclear Energy:     19541.2834787 eV
+  Total Energy:    -4023.2343169 eV
+
+converged SCF energy = -147.858666553533
+mndo
+  Electronic Energy:  -21633.8748521 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -2285.9059168 eV
+
+  Electronic Energy:  -23067.5705191 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3719.6015837 eV
+
+  Electronic Energy:  -22787.6056557 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3439.6367203 eV
+
+  Electronic Energy:  -23060.2864149 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3712.3174795 eV
+
+  Electronic Energy:  -23118.3209093 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3770.3519739 eV
+
+  Electronic Energy:  -23121.5530004 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3773.5840650 eV
+
+  Electronic Energy:  -23122.9188252 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3774.9498898 eV
+
+  Electronic Energy:  -23123.6968951 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3775.7279597 eV
+
+  Electronic Energy:  -23123.9974701 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.0285347 eV
+
+  Electronic Energy:  -23124.1339591 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.1650237 eV
+
+  Electronic Energy:  -23124.1811426 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.2122072 eV
+
+  Electronic Energy:  -23124.2013436 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.2324082 eV
+
+  Electronic Energy:  -23124.2255144 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.2565790 eV
+
+  Electronic Energy:  -23124.2416494 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.2727140 eV
+
+  Electronic Energy:  -23124.2431504 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.2742151 eV
+
+  Electronic Energy:  -23124.2635325 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.2945972 eV
+
+  Electronic Energy:  -23124.2751057 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.3061703 eV
+
+  Electronic Energy:  -23124.3361429 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.3672075 eV
+
+  Electronic Energy:  -23124.3322675 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.3633321 eV
+
+  Electronic Energy:  -23124.4051190 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4361836 eV
+
+  Electronic Energy:  -23124.3921512 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4232158 eV
+
+  Electronic Energy:  -23124.4031342 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4341988 eV
+
+  Electronic Energy:  -23124.4020514 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4331160 eV
+
+  Electronic Energy:  -23124.4011687 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4322333 eV
+
+  Electronic Energy:  -23124.4006975 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4317621 eV
+
+  Electronic Energy:  -23124.4005595 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4316241 eV
+
+  Electronic Energy:  -23124.4002405 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4313051 eV
+
+  Electronic Energy:  -23124.4003633 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4314279 eV
+
+  Electronic Energy:  -23124.4003571 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4314218 eV
+
+  Electronic Energy:  -23124.4003647 eV
+  Nuclear Energy:     19347.9689354 eV
+  Total Energy:    -3776.4314293 eV
+
+converged SCF energy = -138.788365649657
+pm3

@@ -70,9 +70,9 @@ def diatomic_overlap_matrix(ia, ja, zi, zj, xij, rij, params):
     
     return di
 
-def diatomic_overlap_matrix_ll(zi, zj, xij, rij, params): #generalize -CL ***
+def diatomic_overlap_matrix_ll(zi, zj, xij, rij, params):
 
-    print("calling diatomic_overlap_matrix_ll")
+    #print("calling diatomic_overlap_matrix_ll")
     di = np.zeros((1,1))
     xy = np.linalg.norm(xij[...,:2])
     if xij[2] > 0: tmp = 1.0
@@ -95,7 +95,7 @@ def diatomic_overlap_matrix_ll(zi, zj, xij, rij, params): #generalize -CL ***
     zetas = np.array([params.zeta_s[zi], params.zeta_s[zj]])
     zetap = np.array([params.zeta_p[zi], params.zeta_p[zj]]) #do we need zeta below? -CL
     zeta = np.array([[zetas[0], zetap[0]], [zetas[1], zetap[1]]]) #np.concatenate(zetas.unsequeeze(1), zetap.unsequeeze(1))
-    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
+    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.21#1386
     A111,B111 = SET(rij, zeta[0,0],zeta[1,0])
 
     S111 = math.pow(zeta[0,0]* zeta[1,0]* rij**2,1.5)* \
@@ -107,8 +107,8 @@ def diatomic_overlap_matrix_ll(zi, zj, xij, rij, params): #generalize -CL ***
 
 def diatomic_overlap_matrix_hl(zi, zj, xij, rij, params):
 
-    print("calling diatomic_overlap_matrix_hl")
-    di = np.zeros((4,1)) # original was 4,1
+    #print("calling diatomic_overlap_matrix_hl")
+    di = np.zeros((4,1))
     xy = np.linalg.norm(xij[...,:2])
     if xij[2] > 0: tmp = 1.0
     elif xij[2] < 0: tmp = -1.0
@@ -131,7 +131,7 @@ def diatomic_overlap_matrix_hl(zi, zj, xij, rij, params):
     zetas = np.array([params.zeta_s[zi], params.zeta_s[zj]])
     zetap = np.array([params.zeta_p[zi], params.zeta_p[zj]]) #do we need zeta below? -CL
     zeta = np.array([[zetas[0], zetap[0]], [zetas[1], zetap[1]]]) #np.concatenate(zetas.unsequeeze(1), zetap.unsequeeze(1))
-    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
+    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.21#1386
     A111,B111 = SET(rij, zeta[0,0],zeta[1,0])
 
     S111 = math.pow(zeta[1,0],1.5)* math.pow(zeta[0,0],2.5)*rij**4 * \
@@ -155,8 +155,8 @@ def diatomic_overlap_matrix_hl(zi, zj, xij, rij, params):
 
 def diatomic_overlap_matrix_lh(zi, zj, xij, rij, params):
 
-    print("calling diatomic_overlap_matrix_hl")
-    di = np.zeros((1,4)) # original was 4,1
+    #print("calling diatomic_overlap_matrix_hl")
+    di = np.zeros((1,4))
     xy = np.linalg.norm(xij[...,:2])
     if xij[2] > 0: tmp = 1.0
     elif xij[2] < 0: tmp = -1.0
@@ -179,7 +179,7 @@ def diatomic_overlap_matrix_lh(zi, zj, xij, rij, params):
     zetas = np.array([params.zeta_s[zi], params.zeta_s[zj]])
     zetap = np.array([params.zeta_p[zi], params.zeta_p[zj]]) #do we need zeta below? -CL
     zeta = np.array([[zetas[0], zetap[0]], [zetas[1], zetap[1]]]) #np.concatenate(zetas.unsequeeze(1), zetap.unsequeeze(1))
-    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
+    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.21#1386
 
     A111,B111 = SET(rij,zeta[1,0],zeta[0,0])
 
@@ -205,7 +205,7 @@ def diatomic_overlap_matrix_lh(zi, zj, xij, rij, params):
 
 def diatomic_overlap_matrix_hh(zi, zj, xij, rij, params): 
 
-    print("calling diatomic_overlap_matrix_hh")
+    #print("calling diatomic_overlap_matrix_hh")
 
     di = np.zeros((4,4))
     xy = np.linalg.norm(xij[...,:2])
@@ -230,7 +230,7 @@ def diatomic_overlap_matrix_hh(zi, zj, xij, rij, params):
     zetas = np.array([params.zeta_s[zi], params.zeta_s[zj]])
     zetap = np.array([params.zeta_p[zi], params.zeta_p[zj]]) #do we need zeta below? -CL
     zeta = np.array([[zetas[0], zetap[0]], [zetas[1], zetap[1]]]) #np.concatenate(zetas.unsequeeze(1), zetap.unsequeeze(1))
-    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
+    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.21#1386
     A111,B111 = SET(rij, zeta[0,0],zeta[1,0])
     S111 = math.pow(zeta[1,0]*zeta[0,0],2.5)* rij**5 * \
                           (A111[4]*B111[0]+B111[4]*A111[0]-2.0*A111[2]*B111[2])/48.0
@@ -260,7 +260,7 @@ def diatomic_overlap_matrix_hh(zi, zj, xij, rij, params):
     di[0,2] = -S121*sasb
     di[0,3] = -S121*cb
 
-    A22,B22 = SET(rij, zeta[0,1],zeta[1,1]) #Can cause div by 0. Fix with if? -CL
+    A22,B22 = SET(rij, zeta[0,1],zeta[1,1]) #Can cause div by 0. -CL
     #print('A22 zeta [0,1] [1,1]', zeta[0,1],zeta[1,1])
     S221 = -math.pow(zeta[1,1]* zeta[0,1],2.5)* rij**5/16.0 * \
                (B22[2]*(A22[4]+A22[0]) \
@@ -301,10 +301,6 @@ def SET(rij, z1, z2):
     """
     #alpha, beta below is used in aintgs and bintgs, not the parameters for AM1/MNDO/PM3
     #rij: distance between atom i and j in atomic unit
-    #print('SET:')
-    #print('rij',rij)
-    #print('z1',z1)
-    #print('z2',z2)
 
     alp = 0.5*rij*(z1+z2)
     beta  = 0.5*rij*(z1-z2)
@@ -363,7 +359,9 @@ def bintgs(x):
     return np.array([b1, b2, b3, b4, b5])
 
 def get_xij_rij(mol, ia, ja):
-    xij = mol.atom_coord(ja) - mol.atom_coord(ia)
-    rij = np.linalg.norm(xij)
-    xij /= rij
+    #xij = mol.atom_coord(ja) - mol.atom_coord(ia)
+    #rij = np.linalg.norm(xij)
+    #xij /= rij
+    xij = copy.copy(mol.xij[ja, ia]/mol.pair_dist[ja, ia])
+    rij = copy.copy(mol.pair_dist[ja, ia])
     return xij, rij

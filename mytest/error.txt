@@ -1,1 +1,0 @@
-<class 'pyscf.semiempirical.omx_class.ROM2'> does not have attributes  params python_integrals

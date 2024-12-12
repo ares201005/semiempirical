@@ -1,0 +1,2107 @@
+
+
+
+ PROGRAM MNDO2019.
+ VERSION 8.0 OF 15 AUGUST 2019.
+
+ COPYRIGHT BY WALTER THIEL,
+ MAX-PLANCK-INSTITUT FUER KOHLENFORSCHUNG,
+ D-45470 MUELHEIM, GERMANY.
+
+
+
+ DOCUMENTATION OF AVAILABLE KEYWORDS.
+
+
+
+ STANDARD KEYWORDS WITH INTEGER INPUT.
+
+                  LEN  IN2
+   1    LIMIT      5     1
+   2    IOP        3     2
+   3    JOP        3     3
+   4    IGEOM      5     4
+   5    IFORM      5     5
+   6    LINDIR     6     6
+   7    MPLIB      5     7
+   8    IEF        3     8
+   9    IDIIS      5     9
+  10    INREFD     6    10
+  11    IPAROK     6    11
+  12    MMINP      5    12
+  13    NMR        3    13
+  14    NSAV7      5    14
+  15    NSAV8      5    15
+  16    NSAV9      5    16
+  17    NSAV13     6    17
+  18    NSAV15     6    18
+  19    NSAV16     6    19
+  20    IMMOK      5    20
+  21    IHBOND     6    21
+  22    IFLD1      5    22
+  23    IFLD2      5    23
+  24    IFLD3      5    24
+  25    ICUTS      5    25
+  26    ICUTG      5    26
+  27    IEXBAS     6    27
+  28    ICOSMO     6    28
+  29    IPSANA     6    29
+  30    IMMDP      5    30
+  31    INAC       4    31
+  32    MAXEND     6    32
+  33    MAXLIN     6    33
+  34    MAXRTL     6    34
+  35    ISCF       4    35
+  36    IPLSCF     6    36
+  37    MIDDLE     6    37
+  38    IPRINT     6    38
+  39    KPRINT     6    39
+  40    LPRINT     6    40
+  41    MPRINT     6    41
+  42    JPRINT     6    42
+  43    IPREC      5    43
+  44    ICONV      5    44
+  45    IHESS      5    45
+  46    IDFP       4    46
+  47    NREPET     6    47
+  48    LINITG     6    48
+  49    LCONVG     6    49
+  50    LGDUM      5    50
+  51    IHDLC1     6    51
+  52    IHDLC2     6    52
+  53    IHDLC3     6    53
+  54    INGEOM     6    54
+  55    INTDIR     6    55
+  56    LINDMS     6    56
+  57    LINDIA     6    57
+  58    LINFRG     6    58
+  59    INPFRG     6    59
+  60    INP21      5    60
+  61    INP22      5    61
+  62    INP23      5    62
+  63    INP24      5    63
+  64    INP25      5    64
+  65    KHARGE     6    65
+  66    IMULT      5    66
+  67    KTRIAL     6    67
+  68    KGEOM      5    68
+  69    IPUBO      5    69
+  70    IUHF       4    70
+  71    KITSCF     6    71
+  72    NPRINT     6    72
+  73    IFAST      5    73
+  74    IDIAG      5    74
+  75    KSYM       4    75
+  76    NUMSYM     6    76
+  77    KCI        3    77
+  78    NSTART     6    78
+  79    NSTEP      5    79
+  80    MODE       4    80
+  81    IRECLC     6    81
+  82    IUPD       4    82
+  83    IGTHES     6    83
+  84    LLAMDA     6    84
+  85    LNONR      5    85
+  86    LRSCAL     6    86
+  87    LGNMIN     6    87
+  88    LNOUPD     6    88
+  89    LEFDUM     6    89
+  90    IPSPRT     6    90
+  91    IENRG      5    91
+  92    ICORE      5    92
+  93    IDISK      5    93
+  94    IMIX       4    94
+  95    IDENS      5    95
+  96    INDSYM     6    96
+  97    IQSWAP     6    97
+  98    IAVEIT     6    98
+  99    IMAXIT     6    99
+ 100    INRHS      5   100
+ 101    IKRVEC     6   101
+ 102    IROWS      5   102
+ 103    IPRCON     6   103
+ 104    INCPUS     6   104
+ 105    IDSTRP     6   105
+ 106    IHLST      5   106
+ 107    IHLWRP     6   107
+ 108    IKMODE     6   108
+ 109    ISOLVE     6   109
+ 110    IKRSAV     6   110
+ 111    IUMIX      5   111
+ 112    IURHS      5   112
+ 113    IUK        3   113
+ 114    IURES      5   114
+ 115    NMRLEV     6   115
+ 116    INTCTL     6   116
+ 117    INCOFF     6   117
+ 118    NMRNUC     6   118
+ 119    IATERG     6   119
+ 120    NUMATM     6   120
+ 121    MMCOUP     6   121
+ 122    MMPOT      5   122
+ 123    MMLINK     6   123
+ 124    NLINK      5   124
+ 125    MMFILE     6   125
+ 126    MCHARG     6   126
+ 127    MMSKIP     6   127
+ 128    IOP128     6   128
+ 129    IOP129     6   129
+ 130    IOP130     6   130
+ 131    ICI1       4   131
+ 132    ICI2       4   132
+ 133    IOUTCI     6   133
+ 134    MOVO       4   134
+ 135    MPERT      5   135
+ 136    NCIREF     6   136
+ 137    MCIREF     6   137
+ 138    LEVEXC     6   138
+ 139    IROOT      5   139
+ 140    LROOT      5   140
+ 141    CICHG      5   141
+ 142    MULTCI     6   142
+ 143    NCISYM     6   143
+ 144    CIDIR      5   144
+ 145    CIDIAG     6   145
+ 146    IUVCD      5   146
+ 147    IMCD       4   147
+ 148    IPOP       4   148
+ 149    CIPLOT     6   149
+ 150    CILEAD     6   150
+ 151    JCI1       4   151
+ 152    JCI2       4   152
+ 153    PIPOP      5   153
+ 154    INATUR     6   154
+ 155    CISELT     6   155
+ 156    IMOMAP     6   156
+ 157    GUG157     6   157
+ 158    KEEPCI     6   158
+ 159    NCIGRD     6   159
+ 160    ICROSS     6   160
+ 161    MINDAV     6   161
+ 162    MAXDAV     6   162
+ 163    KITDAV     6   163
+ 164    NRMDAV     6   164
+ 165    MAXMAP     6   165
+ 166    MAPTHR     6   166
+ 167    NCONJ      5   167
+ 168    GUG168     6   168
+ 169    GUG169     6   169
+ 170    GUG170     6   170
+ 171    MAXCG      5   171
+ 172    MAXPUR     6   172
+ 173    MCMAX      5   173
+ 174    MIDEMP     6   174
+ 175    MPURIF     6   175
+ 176    MLROOT     6   176
+ 177    MCGPRE     6   177
+ 178    MCGUPD     6   178
+ 179    MPSCAL     6   179
+ 180    MCUTAU     6   180
+ 181    MCUTM      5   181
+ 182    MCUTF      5   182
+ 183    MCUTP      5   183
+ 184    MCUT1      5   184
+ 185    MCUT2      5   185
+ 186    MCUTR      5   186
+ 187    IOP187     6   187
+ 188    IOP189     6   188
+ 189    IOP188     6   189
+ 190    IOP190     6   190
+ 191    NRST       4   191
+ 192    LDROP      5   192
+ 193    LDELL      5   193
+ 194    LSUB       4   194
+ 195    LALPHA     6   195
+ 196    LCONV      5   196
+ 197    LTOLF      5   197
+ 198    LMAXST     6   198
+ 199    IGRAD      5   199
+ 200    LPOINT     6   200
+ 201    LFAC       4   201
+ 202    LLDUM      5   202
+ 203    KPOINT     6   203
+ 204    KFAC       4   204
+ 205    KMASS      5   205
+ 206    KKDUM      5   206
+ 207    NTEMP      5   207
+ 208    NTEMP1     6   208
+ 209    NTEMP2     6   209
+ 210    IOP210     6   210
+ 211    IMODE      5   211
+ 212    INOUT      5   212
+ 213    IVBSE      5   213
+ 214    IVBOVR     6   214
+ 215    IFERMI     6   215
+ 216    NFLOAT     6   216
+ 217    NDOCC      5   217
+ 218    IOP218     6   218
+ 219    IOP219     6   219
+ 220    IOP220     6   220
+ 221    ICUTZS     6   221
+ 222    ITOLFM     6   222
+ 223    ICUTML     6   223
+ 224    MAXFMT     6   224
+ 225    LIMFMT     6   225
+ 226    IHCORR     6   226
+ 227    IOP227     6   227
+ 228    IOP228     6   228
+ 229    IOP229     6   229
+ 230    IOP230     6   230
+ 231    NSPA       4   231
+ 232    NVDW       4   232
+ 233    IPOT       4   233
+ 234    NITRO      5   234
+ 235    MODCSM     6   235
+
+
+
+ STANDARD KEYWORDS WITH REAL INPUT.
+
+                  LEN  XN2
+   1    DMAX       4     1
+   2    DDMIN      5     2
+   3    DDMAX      5     3
+   4    RMIN       4     4
+   5    RMAX       4     5
+   6    OMIN       4     6
+   7    GNORMX     6     7
+   8    DSTEP      5     8
+   9    DECONV     6     9
+  10    DPCONV     6    10
+  11    DCPHF      5    11
+  12    DPREC      5    12
+  13    DCDIFF     6    13
+  14    DSHIFT     6    14
+  15    DBASCR     6    15
+  16    EPSI       4    16
+  17    RSOLV      5    17
+  18    DELSC      5    18
+  19    DISEX      5    19
+  20    FCUTF      5    20
+  21    FCUTP      5    21
+  22    FCUT1      5    22
+  23    FCUT2      5    23
+  24    FCUTR      5    24
+  25    CALPHA     6    25
+  26    CBETA      5    26
+  27    GAPCON     6    27
+  28    V00C       4    28
+  29    V11C       4    29
+  30    V01C       4    30
+  31    GAPDYN     6    31
+  32    DOMEGA     6    32
+
+
+
+ MOPAC6 KEYWORDS WITHOUT NUMERICAL INPUT.
+
+                  LEN  IN2 VALUE
+   1    AUTHOR     6     0   0    AUTHOR   - PROGRAM MNDO97 WRITTEN BY W.THIEL            
+   2    VECT       4    72   0    VECTORS  - FINAL EIGENVECTORS TO BE PRINTED             
+   3     DENS      5    72   1    DENSITY  - FINAL DENSITY MATRIX TO BE PRINTED           
+   4    SPIN       4    72   1    SPIN     - FINAL UHF SPIN MATRIX TO BE PRINTED          
+   5     DEP       5    -2   0    DEP      - OUTPUT FORTRAN CODE FOR BLOCK-DATA           
+   6    VELO       4    -2   0    VELOCITY - INPUT STARTING VELOCITIES FOR DRC            
+   7    TIMES      5    -1   0    TIMES    - TIMES OF VARIOUS STAGES TO BE PRINTED        
+   8    PARASOK    7    11  -1    PARASOK  - USE SOME MNDO PARAMETERS IN AM1              
+   9    FLEPO      5    38   1    FLEPO    - PRINT DETAILS OF GEOMETRY OPTIMISATION       
+  10    BONDS      5    19   2    BONDS    - FINAL BOND-ORDER MATRIX TO BE PRINTED        
+  11    GEO-OK     6    -1   0    GEO-OK   - OVERRIDE INTERATOMIC DISTANCE CHECK          
+  12    FOCK       4    72   2    FOCK     - LAST FOCK MATRIX TO BE PRINTED               
+  13    LARGE      5    -1   0    LARGE    - EXPANDED OUTPUT TO BE PRINTED                
+  14     S1978     6    11   4    S1978    - 1978 SULFUR PARAMETERS TO BE USED            
+  15     SI1978    7    11   4    SI1978   - 1978 SILICON PARAMETERS TO BE USED           
+  16     GRAP      5    18   1    GRAPH    - GENERATE FILE FOR GRAPHICS                   
+  17    1ELEC      5    72   2    1ELECTRON- FINAL ONE-ELECTRON MATRIX TO BE PRINTED      
+  18     NOMM      5     0   0    NOMM     - DO NOT MAKE MM CORRECTION TO CONH BARRIER    
+  19     MMOK      5    20   1    MMOK     - APPLY MM CORRECTION TO CONH BARRIER          
+  20    INTERP     6    -2   0    INTERP   - PRINT DETAILS OF CAMP-KING CONVERGER         
+  21     ESR       4    -2   0    ESR      - RHF SPIN DENSITY CALCULATION REQUESTED       
+  22    DFP        3    46   1    DFP      - USE DAVIDON FLETCHER POWELL OPTIMIZER        
+  23    ANALYT     6    29   1    ANALYT   - USE ANALYTIC DERIVATIVES                     
+  24     MECI      5    -1   0    MECI     - M.E.C.I. WORKING TO BE PRINTED               
+  25    LOCAL      5    -2   0    LOCALIZE - LOCALIZED ORBITALS TO BE PRINTED             
+  26    MULLIK     6    19   2    MULLIK   - THE MULLIKEN ANALYSIS TO BE PERFORMED        
+  27     XYZ       4     0   0    XYZ      - CARTESIAN COORDINATE SYSTEM TO BE USED       
+  28     PI        3    -1   0    PI       - PRINT BONDS MATRIX, SIGMA-PI-DELL PARTS      
+  29    ECHO       4     0   0    ECHO     - ALL INPUT DATA TO BE ECHOED BEFORE RUN       
+  30    SING       4     0   0    SINGLET  - SPIN STATE DEFINED AS A SINGLET              
+  31    DOUB       4    66   2    DOUBLET  - SPIN STATE DEFINED AS A DOUBLET              
+  32    QUAR       4    66   4    QUARTET  - SPIN STATE DEFINED AS A QUARTET              
+  33    QUIN       4    66   5    QUINTET  - SPIN STATE DEFINED AS A QUINTET              
+  34    SEXT       4    66   6    SEXTET   - SPIN STATE DEFINED AS A SEXTET               
+  35    H-PRIO     6    -2   0    H-PRIOR  - HEAT OF FORMATION TAKES PRIORITY IN DRC      
+  36    X-PRIO     6    -2   0    X-PRIOR  - GEOMETRY CHANGES TAKE PRIORITY IN DRC        
+  37    T-PRIO     6    -2   0    T-PRIOR  - TIME TAKES PRIORITY IN DRC                   
+  38    POWSQ      5    -2   0    POWSQ    - PRINT DETAILS OF WORKING IN POWSQ            
+  39    POLAR      5    22   1    POLAR    - CALCULATE HYPERPOLARIZABILITIES              
+  40    DEBUG      6     0   0    DEBUG    - DEBUG OPTION TURNED ON                       
+  41    RESTART    7    37   1    RESTART  - CALCULATION RESTARTED                        
+  42    IRC        4    -2   0    IRC      - INTRINSIC REACTION COORDINATE CALCULATION    
+  43    1SCF       4     3  -1    1SCF     - DO 1 SCF AND THEN STOP                       
+  44    GRAD       4     3  -2    GRADIENTS- ALL GRADIENTS TO BE PRINTED                  
+  45    UHF        3    70   1    UHF      - UNRESTRICTED HARTREE-FOCK CALCULATION        
+  46    TRIPLET    7    66   3    TRIPLET  - SPIN STATE DEFINED AS A TRIPLET              
+  47    SYM        3    75   1    SYMMETRY - SYMMETRY CONDITIONS TO BE IMPOSED            
+  48     DRC       5    -2   0    DRC      - DYNAMIC REACTION COORDINATE CALCULATION      
+  49    DFORCE     6     3   5    DFORCE   - PRINT HESSIAN MATRIX IN FORCE                
+  50    FORCE      5     3   5    FORCE    - FORCE CALCULATION SPECIFIED                  
+  51    MINDO      5     2   1    MINDO/3  - THE MINDO/3 HAMILTONIAN TO BE USED           
+  52    AM1        3     2  -2    AM1      - THE AM1 HAMILTONIAN TO BE USED               
+  53    PM3        3     2  -7    PM3      - THE PM3 HAMILTONIAN TO BE USED               
+  54    MNDO       5     2   0    MNDO     - THE MNDO HAMILTONIAN TO BE USED              
+  55    NOINTER    7    -1   0    NOINTER  - INTERATOMIC DISTANCES NOT TO BE PRINTED      
+  56    DENOUT     6    69   1    DENOUT   - DENSITY MATRIX OUTPUT ON CHANNEL NB11        
+  57    OLDENS     6    67   1    OLDENS   - INITIAL DENSITY MATRIX READ OF DISK          
+  58    ENPART     6    -2   0    ENPART   - ENERGY TO BE PARTITIONED INTO COMPONENTS     
+  59    NOXYZ      5    -1   0    NOXYZ    - CARTESIAN COORDINATES NOT TO BE PRINTED      
+  60    SIGMA      5    -2   0    SIGMA    - GEOMETRY TO BE OPTIMIZED USING SIGMA         
+  61    TRANS      6     0   0    TRANS    - DELETE THE REACTION VIBRATION FROM THERMO    
+  62    SADDLE     6    -2   0    SADDLE   - TRANSITION STATE TO BE OPTIMIZED             
+  63     LET       4     0   0    LET      - OVERRIDE SOME SAFETY CHECKS                  
+  64    COMPFG     6    -1   0    COMPFG   - PRINT HEAT OF FORMATION CALC'D IN COMPFG     
+  65    DERIV      5    -1   0    DERIV    - PRINT PART OF WORKING IN SUB. DERIV          
+  66    FULSCF     6    56   1    FULSCF   - IN SEARCHES, FULL SCF CALCN'S TO BE DONE     
+  67    DCART      5    -1   0    DCART    - PRINT DETAILS OF WORKING IN DCART            
+  68    FMAT       4    39   1    FMAT     - PRINT DETAILS OF WORKING IN FMAT             
+  69    HCORE      5    -1   0    HCORE    - PRINT DETAILS OF WORKING IN HCORE            
+  70    ITER       4    -1   0    ITER     - PRINT DETAILS OF WORKING IN ITER             
+  71    PULAY      5     9   1    PULAY    - PULAY'S METHOD TO BE USED IN SCF             
+  72    LINMIN     6    38   1    LINMIN   - PRINT DETAILS OF LINE MINIMIZATION           
+  73    LOCMIN     6    38   1    LOCMIN   - PRINT DETAILS OF LINE MINIMIZATION           
+  74    DEBUGPU    7    72   2    DEBUGPULAY-PRINT DETAILS OF WORKING IN PULAY            
+  75    CAMP       4    -2   0    CAMP     - THE CAMP-KING CONVERGER TO BE USED           
+  76    KING       4    -2   0    KING     - THE CAMP-KING CONVERGER TO BE USED           
+  77    EIGS       4    -1   0    EIGS     - PRINT ALL EIGENVALUES IN ITER                
+  78    MOLDAT     6    -1   0    MOLDAT   - PRINT DETAILS OF WORKING IN MOLDAT           
+  79    HYPERF     6    -2   0    HYPERFINE- PRINT HYPERFINE COUPLING CONSTANTS           
+  80    OPCI       4    -1   0    OPCI     - PRINT DETAILS OF WORKING IN OPCI             
+  81     PL        3    72   2    PL       - MONITOR CONVERGENCE IN DENSITY MATRIX        
+  82    SEARCH     6    38   1    SEARCH   - PRINT DETAILS OF LINE MINIMIZATION           
+  83    0SCF       4    68  -1    0SCF     - AFTER READING AND PRINTING DATA, STOP        
+  84     EF        3     8   1    EF       - USE EF ROUTINE FOR MINIMUM SEARCH            
+  85     TS        3     8   1    TS       - USE EF ROUTINE FOR TS SEARCH                 
+  86     PRNT6     5    38   1    PRNT6    - EXTRA PRINTING IN EF ROUTINE                 
+  87    EIGINV     6    -1   0    EIGINV   - USE HESSIAN EIGENVALUE REVERSION IN EF       
+  88     NONR      5    85   1    NONR     - DO NOT USE NEWTON-RAPHSON STEP IN EF         
+  89    ORIDE      5    -1   0    ORIDE    - ALWAYS USE COMPUTED LAMBDAS IN EF            
+  90    ESP        4    -2   0    ESP      - ELECTROSTATIC POTENTIAL CALCULATION          
+  91    DIPOLE     6    -2   0    DIPOLE   - FIT THE ESP TO THE CALCULATED DIPOLE         
+  92    DIPX       4    -2   0    DIPX     - X COMPONENT OF DIPOLE TO BE FIT              
+  93    DIPY       4    -2   0    DIPY     - Y COMPONENT OF DIPOLE TO BE FIT              
+  94    DIPZ       4    -2   0    DIPZ     - Z COMPONENT OF DIPOLE TO BE FIT              
+  95    CONNOLL    7    -2   0    CONNOLLY - USE CONNOLLY SURFACE                         
+  96    ESPRST     6    -2   0    ESPRST   - RESTART OF ELECTRIC POTENTIAL CALCULATION    
+  97     POTWRT    7    -2   0    POTWRT   - SAVE ELECTRIC POTENTIAL DATA ON FILE 21      
+  98    WILLIAM    7    -2   0    WILLIAMS - USE WILLIAMS SURFACE                         
+  99    SYMAVG     6    -2   0    SYMAVG   - AVERAGE SYMMETRY EQUIVALENT ESP CHARGES      
+ 100    STO3G      5    -2   0    STO3G    - DEORTHOGONALIZE ORBITALS IN STO-3G BASIS     
+ 101    AIGIN      5     0   0    AIGIN    - GEOMETRY MUST BE IN GAUSSIAN FORMAT          
+ 102    AIGOUT     6    -2   0    AIGOUT   - IN ARC FILE, INCLUDE AB-INITIO GEOMETRY      
+ 103    AIDER      5    -2   0    AIDER    - READ IN AB INITIO DERIVATIVES                
+ 104    OLDGEO     6     0   0    OLDGEO   - PREVIOUS GEOMETRY TO BE USED                 
+ 105     MAX       5     0   0    MAX      - GRID SIZE 23*23                              
+ 106    NODIIS     6    -1   0    NODIIS   - DO NOT USE GDIIS GEOMETRY OPTIMIZER          
+ 107     K=        3    -2   0    K=       - BRILLOUIN ZONE STRUCTURE TO BE CALCULATED    
+ 108    NOLOG      5    -1   0    NOLOG    - SUPPRESS LOG FILE TRAIL, WHERE POSSIBLE      
+ 109    NOANCI     6    29  -1    NOANCI   - DO NOT USE ANALYTICAL C.I. DERIVATIVES       
+ 110    NOTHIEL    7    51   1    NOTHIEL  - DO NOT USE FSTMIN LINE SEARCH                
+ 111    ISOTOPE    7     0   0    ISOTOPE  - FORCE MATRIX WRITTEN TO DISK (FILE 4)        
+ 112    SYBYL      5    19   1    SYBYL    - A SYBYL OUTPUT FILE NB16 IS GENERATED        
+ 113    OPTFOR     6     3   3    OPTFOR   - OPTIMIZATION AND FORCE CALCULATION           
+ 114    MNDOC      5     2  -1    MNDOC    - THE MNDOC HAMILTONIAN TO BE USED             
+ 115    MNDOD      5     2 -10    MNDOD    - THE MNDOD HAMILTONIAN TO BE USED             
+ 116    MNDOH      5     2  -3    MNDOH    - THE MNDOH HAMILTONIAN TO BE USED             
+ 117    CNDO       4     2   2    CNDO     - THE CNDO/2 HAMILTONIAN TO BE USED            
+ 118     GNMIN     6    87   1    GNMIN    - SPECIAL OPTION FOR EF ROUTINE                
+ 119     RSCAL     6    86   1    RSCAL    - SPECIAL OPTION FOR EF ROUTINE                
+ 120     NOUPD     6    88   1    NOUPD    - SPECIAL OPTION FOR EF ROUTINE                
+ 121    OM1        3     2  -5    OM1      - THE OM1 HAMILTONIAN TO BE USED               
+ 122    OM2        3     2  -6    OM2      - THE OM2 HAMILTONIAN TO BE USED               
+ 123    OM3        3     2  -8    OM3      - THE OM3 HAMILTONIAN TO BE USED               
+ 124     COSMO     6    28   1    COSMO    - COSMO SOLVATION TREATMENT                    
+ 125    MNDODH     6     2 -13    MNDODH   - COMBINED MNDOD/MNDOH HAMILTONIAN             
+ 126    MOLDEN     6    17   2    MOLDEN   - A MOLDEN OUTPUT FILE IS GENERATED            
+ 127    ODM2       4     2 -22    ODM2     - THE ODM2 HAMILTONIAN TO BE USED              
+ 128    ODM3       4     2 -23    ODM3     - THE ODM3 HAMILTONIAN TO BE USED              
+
+
+
+ MOPAC6 KEYWORDS WITH INTEGER INPUT.
+
+                  LEN  IN2
+   1    IRC=       4    -2   IRC=N    - INTRINSIC REACTION COORDINATE:               
+   2    CHARGE     6    65   CHARGE   - MOLECULAR CHARGE, INPUT VALUE:               
+   3    MICROS     6    -2   MICROS=N - NUMBER OF MICROSTATES FOR C.I.:              
+   4    TRANS=     6     0   TRANS=   - DELETE N VIBRATIONS FROM THERMO:             
+   5    CYCLES     6    34   CYCLES=  - MAXIMUM NUMBER OF CYCLES IN NLLSQ:           
+   6    FILL       4    -2   FILL=    - CLOSED-SHELL RHF, OCCUPY ORBITAL:            
+   7    ITRY       4    71   ITRY=    - MAXIMUM NUMBER OF SCF ITERATIONS:            
+   8     ROT       4    76   ROT      - SYMMETRY NUMBER FOR THERMODYNAMICS:          
+   9     MODE      5    -2   MODE=    - TS FOLLOWING ALONG HESSIAN MODE:             
+  10     RECALC    7    -2   RECALC=  - CYCLES BETWEEN HESSIAN RECALCULATION:        
+  11     MS=       4    -2   MS=      - MAGNETIC COMPONENT OF SPIN IN MECI:          
+  12     POINT1    7     0   POINT1   - NUMBER OF ROWS IN GRID CALCULATION:          
+  13     POINT2    7     0   POINT2   - NUMBER OF COLUMNS IN GRID CALCULATION:       
+  14     POINT     6     0   POINT    - NUMBER OF POINTS IN PATH CALCULATION:        
+  15    NSURF      5    -2   NSURF    - NUMBER OF LAYERS IN ESP CALCULATION:         
+  16     PRNT=     6    38   PRNT=    - PRINTING FLAG FOR EF ROUTINES:               
+
+
+
+ MOPAC6 KEYWORDS WITH REAL INPUT.
+
+                  LEN  XN2
+   1    DRC=       4    -2   DRC=     - HALF-LIFE (IN FS) FOR KIN ENERGY LOSS:       
+   2    KINETIC    7    -2   KINETIC= - KIN ENERGY (KCAL/MOL) ADDED TO DRC:          
+   3    SHIFT      5    -2   SHIFT    - USE A DAMPING FACTOR OF                      
+   4     STEP1     6     0   STEP1    - FIRST  STEP SIZE IN GRID CALCULATION:        
+   5     STEP2     6     0   STEP2    - SECOND STEP SIZE IN GRID CALCULATION:        
+   6    BAR        3    -2   BAR=     - REDUCE BAR LENGTH BY A MAXIMUM OF:           
+   7     DMAX      5     1   DMAX=    - MAXIMUM STEP SIZE (ANG/RAD) FOR EF:          
+   8     STEP      5     0   STEP     - STEP SIZE IN PATH CALCULATION:               
+   9    SCALE      5    -2   SCALE    - SCALE VAN-DER-WAALS RADIUS IN ESP BY:        
+  10    SCINCR     6    -2   SCINCR   - INCREMENT BETWEEN LAYERS IN ESP:             
+  11    SLOPE      5    -2   SLOPE    - SCALE FACTOR FOR MNDO ESP CHARGES:           
+  12     DDMIN=    7     2   DDMIN=   - INPUT FOR DDMIN VARIABLE IN EF:              
+  13     DDMAX=    7     3   DDMAX=   - INPUT FOR DDMAX VARIABLE IN EF:              
+  14     RMIN=     6     4   RMIN=    - INPUT FOR RMIN VARIABLE IN EF:               
+  15     RMAX=     6     5   RMAX=    - INPUT FOR RMAX VARIABLE IN EF:               
+  16     OMIN=     6     6   OMIN=    - INPUT FOR OMIN VARIABLE IN EF:               
+  17     EPS=      5    16   EPS=     - DIELECTRICITY CONSTANT IN COSMO:             
+
+ ECHO INPUT FILE
+
+ PM3 jop=-2 igeom=0 iform=1 inrefd=2 nprint=6 jprint=7 SYM kci=0 aigin=yes
+ Formaldehyde, Comparison to PYSEQM
+  
+ C
+ O  1  1.2195
+ H  1  1.0844  2  120.00
+ H  1  1.0844  2  120.00  3  180.00
+  
+
+ END OF INPUT FILE
+
+
+ TYPE OF INPUT: IMOPAC =  1
+
+ LENGTH OF KEYWORD STRING: KEYLEN =  75 BYTES
+
+
+ ***** STANDARD INPUT USING KEYWORDS *****
+
+ JOP    =   -2     IGEOM  =    0     IFORM  =    1     INREFD =    2     JPRINT =    7
+ NPRINT =    6     KCI    =    0
+
+
+ ***********************************************************************
+ * INPUT OF OPTIONS VIA KEYWORDS
+ *  SYMMETRY - SYMMETRY CONDITIONS TO BE IMPOSED            
+ *  PM3      - THE PM3 HAMILTONIAN TO BE USED               
+ *  AIGIN    - GEOMETRY MUST BE IN GAUSSIAN FORMAT          
+ * NUMBER OF MNDO97 KEYWORDS FOUND:  7
+ * NUMBER OF MOPAC  KEYWORDS FOUND:  3
+ ***********************************************************************
+
+
+
+ *** OPTIONS FROM THE FIRST LINE OF INPUT    ***
+ *** DEFINED EITHER EXPLICITLY OR BY DEFAULT ***
+
+ LIMIT  = 3600     IOP    =   -7     JOP    =   -2     IGEOM  =    0     IFORM  =    1
+ NEXMOL =    1     MPLIB  =    0     IEF    =    0     IDIIS  =    0     INREFD =    2
+ IPAROK =    0     MMINP  =    0     NMR    =    0     NSAV7  =    0     NSAV8  =    0
+ NSAV9  =    0     NSAV13 =    0     NSAV15 =    0     NSAV16 =    0     IMMOK  =    0
+ IHBOND =    0     IFLD1  =    0     IFLD2  =    0     IFLD3  =    0     ICUTS  =    0
+ ICUTG  =    0     IEXBAS =    0     ICOSMO =    0     IPSANA =    0     IMMDP  =   -1
+ INAC   =    0
+
+
+
+ PM3    
+
+ GRADIENT CALCULATION FOR INPUT GEOMETRY
+
+ INPUT IN INTERNAL COORDINATES
+
+ INPUT OF MOLECULAR DATA IN FREE FORMAT
+
+ EXPERIMENTAL REFERENCE DATA AS ADDITIONAL INPUT
+
+
+
+ *** OPTIONS FROM THE SECOND LINE OF INPUT   ***
+ *** DEFINED EITHER EXPLICITLY OR BY DEFAULT ***
+
+
+ MAXEND =    0     MAXLIN =    4     MAXRTL = 9999     ISCF   =    6     IPLSCF =    4
+ MIDDLE =    0     IPRINT =   -1     KPRINT =    0     LPRINT =    0     MPRINT =    0
+ JPRINT =    7     IPREC  =    1     ICONV  =    0     IHESS  =    0     IDFP   =    0
+ NREPET =    3     LINITG =   10     LCONVG =   10     LGDUM  =    0     IHDLC1 =    0
+ IHDLC2 =    0     IHDLC3 =    0     INGEOM =    0     INTDIR =    0     LINDMS =    0
+ LINDIA =    0     LINFRG =    0     INPFRG =    0     INP21  =    0     INP22  =    0
+ INP23  =    0     INP24  =    0     INP25  =    0     IATERG =    1
+
+
+
+ *** SPECIAL OPTIONS FOR OPTIMIZATION (ETC)  ***
+ *** DEFINED EITHER EXPLICITLY OR BY DEFAULT ***
+
+
+ NRST   =  999     LDROP  =   10     LDELL  =   10     LSUB   =    0     LALPHA =    0
+ LCONV  =    0     LTOLF  =    1     LMAXST =    1     IGRAD  =    0     LPOINT =    0
+ LFAC   =  100     LLDUM  =    0     KPOINT =    0     KFAC   = 1000     KMASS  =    0
+ KKDUM  =    0     NTEMP  =    0     NTEMP1 =    0
+ NTEMP2 =    0
+
+
+ DEFAULT SCF CONVERGENCE CRITERIA ARE USED
+
+
+
+ *** OPTIONS FOR INTEGRALS AND SCF TREATMENT ***
+ *** DEFINED EITHER EXPLICITLY OR BY DEFAULT ***
+
+ IMODE  =    0     INOUT  =    0     IVBSE  =    0     IVBOVR =    0     IFERMI =20000
+ NFLOAT =    0     NDOCC  =    0     IOP218 =    0     IOP219 =    0     IOP220 =    0
+ ICUTZS =    0     ITOLFM =    0     ICUTML =   42     MAXFMT =  400     LIMFMT =   20
+ IHCORR =   -1
+
+
+
+                                                                                 
+ Formaldehyde, Comparison to PYSEQM                                              
+
+
+     INPUT GEOMETRY
+
+
+      ATOM      ATOMIC               BOND LENGTH          BOND ANGLE           TWIST ANGLE
+     NUMBER     NUMBER               (ANGSTROMS)           (DEGREES)            (DEGREES)
+        I                                NA I                NB NA I            NC NB NA I                NA     NB     NC
+
+        1          6
+        2          8                   1.21950                                                             1
+        3          1                   1.08440            120.00000                                        1      2
+        4          1                   1.08440            120.00000            180.00000                   1      2      3
+
+
+
+     **********
+
+     *  VARIABLES TO BE OPTIMIZED, OF WHICH THERE ARE   0
+
+
+
+                                                                                     
+     Formaldehyde, Comparison to PYSEQM                                              
+
+
+     INITIAL CARTESIAN COORDINATES (ANGSTROMS)
+
+     ATOM NO.        ATOMIC NO.         X-COORDINATE        Y-COORDINATE        Z-COORDINATE       ATOMIC ORBITALS
+
+
+         1                 6                0.000000            0.000000            0.000000            1 TO   4
+         2                 8                1.219500            0.000000            0.000000            5 TO   8
+         3                 1               -0.542200            0.939118            0.000000            9 TO   9
+         4                 1               -0.542200           -0.939118           -0.000000           10 TO  10
+
+
+
+     INITIAL INTERATOMIC DISTANCES (ANGSTROMS)
+
+
+             1           2           3           4
+ ----------------------------------------------------
+   1      0.00000
+   2      1.21950     0.00000
+   3      1.08440     1.99638     0.00000
+   4      1.08440     1.99638     1.87824     0.00000
+
+
+
+ MOLECULAR CHARGE         0
+ NUMBER OF ELECTRONS     12
+ DOUBLY OCCUPIED MOS      6
+
+
+ *** OPTIONS FOR THE MOLECULE UNDER STUDY    ***
+ *** DEFINED EITHER EXPLICITLY OR BY DEFAULT ***
+
+ KHARGE =    0     IMULT  =    0     KTRIAL =    0     KGEOM  =    0     IPUBO  =    0
+ IUHF   =   -1     KITSCF =  200     NPRINT =    6     IFAST  =    0     IDIAG  =    0
+ KSYM   =    1     NUMSYM =    0     KCI    =    0     NSTART =    4     NSTEP  =    4
+
+ RHF CALCULATION
+
+
+
+ PARAMETER VALUES USED IN THE CALCULATION.
+
+  NI  TYPE        VALUE     UNIT
+
+   1  USS     -13.07332100  EV        ONE-CENTER ENERGY FOR S               
+   1  ZS        0.96780700  AU        ORBITAL EXPONENT  FOR S               
+   1  BETAS    -5.62651200  EV        BETA PARAMETER    FOR S               
+   1  ALP       3.35638600  (1/A)     ALPHA PARAMETER   FOR CORE            
+   1  GSS      14.79420800  EV        ONE-CENTER INTEGRAL (SS,SS)           
+   1  PO1       0.91961667  BOHR      KLOPMAN-OHNO TERM, SS, L=0            
+   1  PO9       0.91961667  BOHR      KLOPMAN-OHNO TERM, CORE               
+   1  CORE      1.00000000  E         CORE CHARGE                           
+   1  EHEAT    52.10200000  KCAL/MOL  HEAT OF FORMATION OF THE ATOM (EXP)   
+   1  EISOL   -13.07332100  EV        TOTAL ENERGY OF THE ATOM (CALC)       
+   1  FN1       1.12875000  NONE      CORE REPULSION GAUSSIAN, PREFACTOR     1
+   1  FN2       5.09628200  (1/A**2)  CORE REPULSION GAUSSIAN, EXPONENT      1
+   1  FN3       1.53746500  ANGSTROM  CORE REPULSION GAUSSIAN, WIDTH         1
+   1  FN1      -1.06032900  NONE      CORE REPULSION GAUSSIAN, PREFACTOR     2
+   1  FN2       6.00378800  (1/A**2)  CORE REPULSION GAUSSIAN, EXPONENT      2
+   1  FN3       1.57018900  ANGSTROM  CORE REPULSION GAUSSIAN, WIDTH         2
+   1  GSCAL     1.00000000  NONE      GAUSSIAN CORE-CORE TERM SCALE FACTOR  
+
+   6  USS     -47.27032000  EV        ONE-CENTER ENERGY FOR S               
+   6  UPP     -36.26691800  EV        ONE-CENTER ENERGY FOR P               
+   6  ZS        1.56508500  AU        ORBITAL EXPONENT  FOR S               
+   6  ZP        1.84234500  AU        ORBITAL EXPONENT  FOR P               
+   6  BETAS   -11.91001500  EV        BETA PARAMETER    FOR S               
+   6  BETAP    -9.80275500  EV        BETA PARAMETER    FOR P               
+   6  ALP       2.70780700  (1/A)     ALPHA PARAMETER   FOR CORE            
+   6  GSS      11.20070800  EV        ONE-CENTER INTEGRAL (SS,SS)           
+   6  GPP      10.79629200  EV        ONE-CENTER INTEGRAL (PP,PP)           
+   6  GSP      10.26502700  EV        ONE-CENTER INTEGRAL (SS,PP)           
+   6  GP2       9.04256600  EV        ONE-CENTER INTEGRAL (PP*,PP*)         
+   6  HSP       2.29098000  EV        ONE-CENTER INTEGRAL (SP,SP)           
+   6  DD2       0.83323960  BOHR      CHARGE SEPARATION, SP, L=1            
+   6  DD3       0.66477500  BOHR      CHARGE SEPARATION, PP, L=2            
+   6  PO1       1.21465535  BOHR      KLOPMAN-OHNO TERM, SS, L=0            
+   6  PO2       0.84949324  BOHR      KLOPMAN-OHNO TERM, SP, L=1            
+   6  PO3       0.65379416  BOHR      KLOPMAN-OHNO TERM, PP, L=2            
+   6  PO9       1.21465535  BOHR      KLOPMAN-OHNO TERM, CORE               
+   6  HYF       4.23552353  DEBYE     DIPOLE HYBRIDIZATION TERM, SP         
+   6  CORE      4.00000000  E         CORE CHARGE                           
+   6  EHEAT   170.89000000  KCAL/MOL  HEAT OF FORMATION OF THE ATOM (EXP)   
+   6  EISOL  -111.22991700  EV        TOTAL ENERGY OF THE ATOM (CALC)       
+   6  FN1       0.05010700  NONE      CORE REPULSION GAUSSIAN, PREFACTOR     1
+   6  FN2       6.00316500  (1/A**2)  CORE REPULSION GAUSSIAN, EXPONENT      1
+   6  FN3       1.64221400  ANGSTROM  CORE REPULSION GAUSSIAN, WIDTH         1
+   6  FN1       0.05073300  NONE      CORE REPULSION GAUSSIAN, PREFACTOR     2
+   6  FN2       6.00297900  (1/A**2)  CORE REPULSION GAUSSIAN, EXPONENT      2
+   6  FN3       0.89248800  ANGSTROM  CORE REPULSION GAUSSIAN, WIDTH         2
+   6  GSCAL     1.00000000  NONE      GAUSSIAN CORE-CORE TERM SCALE FACTOR  
+
+   8  USS     -86.99300200  EV        ONE-CENTER ENERGY FOR S               
+   8  UPP     -71.87958000  EV        ONE-CENTER ENERGY FOR P               
+   8  ZS        3.79654400  AU        ORBITAL EXPONENT  FOR S               
+   8  ZP        2.38940200  AU        ORBITAL EXPONENT  FOR P               
+   8  BETAS   -45.20265100  EV        BETA PARAMETER    FOR S               
+   8  BETAP   -24.75251500  EV        BETA PARAMETER    FOR P               
+   8  ALP       3.21710200  (1/A)     ALPHA PARAMETER   FOR CORE            
+   8  GSS      15.75576000  EV        ONE-CENTER INTEGRAL (SS,SS)           
+   8  GPP      13.65401600  EV        ONE-CENTER INTEGRAL (PP,PP)           
+   8  GSP      10.62116000  EV        ONE-CENTER INTEGRAL (SS,PP)           
+   8  GP2      12.40609500  EV        ONE-CENTER INTEGRAL (PP*,PP*)         
+   8  HSP       0.59388300  EV        ONE-CENTER INTEGRAL (SP,SP)           
+   8  DD2       0.40861730  BOHR      CHARGE SEPARATION, SP, L=1            
+   8  DD3       0.51257380  BOHR      CHARGE SEPARATION, PP, L=2            
+   8  PO1       0.86349373  BOHR      KLOPMAN-OHNO TERM, SS, L=0            
+   8  PO2       0.94346209  BOHR      KLOPMAN-OHNO TERM, SP, L=1            
+   8  PO3       0.61127459  BOHR      KLOPMAN-OHNO TERM, PP, L=2            
+   8  PO9       0.86349373  BOHR      KLOPMAN-OHNO TERM, CORE               
+   8  HYF       2.07708346  DEBYE     DIPOLE HYBRIDIZATION TERM, SP         
+   8  CORE      6.00000000  E         CORE CHARGE                           
+   8  EHEAT    59.55900000  KCAL/MOL  HEAT OF FORMATION OF THE ATOM (EXP)   
+   8  EISOL  -289.34220650  EV        TOTAL ENERGY OF THE ATOM (CALC)       
+   8  FN1      -1.13112800  NONE      CORE REPULSION GAUSSIAN, PREFACTOR     1
+   8  FN2       6.00247700  (1/A**2)  CORE REPULSION GAUSSIAN, EXPONENT      1
+   8  FN3       1.60731100  ANGSTROM  CORE REPULSION GAUSSIAN, WIDTH         1
+   8  FN1       1.13789100  NONE      CORE REPULSION GAUSSIAN, PREFACTOR     2
+   8  FN2       5.95051200  (1/A**2)  CORE REPULSION GAUSSIAN, EXPONENT      2
+   8  FN3       1.59839500  ANGSTROM  CORE REPULSION GAUSSIAN, WIDTH         2
+   8  GSCAL     1.00000000  NONE      GAUSSIAN CORE-CORE TERM SCALE FACTOR  
+
+
+
+ CHARGE SEPARATIONS DD AND ADDITIVE TERMS PO (IN ATOMIC UNITS) FOR ELEMENT  1
+ CORRESPONDING ONE-CENTER INTEGRALS (IN EV), CALCULATED VS REFERENCE.
+
+ TYPE  L       DD             PO             CALC           REF
+
+ SS    0     0.00000000     0.91961667    14.79420761    14.79420800
+
+
+
+ CHARGE SEPARATIONS DD AND ADDITIVE TERMS PO (IN ATOMIC UNITS) FOR ELEMENT  6
+ CORRESPONDING ONE-CENTER INTEGRALS (IN EV), CALCULATED VS REFERENCE.
+
+ TYPE  L       DD             PO             CALC           REF
+
+ SS    0     0.00000000     1.21465535    11.20070807    11.20070800
+ SP    1     0.83323960     0.84949324     2.29097949     2.29098000
+ PP    2     0.66477500     0.65379416     0.87686318     0.87686300
+
+
+
+ CHARGE SEPARATIONS DD AND ADDITIVE TERMS PO (IN ATOMIC UNITS) FOR ELEMENT  8
+ CORRESPONDING ONE-CENTER INTEGRALS (IN EV), CALCULATED VS REFERENCE.
+
+ TYPE  L       DD             PO             CALC           REF
+
+ SS    0     0.00000000     0.86349373    15.75576003    15.75576000
+ SP    1     0.40861730     0.94346209     0.59388283     0.59388300
+ PP    2     0.51257380     0.61127459     0.62396056     0.62396050
+
+
+
+ IDENTIFICATION OF HYDROGEN BONDS X...H-Y USING THE FOLLOWING CRITERIA
+
+ MINIMUM DISTANCE X...H     1.10000 ANGSTROM
+ MAXIMUM DISTANCE X...H     5.00000 ANGSTROM
+ MINIMUM ANGLE    X...H-Y  90.00000 DEGREE
+
+ LABELS (IX,IH,IY) REFER TO THE LIST OF REAL ATOMS WITHOUT DUMMY ATOMS
+
+     I   IX   IH   IY     RHX       RHY       ANGLE
+
+
+
+ NUMBER OF H-BONDS WITH ANGLES      0-180   0-120 120-150 150-180
+
+ NUMBER OF HYDROGEN BONDS, X..H-Y       0       0       0       0
+ NUMBER OF HYDROGEN BONDS, N..H-N       0       0       0       0
+ NUMBER OF HYDROGEN BONDS, N..H-O       0       0       0       0
+ NUMBER OF HYDROGEN BONDS, O..H-N       0       0       0       0
+ NUMBER OF HYDROGEN BONDS, O..H-O       0       0       0       0
+
+
+ DISTANCES WITHIN H-BONDS FOUND (IN ANGSTROM)
+ MINIMUM COVALENT DISTANCE H-Y  100.00000
+ MAXIMUM COVALENT DISTANCE H-Y    0.00000
+ MINIMUM H-BOND   DISTANCE H..X 100.00000
+ MAXIMUM H-BOND   DISTANCE H..X   0.00000
+
+
+
+ INPUT FOR EXPERIMENTAL REFERENCE DATA.
+ COPY OF ORIGINAL INPUT IN SUBROUTINE INREF.
+ ID1 ID2 ID3 ID4 ID5 ID6 ID7     XI        ERRI    WI  LIT
+
+
+ END-OF-FILE ENCOUNTERED IN SUBROUTINE INREF.
+
+
+
+ EXPERIMENTAL REFERENCE DATA.
+
+ PROPERTY DEFINITION  EXPERIMENT EXPERIMENT LITERATURE
+ ID1 ID4 ID5 ID6 ID7     VALUE      ERROR    REFERENCE
+
+  22   0   0   0   0     0.00000    0.00000       0     CNORM                  
+
+
+ DESCRIPTION OF THE ID1-LABELS USED ABOVE.
+ ID1   ASSOCIATED PROPERTIES (WITH UNITS).
+
+  22   Cartesian gradient norms (kcal/mol*A)
+
+ CHKANA: IPSANA =  0, ISKPA =  0, ISKPAF =  0
+
+
+
+ NUMBER OF BASIS ORBITALS                           10
+ NUMBER OF EIGENVECTORS COMPUTED                    10
+ DIMENSION OF LOWER TRIANGLE MATRIX IN SCF          55
+ NUMBER OF ONE-CENTER AO PAIRS                      22
+ NUMBER OF TWO-ELECTRON INTEGRALS                  484
+
+
+
+ MEMORY ALLOCATION FOR RHF-SCF CALCULATION
+
+     START    FINAL   LENGTH    CONTENTS
+
+         1      100      100    EIGENVECTORS
+       101      110       10    EIGENVALUES
+       111      594      484    TWO-ELECTRON INTEGRALS
+       595      694      100    FOCK MATRIX
+       695      749       55    CORE HAMILTONIAN MATRIX
+       750      804       55    DIFFERENCE DENSITY MATRIX
+       805      859       55    DENSITY MATRIX
+       860      939       80    DIAGONALIZATION BUFFERS
+
+
+
+     CARTESIAN COORDINATES FOR ORIGINAL AXES.
+
+        NI              X             Y             Z
+
+         6       0.0000000000   0.0000000000   0.0000000000
+         8       1.2195000000   0.0000000000   0.0000000000
+         1      -0.5422000000   0.9391179479   0.0000000000
+         1      -0.5422000000  -0.9391179479  -0.0000000000
+
+
+
+     ROTATION MATRIX RELATING ORIGINAL AND PRINCIPAL AXES.
+
+         I              1             2             3
+
+         1       1.0000000000   0.0000000000   0.0000000000
+         2       0.0000000000   1.0000000000   0.0000000000
+         3       0.0000000000   0.0000000000   1.0000000000
+
+
+
+     CARTESIAN COORDINATES FOR PRINCIPAL AXES.
+
+        NI              X             Y             Z
+
+         6      -0.6134076753   0.0000000000   0.0000000000
+         8       0.6060923247   0.0000000000   0.0000000000
+         1      -1.1556076753   0.9391179479   0.0000000000
+         1      -1.1556076753  -0.9391179479  -0.0000000000
+
+
+
+     CARTESIAN COORDINATES OF CENTER OF GRAVITY.
+
+                        X             Y             Z
+
+                 0.6134076753   0.0000000000  -0.0000000000
+
+
+
+     MOLECULAR WEIGHT IN AMU                       30.02620
+
+     MOMENTS OF INERTIA IN AMU*ANGSTROM**2          1.77782       13.08867       14.86649
+
+     MOMENTS OF INERTIA IN 10**(-40)*G*CM**2        2.95219       21.73460       24.68678
+
+     ROTATIONAL CONSTANTS IN CM-1                   9.48242        1.28799        1.13396
+
+     ROTATIONAL CONSTANTS IN MHZ                  284275.90       38612.88       33995.33
+
+     THE MOLECULE IS AN ASYMMETRIC TOP
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     1.00000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000    -1.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     1.00000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000    -1.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     1.00000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000    -1.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+ HCOREP 180  
+              1           2           3           4           5           6           7           8           9
+   1 -  -47.270320    0.000000    0.000000    0.000000   -5.782447    5.129027    0.000000    0.000000    0.000000
+   2 -    0.000000  -36.266918    0.000000    0.000000   -7.278395    5.362367    0.000000    0.000000    0.000000
+   3 -    0.000000    0.000000  -36.266918    0.000000    0.000000    0.000000   -3.024239    0.000000    0.000000
+   4 -    0.000000    0.000000    0.000000  -36.266918    0.000000    0.000000    0.000000   -3.024239    0.000000
+   5 -   -5.782447   -7.278395    0.000000    0.000000  -86.993002    0.000000    0.000000    0.000000    0.000000
+   6 -    5.129027    5.362367    0.000000    0.000000    0.000000  -71.879580    0.000000    0.000000    0.000000
+   7 -    0.000000    0.000000   -3.024239    0.000000    0.000000    0.000000  -71.879580    0.000000    0.000000
+   8 -    0.000000    0.000000    0.000000   -3.024239    0.000000    0.000000    0.000000  -71.879580    0.000000
+   9 -    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000  -13.073321
+  10 -    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+             10
+   1 -    0.000000
+   2 -    0.000000
+   3 -    0.000000
+   4 -    0.000000
+   5 -    0.000000
+   6 -    0.000000
+   7 -    0.000000
+   8 -    0.000000
+   9 -    0.000000
+  10 -  -13.073321
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+ HCOREP 180  
+              1           2           3           4           5           6           7           8           9
+   1 -  -99.880869  -13.315480    0.000000    0.000000   -5.782447    5.129027    0.000000    0.000000   -5.207161
+   2 -  -13.315480  -92.287111    0.000000    0.000000   -7.278395    5.362367    0.000000    0.000000    1.568195
+   3 -    0.000000    0.000000  -85.944683    0.000000    0.000000    0.000000   -3.024239    0.000000   -2.716194
+   4 -    0.000000    0.000000    0.000000  -85.944683    0.000000    0.000000    0.000000   -3.024239    0.000000
+   5 -   -5.782447   -7.278395    0.000000    0.000000 -122.066701    3.246824    0.000000    0.000000    0.000000
+   6 -    5.129027    5.362367    0.000000    0.000000    3.246824 -107.814070    0.000000    0.000000    0.000000
+   7 -    0.000000    0.000000   -3.024239    0.000000    0.000000    0.000000 -105.921459    0.000000    0.000000
+   8 -    0.000000    0.000000    0.000000   -3.024239    0.000000    0.000000    0.000000 -105.921459    0.000000
+   9 -   -5.207161    1.568195   -2.716194    0.000000    0.000000    0.000000    0.000000    0.000000  -13.073321
+  10 -    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+             10
+   1 -    0.000000
+   2 -    0.000000
+   3 -    0.000000
+   4 -    0.000000
+   5 -    0.000000
+   6 -    0.000000
+   7 -    0.000000
+   8 -    0.000000
+   9 -    0.000000
+  10 -  -13.073321
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+ HCOREP 180  
+              1           2           3           4           5           6           7           8           9
+   1 - -109.077123  -12.158037   -2.004750    0.000000   -5.782447    5.129027    0.000000    0.000000   -5.207161
+   2 -  -12.158037 -101.168370    0.465254    0.000000   -7.278395    5.362367    0.000000    0.000000    1.568195
+   3 -   -2.004750    0.465254  -95.363171    0.000000    0.000000    0.000000   -3.024239    0.000000   -2.716194
+   4 -    0.000000    0.000000    0.000000  -94.557327    0.000000    0.000000    0.000000   -3.024239    0.000000
+   5 -   -5.782447   -7.278395    0.000000    0.000000 -122.066701    3.246824    0.000000    0.000000   -1.285573
+   6 -    5.129027    5.362367    0.000000    0.000000    3.246824 -107.814070    0.000000    0.000000    1.217028
+   7 -    0.000000    0.000000   -3.024239    0.000000    0.000000    0.000000 -105.921459    0.000000   -0.648767
+   8 -    0.000000    0.000000    0.000000   -3.024239    0.000000    0.000000    0.000000 -105.921459    0.000000
+   9 -   -5.207161    1.568195   -2.716194    0.000000   -1.285573    1.217028   -0.648767    0.000000  -49.858336
+  10 -    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+             10
+   1 -    0.000000
+   2 -    0.000000
+   3 -    0.000000
+   4 -    0.000000
+   5 -    0.000000
+   6 -    0.000000
+   7 -    0.000000
+   8 -    0.000000
+   9 -    0.000000
+  10 -  -13.073321
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+ HCOREP 180  
+              1           2           3           4           5           6           7           8           9
+   1 - -109.077123  -12.158037   -2.004750    0.000000   -5.782447    5.129027    0.000000    0.000000   -5.207161
+   2 -  -12.158037 -101.168370    0.465254    0.000000   -7.278395    5.362367    0.000000    0.000000    1.568195
+   3 -   -2.004750    0.465254  -95.363171    0.000000    0.000000    0.000000   -3.024239    0.000000   -2.716194
+   4 -    0.000000    0.000000    0.000000  -94.557327    0.000000    0.000000    0.000000   -3.024239    0.000000
+   5 -   -5.782447   -7.278395    0.000000    0.000000 -128.587436    3.746111   -0.266158    0.000000   -1.285573
+   6 -    5.129027    5.362367    0.000000    0.000000    3.746111 -114.446336    0.113369    0.000000    1.217028
+   7 -    0.000000    0.000000   -3.024239    0.000000   -0.266158    0.113369 -112.401489    0.000000   -0.648767
+   8 -    0.000000    0.000000    0.000000   -3.024239    0.000000    0.000000    0.000000 -112.341055    0.000000
+   9 -   -5.207161    1.568195   -2.716194    0.000000   -1.285573    1.217028   -0.648767    0.000000  -88.982744
+  10 -   -5.207161    1.568195    2.716194    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+             10
+   1 -   -5.207161
+   2 -    1.568195
+   3 -    2.716194
+   4 -    0.000000
+   5 -    0.000000
+   6 -    0.000000
+   7 -    0.000000
+   8 -    0.000000
+   9 -    0.000000
+  10 -  -13.073321
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+ HCOREP 180  
+              1           2           3           4           5           6           7           8           9
+   1 - -118.273376  -11.000594    0.000000    0.000000   -5.782447    5.129027    0.000000    0.000000   -5.207161
+   2 -  -11.000594 -110.049628    0.000000   -0.000000   -7.278395    5.362367    0.000000    0.000000    1.568195
+   3 -    0.000000    0.000000 -104.781659   -0.000000    0.000000    0.000000   -3.024239    0.000000   -2.716194
+   4 -    0.000000   -0.000000   -0.000000 -103.169971    0.000000    0.000000    0.000000   -3.024239    0.000000
+   5 -   -5.782447   -7.278395    0.000000    0.000000 -128.587436    3.746111   -0.266158    0.000000   -1.285573
+   6 -    5.129027    5.362367    0.000000    0.000000    3.746111 -114.446336    0.113369    0.000000    1.217028
+   7 -    0.000000    0.000000   -3.024239    0.000000   -0.266158    0.113369 -112.401489    0.000000   -0.648767
+   8 -    0.000000    0.000000    0.000000   -3.024239    0.000000    0.000000    0.000000 -112.341055    0.000000
+   9 -   -5.207161    1.568195   -2.716194    0.000000   -1.285573    1.217028   -0.648767    0.000000  -88.982744
+  10 -   -5.207161    1.568195    2.716194    0.000000   -1.285573    1.217028    0.648767    0.000000    0.000000
+             10
+   1 -   -5.207161
+   2 -    1.568195
+   3 -    2.716194
+   4 -    0.000000
+   5 -   -1.285573
+   6 -    1.217028
+   7 -    0.648767
+   8 -    0.000000
+   9 -    0.000000
+  10 -  -49.858336
+ HCOREP 232  
+              1           2           3           4           5           6           7           8           9
+   1 - -118.273376  -11.000594    0.000000    0.000000   -5.782447    5.129027    0.000000    0.000000   -5.207161
+   2 -  -11.000594 -110.049628    0.000000   -0.000000   -7.278395    5.362367    0.000000    0.000000    1.568195
+   3 -    0.000000    0.000000 -104.781659   -0.000000    0.000000    0.000000   -3.024239    0.000000   -2.716194
+   4 -    0.000000   -0.000000   -0.000000 -103.169971    0.000000    0.000000    0.000000   -3.024239    0.000000
+   5 -   -5.782447   -7.278395    0.000000    0.000000 -135.108171    4.245398    0.000000    0.000000   -1.285573
+   6 -    5.129027    5.362367    0.000000    0.000000    4.245398 -121.078603    0.000000   -0.000000    1.217028
+   7 -    0.000000    0.000000   -3.024239    0.000000    0.000000    0.000000 -118.881520   -0.000000   -0.648767
+   8 -    0.000000    0.000000    0.000000   -3.024239    0.000000   -0.000000   -0.000000 -118.760651    0.000000
+   9 -   -5.207161    1.568195   -2.716194    0.000000   -1.285573    1.217028   -0.648767    0.000000  -95.789252
+  10 -   -5.207161    1.568195    2.716194    0.000000   -1.285573    1.217028    0.648767    0.000000   -1.517130
+             10
+   1 -   -5.207161
+   2 -    1.568195
+   3 -    2.716194
+   4 -    0.000000
+   5 -   -1.285573
+   6 -    1.217028
+   7 -    0.648767
+   8 -    0.000000
+   9 -   -1.517130
+  10 -  -95.789252
+ HCOREP 257  
+              1           2           3           4           5           6           7           8           9
+   1 - -118.273376  -11.000594    0.000000    0.000000   -5.782447    5.129027    0.000000    0.000000   -5.207161
+   2 -  -11.000594 -110.049628    0.000000   -0.000000   -7.278395    5.362367    0.000000    0.000000    1.568195
+   3 -    0.000000    0.000000 -104.781659   -0.000000    0.000000    0.000000   -3.024239    0.000000   -2.716194
+   4 -    0.000000   -0.000000   -0.000000 -103.169971    0.000000    0.000000    0.000000   -3.024239    0.000000
+   5 -   -5.782447   -7.278395    0.000000    0.000000 -135.108171    4.245398    0.000000    0.000000   -1.285573
+   6 -    5.129027    5.362367    0.000000    0.000000    4.245398 -121.078603    0.000000   -0.000000    1.217028
+   7 -    0.000000    0.000000   -3.024239    0.000000    0.000000    0.000000 -118.881520   -0.000000   -0.648767
+   8 -    0.000000    0.000000    0.000000   -3.024239    0.000000   -0.000000   -0.000000 -118.760651    0.000000
+   9 -   -5.207161    1.568195   -2.716194    0.000000   -1.285573    1.217028   -0.648767    0.000000  -95.789252
+  10 -   -5.207161    1.568195    2.716194    0.000000   -1.285573    1.217028    0.648767    0.000000   -1.517130
+             10
+   1 -   -5.207161
+   2 -    1.568195
+   3 -    2.716194
+   4 -    0.000000
+   5 -   -1.285573
+   6 -    1.217028
+   7 -    0.648767
+   8 -    0.000000
+   9 -   -1.517130
+  10 -  -95.789252
+
+
+
+ INITIAL DENSITY MATRIX (MULTIPLIED BY 0.5).
+
+
+
+             1           2           3           4           5           6           7           8           9          10
+ ----------------------------------------------------------------------------------------------------------------------------
+   1      0.50000
+   2      0.00000     0.50000
+   3      0.00000     0.00000     0.50000
+   4      0.00000     0.00000     0.00000     0.50000
+   5      0.00000     0.00000     0.00000     0.00000     0.75000
+   6      0.00000     0.00000     0.00000     0.00000     0.00000     0.75000
+   7      0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000
+   8      0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000
+   9      0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.50000
+  10      0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.50000
+
+
+ TYPE OF INITIAL DENSITY MATRIX: MPDIAG = 1
+
+
+
+     DEBUG PRINT BEFORE STARTING THE SCF ITERATIONS.
+
+
+
+     CORE HAMILTONIAN MATRIX H(LM4).
+
+
+
+             1           2           3           4           5           6           7           8           9          10
+ ----------------------------------------------------------------------------------------------------------------------------
+   1   -118.27338
+   2    -11.00059  -110.04963
+   3      0.00000     0.00000  -104.78166
+   4      0.00000    -0.00000    -0.00000  -103.16997
+   5     -5.78245    -7.27840     0.00000     0.00000  -135.10817
+   6      5.12903     5.36237     0.00000     0.00000     4.24540  -121.07860
+   7      0.00000     0.00000    -3.02424     0.00000     0.00000     0.00000  -118.88152
+   8      0.00000     0.00000     0.00000    -3.02424     0.00000    -0.00000    -0.00000  -118.76065
+   9     -5.20716     1.56820    -2.71619     0.00000    -1.28557     1.21703    -0.64877     0.00000   -95.78925
+  10     -5.20716     1.56820     2.71619     0.00000    -1.28557     1.21703     0.64877     0.00000    -1.51713   -95.78925
+
+
+
+     TWO-ELECTRON INTEGRALS W(LM6,LM6).
+
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1    11.20071     0.00000    10.26503     0.00000     0.00000    10.26503     0.00000     0.00000     0.00000    10.26503
+    2     0.00000     2.29098     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3    10.26503     0.00000    10.79629     0.00000     0.00000     9.04257     0.00000     0.00000     0.00000     9.04257
+    4     0.00000     0.00000     0.00000     2.29098     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.87686     0.00000     0.00000     0.00000     0.00000     0.00000
+    6    10.26503     0.00000     9.04257     0.00000     0.00000    10.79629     0.00000     0.00000     0.00000     9.04257
+    7     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     2.29098     0.00000     0.00000     0.00000
+    8     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.87686     0.00000     0.00000
+    9     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.87686     0.00000
+   10    10.26503     0.00000     9.04257     0.00000     0.00000     9.04257     0.00000     0.00000     0.00000    10.79629
+
+   11     8.76842     2.21925     9.33670     0.00000     0.00000     8.27963     0.00000     0.00000     0.00000     8.27963
+   12    -0.81171    -0.27391    -0.78832     0.00000     0.00000    -0.65609     0.00000     0.00000     0.00000    -0.65609
+   13     8.98362     2.21124     9.28135     0.00000     0.00000     8.34298     0.00000     0.00000     0.00000     8.34298
+   14     0.00000     0.00000     0.00000     0.32319     0.17340     0.00000     0.00000     0.00000     0.00000     0.00000
+   15     0.00000     0.00000     0.00000    -0.21228    -0.16894     0.00000     0.00000     0.00000     0.00000     0.00000
+   16     8.51047     1.96029     8.88837     0.00000     0.00000     8.13833     0.00000     0.00000     0.00000     8.07021
+   17     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.32319     0.17340     0.00000     0.00000
+   18     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -0.21228    -0.16894     0.00000     0.00000
+   19     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.03406     0.00000
+   20     8.51047     1.96029     8.88837     0.00000     0.00000     8.07021     0.00000     0.00000     0.00000     8.13833
+
+   21     9.19625    -1.15744     8.88126     2.00475    -0.46525     9.41849     0.00000     0.00000     0.00000     8.61264
+   22     9.19625    -1.15744     8.88126    -2.00475     0.46525     9.41849    -0.00000     0.00000     0.00000     8.61264
+
+
+            11          12          13          14          15          16          17          18          19          20
+
+    1     8.76842    -0.81171     8.98362     0.00000     0.00000     8.51047     0.00000     0.00000     0.00000     8.51047
+    2     2.21925    -0.27391     2.21124     0.00000     0.00000     1.96029     0.00000     0.00000     0.00000     1.96029
+    3     9.33670    -0.78832     9.28135     0.00000     0.00000     8.88837     0.00000     0.00000     0.00000     8.88837
+    4     0.00000     0.00000     0.00000     0.32319    -0.21228     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.17340    -0.16894     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     8.27963    -0.65609     8.34298     0.00000     0.00000     8.13833     0.00000     0.00000     0.00000     8.07021
+    7     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.32319    -0.21228     0.00000     0.00000
+    8     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.17340    -0.16894     0.00000     0.00000
+    9     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.03406     0.00000
+   10     8.27963    -0.65609     8.34298     0.00000     0.00000     8.07021     0.00000     0.00000     0.00000     8.13833
+
+   11    15.75576     0.00000    10.62116     0.00000     0.00000    10.62116     0.00000     0.00000     0.00000    10.62116
+   12     0.00000     0.59388     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+   13    10.62116     0.00000    13.65402     0.00000     0.00000    12.40610     0.00000     0.00000     0.00000    12.40610
+   14     0.00000     0.00000     0.00000     0.59388     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+   15     0.00000     0.00000     0.00000     0.00000     0.62396     0.00000     0.00000     0.00000     0.00000     0.00000
+   16    10.62116     0.00000    12.40610     0.00000     0.00000    13.65402     0.00000     0.00000     0.00000    12.40610
+   17     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.59388     0.00000     0.00000     0.00000
+   18     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.62396     0.00000     0.00000
+   19     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.62396     0.00000
+   20    10.62116     0.00000    12.40610     0.00000     0.00000    12.40610     0.00000     0.00000     0.00000    13.65402
+
+   21     6.52073    -0.49929     6.63227     0.26616    -0.11337     6.48003     0.00000     0.00000     0.00000     6.41960
+   22     6.52073    -0.49929     6.63227    -0.26616     0.11337     6.48003    -0.00000     0.00000     0.00000     6.41960
+
+
+            21          22
+
+    1     9.19625     9.19625
+    2    -1.15744    -1.15744
+    3     8.88126     8.88126
+    4     2.00475    -2.00475
+    5    -0.46525     0.46525
+    6     9.41849     9.41849
+    7     0.00000    -0.00000
+    8     0.00000     0.00000
+    9     0.00000     0.00000
+   10     8.61264     8.61264
+
+   11     6.52073     6.52073
+   12    -0.49929    -0.49929
+   13     6.63227     6.63227
+   14     0.26616    -0.26616
+   15    -0.11337     0.11337
+   16     6.48003     6.48003
+   17     0.00000    -0.00000
+   18     0.00000     0.00000
+   19     0.00000     0.00000
+   20     6.41960     6.41960
+
+   21    14.79421     6.80651
+   22     6.80651    14.79421
+
+
+
+     INFORMATION ON SCF ITERATIONS.
+
+     NITER            ENERGY              DELTAE              DELTAP           EXTRAP       FAST
+
+       0         -684.2982775374
+       0         -751.4767204918      -67.1784429544
+       0         -751.4767204918     -751.4767204918        0.0000000000         NO          NO  
+
+
+ BORDER: NITER,KEXT,YL,YLAMB,DEN1,DEN2,FAC
+ BORDER:     1  0     0.0000         0.0000         0.0000         1.1320         1.0000    
+       1         -831.1815105980      -79.7047901062        0.3306712274         NO          NO  
+
+
+ BORDER: NITER,KEXT,YL,YLAMB,DEN1,DEN2,FAC
+ BORDER:     2  0   -0.22874E-01   -0.22874E-01     1.1320        0.62195E-01     1.0000    
+       2         -832.6538210335       -1.4723104354        0.1357776896         NO          NO  
+
+
+ BORDER: NITER,KEXT,YL,YLAMB,DEN1,DEN2,FAC
+ BORDER:     3  0    0.18888        0.18888        0.62195E-01    0.28574E-02     1.0000    
+       3         -832.7369596367       -0.0831386032        0.0309017568         NO          NO  
+
+
+ BORDER: NITER,KEXT,YL,YLAMB,DEN1,DEN2,FAC
+ BORDER:     4  0    0.33271        0.33271        0.28574E-02    0.39574E-03     1.0000    
+       4         -832.7504811979       -0.0135215612        0.0094983706         NO          YES 
+
+
+ BORDER: NITER,KEXT,YL,YLAMB,DEN1,DEN2,FAC
+ BORDER:     5  0    0.48917        0.48917        0.39574E-03    0.99983E-04     1.0000    
+       5         -832.7538427172       -0.0033615193        0.0041566526         NO          YES 
+
+
+ BORDER: NITER,KEXT,YL,YLAMB,DEN1,DEN2,FAC
+ BORDER:     6  0    0.53899        0.53899        0.99983E-04    0.29667E-04     1.0000    
+       6         -832.7548070999       -0.0009643827        0.0021325313         NO          YES 
+
+
+ BORDER: NITER,KEXT,YL,YLAMB,DEN1,DEN2,FAC
+ BORDER:     7  0    0.55563        0.55563        0.29667E-04    0.92465E-05     1.0000    
+       7         -832.7551028255       -0.0002957256        0.0011601232         NO          YES 
+
+
+ BORDER: NITER,KEXT,YL,YLAMB,DEN1,DEN2,FAC
+ BORDER:     8  1    0.56598        0.56598        0.92465E-05    0.29764E-05     1.3040    
+       8         -832.7554229021       -0.0003200766        0.0006520514         YES         YES 
+
+
+ BORDER: NITER,KEXT,YL,YLAMB,DEN1,DEN2,FAC
+ BORDER:     9  0    0.21167E-01    0.21167E-01    0.29764E-05    0.20658E-07     1.0000    
+       9         -832.7552413621        0.0001815400        0.0000523422         NO          YES 
+
+
+ BORDER: NITER,KEXT,YL,YLAMB,DEN1,DEN2,FAC
+ BORDER:    10  0    0.39808        0.39808        0.20658E-07    0.43367E-08     1.0000    
+      10         -832.7552415540       -0.0000001919        0.0000196392         NO          YES 
+      11         -832.7552415877       -0.0000000337        0.0000089252         NO          NO  
+
+
+     POINT GROUP C2v ASSIGNED.
+
+
+     SYMMETRY ELEMENT AND SYMMETRY RELATIONS BETWEEN THE ATOMS.
+     SYMMETRY OPERATIONS PERMUTE THE ATOMS (1..N) AS FOLLOWS.
+
+     XZ     1   2   4   3
+     XY     1   2   3   4
+     X      1   2   4   3
+
+
+     POINT GROUP C2v ASSIGNED.
+
+
+     SYMMETRY ELEMENT AND SYMMETRY RELATIONS BETWEEN THE ATOMS.
+     SYMMETRY OPERATIONS PERMUTE THE ATOMS (1..N) AS FOLLOWS.
+
+     XZ     1   2   4   3
+     XY     1   2   3   4
+     X      1   2   4   3
+
+
+
+    MO     EIGENVALUE     LABEL     NSYM
+
+     1      -37.75040      A1        1
+     2      -24.22987      A1        1
+     3      -17.13253      B2        4
+     4      -16.30313      A1        1
+     5      -14.11650      B1        3
+     6      -10.68815      B2        4
+     7        0.71639      B1        3
+     8        2.69045      A1        1
+     9        4.21217      B2        4
+    10        6.53945      A1        1
+
+
+
+ DEBUG PRINT OF EIGENVALUES AND EIGENVECTORS FROM SUBROUTINE MOSYM.
+
+
+
+     EIGENVALUES AND EIGENVECTORS.
+
+
+                         1           2           3           4           5
+                    -37.75040   -24.22987   -17.13253   -16.30313   -14.11650
+                        A1          A1          B2          A1          B1  
+
+  1  C (1)   s       -0.47539     0.60527    -0.00000    -0.01078    -0.00000
+  2  C (1)   x       -0.26947    -0.26816    -0.00000     0.54874    -0.00000
+  3  C (1)   y       -0.00000     0.00000     0.62636     0.00000    -0.00000
+  4  C (1)   z       -0.00000    -0.00000     0.00000     0.00000     0.59537
+
+  5  O (2)   s       -0.78050    -0.48329     0.00000    -0.30013    -0.00000
+  6  O (2)   x        0.21897    -0.23782     0.00000    -0.71589     0.00000
+  7  O (2)   y       -0.00000    -0.00000     0.56378     0.00000    -0.00000
+  8  O (2)   z       -0.00000     0.00000     0.00000     0.00000     0.80345
+
+  9  H (3)   s       -0.14878     0.36852     0.38068    -0.21930     0.00000
+
+ 10  H (4)   s       -0.14878     0.36852    -0.38068    -0.21930     0.00000
+
+
+
+                         6           7           8           9          10
+                    -10.68815     0.71639     2.69045     4.21217     6.53945
+                        B2          B1          A1          B2          A1  
+
+  1  C (1)   s        0.00000    -0.00000    -0.60579     0.00000     0.20139
+  2  C (1)   x        0.00000     0.00000     0.17440     0.00000     0.72384
+  3  C (1)   y       -0.26668     0.00000    -0.00000    -0.73250     0.00000
+  4  C (1)   z        0.00000    -0.80345     0.00000    -0.00000     0.00000
+
+  5  O (2)   s       -0.00000    -0.00000     0.05044    -0.00000    -0.25423
+  6  O (2)   x       -0.00000    -0.00000    -0.20227     0.00000     0.58487
+  7  O (2)   y        0.80391     0.00000     0.00000     0.18941    -0.00000
+  8  O (2)   z        0.00000     0.59537    -0.00000     0.00000     0.00000
+
+  9  H (3)   s       -0.37590    -0.00000     0.52874     0.46237     0.11999
+
+ 10  H (4)   s        0.37590     0.00000     0.52874    -0.46237     0.11999
+
+
+
+
+    MO     EIGENVALUE     NSYMO
+
+     1      -37.75040      1
+     2      -24.22987      1
+     3      -17.13253      4
+     4      -16.30313      1
+     5      -14.11650      3
+     6      -10.68815      4
+     7        0.71639      3
+     8        2.69045      1
+     9        4.21217      4
+    10        6.53945      1
+
+
+
+                                                                                     
+     Formaldehyde, Comparison to PYSEQM                                              
+
+
+
+     CORE HAMILTONIAN MATRIX.
+
+
+
+             1           2           3           4           5           6           7           8           9          10
+ ----------------------------------------------------------------------------------------------------------------------------
+   1   -118.27338
+   2    -11.00059  -110.04963
+   3      0.00000     0.00000  -104.78166
+   4      0.00000    -0.00000    -0.00000  -103.16997
+   5     -5.78245    -7.27840     0.00000     0.00000  -135.10817
+   6      5.12903     5.36237     0.00000     0.00000     4.24540  -121.07860
+   7      0.00000     0.00000    -3.02424     0.00000     0.00000     0.00000  -118.88152
+   8      0.00000     0.00000     0.00000    -3.02424     0.00000    -0.00000    -0.00000  -118.76065
+   9     -5.20716     1.56820    -2.71619     0.00000    -1.28557     1.21703    -0.64877     0.00000   -95.78925
+  10     -5.20716     1.56820     2.71619     0.00000    -1.28557     1.21703     0.64877     0.00000    -1.51713   -95.78925
+
+
+
+     FOCK MATRIX.
+
+
+
+             1           2           3           4           5           6           7           8           9          10
+ ----------------------------------------------------------------------------------------------------------------------------
+   1    -16.15728
+   2     -0.13774    -5.88470
+   3      0.00000    -0.00000    -5.22168
+   4      0.00000     0.00000     0.00000    -4.54130
+   5     -7.38900    -9.57462    -0.00000     0.00000   -29.69493
+   6      8.39147     9.76040     0.00000    -0.00000    -0.83597    -9.18894
+   7     -0.00000    -0.00000    -4.34303    -0.00000     0.00000    -0.00000   -12.20187
+   8     -0.00000    -0.00000    -0.00000    -7.09531    -0.00000     0.00000     0.00000    -8.85879
+   9     -8.81682     3.65889    -6.58310     0.00000    -1.26891     0.96513    -0.07812    -0.00000    -7.15627
+  10     -8.81682     3.65889     6.58310    -0.00000    -1.26891     0.96513     0.07812    -0.00000    -0.97137    -7.15627
+
+
+     POINT GROUP C2v ASSIGNED.
+
+
+     SYMMETRY ELEMENT AND SYMMETRY RELATIONS BETWEEN THE ATOMS.
+     SYMMETRY OPERATIONS PERMUTE THE ATOMS (1..N) AS FOLLOWS.
+
+     XZ     1   2   4   3
+     XY     1   2   3   4
+     X      1   2   4   3
+
+
+
+    MO     EIGENVALUE     LABEL     NSYM
+
+     1      -37.75040      A1        1
+     2      -24.22987      A1        1
+     3      -17.13253      B2        4
+     4      -16.30313      A1        1
+     5      -14.11650      B1        3
+     6      -10.68815      B2        4
+     7        0.71639      B1        3
+     8        2.69045      A1        1
+     9        4.21217      B2        4
+    10        6.53945      A1        1
+
+
+
+ DEBUG PRINT OF EIGENVALUES AND EIGENVECTORS FROM SUBROUTINE MOSYM.
+
+
+
+     EIGENVALUES AND EIGENVECTORS.
+
+
+                         1           2           3           4           5
+                    -37.75040   -24.22987   -17.13253   -16.30313   -14.11650
+                        A1          A1          B2          A1          B1  
+
+  1  C (1)   s       -0.47539     0.60527    -0.00000    -0.01078    -0.00000
+  2  C (1)   x       -0.26947    -0.26816    -0.00000     0.54874    -0.00000
+  3  C (1)   y       -0.00000     0.00000     0.62636     0.00000    -0.00000
+  4  C (1)   z       -0.00000    -0.00000     0.00000     0.00000     0.59537
+
+  5  O (2)   s       -0.78050    -0.48329     0.00000    -0.30013    -0.00000
+  6  O (2)   x        0.21897    -0.23782     0.00000    -0.71589     0.00000
+  7  O (2)   y       -0.00000    -0.00000     0.56378     0.00000    -0.00000
+  8  O (2)   z       -0.00000     0.00000     0.00000     0.00000     0.80345
+
+  9  H (3)   s       -0.14878     0.36852     0.38068    -0.21930     0.00000
+
+ 10  H (4)   s       -0.14878     0.36852    -0.38068    -0.21930     0.00000
+
+
+
+                         6           7           8           9          10
+                    -10.68815     0.71639     2.69045     4.21217     6.53945
+                        B2          B1          A1          B2          A1  
+
+  1  C (1)   s        0.00000    -0.00000    -0.60579     0.00000     0.20139
+  2  C (1)   x        0.00000     0.00000     0.17440     0.00000     0.72384
+  3  C (1)   y       -0.26668     0.00000    -0.00000    -0.73250     0.00000
+  4  C (1)   z        0.00000    -0.80345     0.00000    -0.00000     0.00000
+
+  5  O (2)   s       -0.00000    -0.00000     0.05044    -0.00000    -0.25423
+  6  O (2)   x       -0.00000    -0.00000    -0.20227     0.00000     0.58487
+  7  O (2)   y        0.80391     0.00000     0.00000     0.18941    -0.00000
+  8  O (2)   z        0.00000     0.59537    -0.00000     0.00000     0.00000
+
+  9  H (3)   s       -0.37590    -0.00000     0.52874     0.46237     0.11999
+
+ 10  H (4)   s        0.37590     0.00000     0.52874    -0.46237     0.11999
+
+
+
+
+     EIGENVALUES AND EIGENVECTORS.
+
+
+                         1           2           3           4           5
+                    -37.75040   -24.22987   -17.13253   -16.30313   -14.11650
+                        A1          A1          B2          A1          B1  
+
+  1  C (1)   s       -0.47539     0.60527    -0.00000    -0.01078    -0.00000
+  2  C (1)   x       -0.26947    -0.26816    -0.00000     0.54874    -0.00000
+  3  C (1)   y       -0.00000     0.00000     0.62636     0.00000    -0.00000
+  4  C (1)   z       -0.00000    -0.00000     0.00000     0.00000     0.59537
+
+  5  O (2)   s       -0.78050    -0.48329     0.00000    -0.30013    -0.00000
+  6  O (2)   x        0.21897    -0.23782     0.00000    -0.71589     0.00000
+  7  O (2)   y       -0.00000    -0.00000     0.56378     0.00000    -0.00000
+  8  O (2)   z       -0.00000     0.00000     0.00000     0.00000     0.80345
+
+  9  H (3)   s       -0.14878     0.36852     0.38068    -0.21930     0.00000
+
+ 10  H (4)   s       -0.14878     0.36852    -0.38068    -0.21930     0.00000
+
+
+
+                         6           7           8           9          10
+                    -10.68815     0.71639     2.69045     4.21217     6.53945
+                        B2          B1          A1          B2          A1  
+
+  1  C (1)   s        0.00000    -0.00000    -0.60579     0.00000     0.20139
+  2  C (1)   x        0.00000     0.00000     0.17440     0.00000     0.72384
+  3  C (1)   y       -0.26668     0.00000    -0.00000    -0.73250     0.00000
+  4  C (1)   z        0.00000    -0.80345     0.00000    -0.00000     0.00000
+
+  5  O (2)   s       -0.00000    -0.00000     0.05044    -0.00000    -0.25423
+  6  O (2)   x       -0.00000    -0.00000    -0.20227     0.00000     0.58487
+  7  O (2)   y        0.80391     0.00000     0.00000     0.18941    -0.00000
+  8  O (2)   z        0.00000     0.59537    -0.00000     0.00000     0.00000
+
+  9  H (3)   s       -0.37590    -0.00000     0.52874     0.46237     0.11999
+
+ 10  H (4)   s        0.37590     0.00000     0.52874    -0.46237     0.11999
+
+
+
+
+     DENSITY MATRIX.
+
+
+
+             1           2           3           4           5           6           7           8           9          10
+ ----------------------------------------------------------------------------------------------------------------------------
+   1      1.18492
+   2     -0.08024     0.89129
+   3     -0.00000    -0.00000     0.92689
+   4     -0.00000    -0.00000    -0.00000     0.70892
+   5      0.16351     0.35045     0.00000    -0.00000     1.86564
+   6     -0.48064    -0.77615    -0.00000     0.00000     0.31779     1.23402
+   7      0.00000     0.00000     0.27748     0.00000    -0.00000     0.00000     1.92825
+   8      0.00000     0.00000     0.00000     0.95670     0.00000    -0.00000    -0.00000     1.29108
+   9      0.59229    -0.35814     0.67737    -0.00000     0.00767     0.07354    -0.17515     0.00000     0.98450
+  10      0.59229    -0.35814    -0.67737     0.00000     0.00767     0.07354     0.17515     0.00000    -0.16037     0.98450
+
+
+
+     SCF HEAT OF FORMATION      -33.61495 KCAL/MOL
+     SCF BINDING ENERGY         -15.96930 EV
+     SCF TOTAL ENERGY          -442.68806 EV
+     ELECTRONIC ENERGY         -832.75524 EV
+     NUCLEAR ENERGY             390.06718 EV
+     IONIZATION ENERGY           10.68815 EV
+     SCF CYCLES                  11
+
+
+
+     NET ATOMIC CHARGES AND ORBITAL POPULATIONS.
+
+     ATOM    I        CHARGE      DENSITY        S          PX          PY          PZ
+
+      C      1        0.28799     3.71201     1.18492     0.89129     0.92689     0.70892
+      O      2       -0.31899     6.31899     1.86564     1.23402     1.92825     1.29108
+      H      3        0.01550     0.98450     0.98450
+      H      4        0.01550     0.98450     0.98450
+
+
+
+     DIPOLE              X           Y           Z         TOTAL
+
+     POINT-CHARGE    -1.94928    -0.00000    -0.00000     1.94928
+     HYBRID          -0.32022     0.00000     0.00000     0.32022
+     SUM             -2.26950    -0.00000     0.00000     2.26950
+
+
+
+     CARTESIAN COORDINATES FOR ORIGINAL AXES.
+
+        NI              X             Y             Z
+
+         6       0.0000000000   0.0000000000   0.0000000000
+         8       1.2195000000   0.0000000000   0.0000000000
+         1      -0.5422000000   0.9391179479   0.0000000000
+         1      -0.5422000000  -0.9391179479  -0.0000000000
+
+
+
+     ROTATION MATRIX RELATING ORIGINAL AND PRINCIPAL AXES.
+
+         I              1             2             3
+
+         1       1.0000000000   0.0000000000   0.0000000000
+         2       0.0000000000   1.0000000000   0.0000000000
+         3       0.0000000000   0.0000000000   1.0000000000
+
+
+
+     CARTESIAN COORDINATES FOR PRINCIPAL AXES.
+
+        NI              X             Y             Z
+
+         6      -0.6134076753   0.0000000000   0.0000000000
+         8       0.6060923247   0.0000000000   0.0000000000
+         1      -1.1556076753   0.9391179479   0.0000000000
+         1      -1.1556076753  -0.9391179479  -0.0000000000
+
+
+
+     CARTESIAN COORDINATES OF CENTER OF GRAVITY.
+
+                        X             Y             Z
+
+                 0.6134076753   0.0000000000  -0.0000000000
+
+
+
+     MOLECULAR WEIGHT IN AMU                       30.02620
+
+     MOMENTS OF INERTIA IN AMU*ANGSTROM**2          1.77782       13.08867       14.86649
+
+     MOMENTS OF INERTIA IN 10**(-40)*G*CM**2        2.95219       21.73460       24.68678
+
+     ROTATIONAL CONSTANTS IN CM-1                   9.48242        1.28799        1.13396
+
+     ROTATIONAL CONSTANTS IN MHZ                  284275.90       38612.88       33995.33
+
+     THE MOLECULE IS AN ASYMMETRIC TOP
+
+
+     DIPOLE              A           B           C         TOTAL
+
+     PRINCIPAL AXIS  -2.26950    -0.00000     0.00000     2.26950
+
+
+     POINT GROUP C2v ASSIGNED.
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     1.00000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000    -1.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     1.00000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000    -1.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     1.00000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000    -1.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     1.00000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000    -1.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     1.00000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000    -1.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     1.00000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000    -1.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.25000     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.43301     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.75000     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.50000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.86603     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+             1           2           3           4           5           6           7           8           9          10
+
+    1     1.00000     0.00000     0.00000     0.00000     0.00000     0.77871     0.00000     0.00000     0.00000     0.00000
+    2     0.00000     0.00000     0.00000     0.00000     0.00000    -0.41511     0.00000     0.00000     0.00000     0.00000
+    3     0.00000     0.00000     0.00000     0.00000     0.00000     0.22129     0.00000     0.00000     0.00000     0.00000
+    4     0.00000     0.00000     0.88245     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    5     0.00000     0.00000    -0.47041     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000
+    6     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000     0.00000    -1.00000     0.00000     0.00000
+
+
+
+     TIME FOR ENERGY EVALUATION       0.007 SECONDS
+     TIME FOR GRADIENT EVALUATION     0.002 SECONDS
+
+
+
+                          COORDINATES (ANGSTROM)               GRADIENTS (KCAL/(MOL*ANGSTROM))
+
+        I   NI          X           Y           Z                X           Y           Z
+
+        1    6        0.00000     0.00000     0.00000        -46.01178     0.00000     0.00000
+        2    8        1.21950     0.00000     0.00000         35.92232     0.00000     0.00000
+        3    1       -0.54220     0.93912     0.00000          5.04473    -1.41935     0.00000
+        4    1       -0.54220    -0.93912    -0.00000          5.04473     1.41935     0.00000
+
+
+     CARTESIAN GRADIENT NORM                 58.84237
+
+
+
+     GRADIENTS FOR GEOMETRY OPTIMIZATION
+
+        I   LOCATION             VARIABLE    GRADIENT
+
+
+
+     GRADIENT NORM                            0.00000
+
+
+
+ Formaldehyde, Comparison to PYSEQM                                              
+
+ COMPARISON OF THEORETICAL AND EXPERIMENTAL RESULTS.
+
+ PROPERTY DEFINITION  CALCULATED   OBSERVED  DEVIATION
+ ID1 ID4 ID5 ID6 ID7     VALUE       VALUE    CALC-OBS
+
+  22   0   0   0   0    58.84237    0.00000   58.84237   CNORM                  
+
+
+
+ COMPUTATION TIME                 0.017 SECONDS
+
+

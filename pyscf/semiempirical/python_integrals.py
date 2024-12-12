@@ -18,17 +18,17 @@ from .compute_W import *
 from math import sqrt, atan, acos, sin, cos
 write = sys.stdout.write
 
-def compute_W_ori(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
+def compute_W_ori(mol, zi, zj, ia, ja, am, ad, aq, dd, qq, tore):
 
     old_pxpy_pxpy = 0
     if zi > 2 and zj > 2:
-        return compute_W_hh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore, old_pxpy_pxpy)
+        return compute_W_hh(mol, zi, zj, ia, ja, am, ad, aq, dd, qq, tore, old_pxpy_pxpy)
     elif zi == 1 and zj > 2:
-        return compute_W_lh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore)
+        return compute_W_lh(mol, zi, zj, ia, ja, am, ad, aq, dd, qq, tore)
     elif zi > 2 and zj == 1:
-        return compute_W_hl(zi, zj, xi, xj, am, ad, aq, dd, qq, tore)
+        return compute_W_hl(mol, zi, zj, ia, ja, am, ad, aq, dd, qq, tore)
     elif zi == 1 and zj == 1:
-        return compute_W_ll(zi, zj, xi, xj, am, ad, aq, dd, qq, tore)
+        return compute_W_ll(mol, zi, zj, ia, ja, am, ad, aq, dd, qq, tore)
     else:
         print("not sure how to compute W's for this case, zi:", zi, "zj:", zj)
         exit(-1)

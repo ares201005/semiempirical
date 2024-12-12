@@ -1,0 +1,12 @@
+  Electronic Energy: tensor([-778.7620]) eV
+  Electronic Energy: tensor([-858.4580]) eV
+  Electronic Energy: tensor([-860.9482]) eV
+  Electronic Energy: tensor([-861.0333]) eV
+  Electronic Energy: tensor([-861.0349]) eV
+  Electronic Energy: tensor([-861.0373]) eV
+  Electronic Energy: tensor([-861.0380]) eV
+  Electronic Energy: tensor([-861.0381]) eV
+  Electronic Energy: tensor([-861.0381]) eV
+  Electronic Energy: tensor([-861.0381]) eV
+  Electronic Energy: tensor([-861.0381], grad_fn=<MulBackward0>) eV
+Electronic Energy (eV):  [-861.038127138139]

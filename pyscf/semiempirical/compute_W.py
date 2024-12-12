@@ -17,16 +17,18 @@ from .diatomic_overlap_matrix import *
 from math import sqrt, atan, acos, sin, cos
 write = sys.stdout.write
 
-def compute_W_hh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore, old_pxpy_pxpy=0):
+def compute_W_hh(mol, zi, zj, ia, ja, am, ad, aq, dd, qq, tore, old_pxpy_pxpy=0):
 
     w = numpy.zeros((10,10))
    
-    print("calling compute_W_hh")
-    Xij  = numpy.subtract(xi, xj)
-    rij  = numpy.linalg.norm(Xij)
+    #print("calling compute_W_hh")
+    #Xij  = numpy.subtract(xi, xj)
+    #rij  = numpy.linalg.norm(Xij)
+    rij = mol.pair_dist[ia,ja]
     r05  = 0.5 * rij
     rij2 = rij * rij
-    sij  = Xij
+    #sij  = Xij
+    sij = numpy.copy(mol.xij[ia,ja])
     if rij > 0.0000001: sij  *= 1/rij
     else: return w
 
@@ -125,29 +127,31 @@ def compute_W_hh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore, old_pxpy_pxpy=0):
             w[iwa, iwb] += phi_a[ka][1] * phi_b[kb][1] / sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2] + v[3]*v[3])
     
     #This approximation is not necessary (Yihan)
-    if old_pxpy_pxpy: w[4,4] = 0.5 * (w[2,2] - w[2,5])
+    #if old_pxpy_pxpy: w[4,4] = 0.5 * (w[2,2] - w[2,5])
+    w[4,4] = 0.5 * (w[2,2] - w[2,5]) # using for now to match. will add kwarg -CL
 
     T = rotation_matrix(sij)
 
     T2 = T2_matrix(T)
-    #matrix_print_2d(T2, 5, "T2")
 
-    #matrix_print_2d(w, 5, "w before rotation")
     w = numpy.einsum('ij,ik,kl->jl', T2, w, T2)
-    #matrix_print_2d(w, 5, "w after rotation")
+    matrix_print_2d(w*27.21, 8, "Whh after rotation")
 
     return w
 
-def compute_W_hl(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
+def compute_W_hl(mol, zi, zj, ia, ja, am, ad, aq, dd, qq, tore):
 
     w = numpy.zeros((10,10))
    
-    print("calling compute_W_hl")
-    Xij  = numpy.subtract(xi, xj)
-    rij  = numpy.linalg.norm(Xij)
+    #print("calling compute_W_hl")
+    #Xij  = numpy.subtract(xi, xj)
+    #rij  = numpy.linalg.norm(Xij)
+    rij = mol.pair_dist[ia, ja]
     r05  = 0.5 * rij
     rij2 = rij * rij
-    sij  = Xij
+    #sij  = Xij
+    #sij = mol.xij[ia, ja]
+    sij = numpy.copy(mol.xij[ia,ja])
     if rij > 0.0000001: sij  *= 1/rij
     else: return w
     #theta = acos(sij[2]) 
@@ -221,28 +225,32 @@ def compute_W_hl(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
     T = rotation_matrix(-sij)
     #T = numpy.array([[1.0, 0.0, 0.0, 0.0], [0.0, cos(theta)*cos(phi), cos(theta)*sin(phi), -sin(theta)], 
     #              [0.0, -sin(phi), cos(phi), 0.0], [0.0, sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)]])
-    matrix_print_2d(T, 5, "T")
+    #matrix_print_2d(T, 5, "T")
 
     T2 = T2_matrix(T)
-    matrix_print_2d(T2, 5, "T2")
+    #matrix_print_2d(T2, 5, "T2")
 
     #matrix_print_2d(w, 5, "w before rotation")
     w = numpy.einsum('ij,ik->jk', T2, w)
     #matrix_print_2d(w, 5, "w after rotation")
 
+    matrix_print_2d(w*27.21, 8, "Whl after rotation")
     return w
 
-def compute_W_lh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
+def compute_W_lh(mol, zi, zj, ia, ja, am, ad, aq, dd, qq, tore):
 
-    print("calling compute_W_lh")
+    #print("calling compute_W_lh")
     w = numpy.zeros((10,10))
    
     #print("calling compute_W_lh")
-    Xij  = numpy.subtract(xi, xj)
-    rij  = numpy.linalg.norm(Xij)
+    #Xij  = numpy.subtract(xi, xj)
+    #rij  = numpy.linalg.norm(Xij)
+    rij = mol.pair_dist[ia, ja] # SEQM BOHR
     r05  = 0.5 * rij
     rij2 = rij * rij
-    sij  = Xij
+    #sij  = Xij
+    #sij = mol.xij[ia, ja]
+    sij = numpy.copy(mol.xij[ia,ja]) # SEQM BOHR?
     if rij > 0.0000001: sij  *= 1/rij
     else: return w
     #print("xi: ", xi, "xj:", xj)
@@ -312,29 +320,40 @@ def compute_W_lh(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
             v[2] = phi_b[kb][5] - phi_a[ka][5]
             v[3] = phi_b[kb][2] + phi_a[ka][2] 
             w[iwa, iwb] += phi_a[ka][1] * phi_b[kb][1] / sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2] + v[3]*v[3])
-    
-    print("db: ", db, "adb:", adb, "rij:", rij)
-    print("w:", w[0,:])
+            #print(f'w[{iwa}, {iwb}] = {w[iwa, iwb]*27.21}')
+    #print('=========== LINE 315 compute_W.py ===========')
+    #print("db: ", db, "adb:", adb, "rij:", rij)
+    #print("w:", w[0,:])
+    #matrix_print_2d(w,5,'W BEFORE ROTATION')
 
 
     T = rotation_matrix(sij)
-    matrix_print_2d(T, 5, "T")
+    
+    #matrix_print_2d(numpy.einsum('ji,jk->ik',T,T), 5, "TtT")
 
     T2 = T2_matrix(T)
-    matrix_print_2d(T2, 5, "T2")
+    #matrix_print_2d(T2, 8, "T2")
 
     #matrix_print_2d(w, 5, "w before rotation")
     w = numpy.einsum('ik,kl->il', w, T2)
     #matrix_print_2d(w, 5, "w after rotation")
 
+    #matrix_print_2d(w,5,'W AFTER ROTATION')
+    #matrix_print_2d(27.21*w,5,'W_lh (eV) AFTER ROTATION')
+    matrix_print_2d(w*27.21, 8, "Wlh after rotation")
     return w
 
-def compute_W_ll(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
+def compute_W_ll(mol, zi, zj, ia, ja, am, ad, aq, dd, qq, tore):
 
-    print("calling compute_W_ll no rotation")
+    #print("calling compute_W_ll no rotation")
     w = numpy.zeros((10,10))
-    if numpy.linalg.norm(numpy.subtract(xi, xj)) < 0.0000001: return w
+    #if numpy.linalg.norm(numpy.subtract(xi, xj)) < 0.0000001: return w
+    if mol.pair_dist[ia,ja] < 0.0000001: return w
 
+    # Why are these special? -CL
+    # Only use xi xj for W_ll ...
+    xi = mol.coords[ia]/0.529167
+    xj = mol.coords[ja]/0.529167
     ama = 0.5 / am[zi]
     amb = 0.5 / am[zj]
 
@@ -352,6 +371,8 @@ def compute_W_ll(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
             v[3] = phi_b[kb][2] + phi_a[ka][2] 
             w[iwa, iwb] += phi_a[ka][1] * phi_b[kb][1] / sqrt(v[0]*v[0] + v[1]*v[1] + v[2]*v[2] + v[3]*v[3])
 
+    #matrix_print_2d(27.21*w,5,'W_ll (eV) AFTER ROTATION')
+    #matrix_print_2d(w*27.21, 8, "Wll after rotation")
     return w
 
 def compute_W_lh_no_rotate(zi, zj, xi, xj, am, ad, aq, dd, qq, tore):
@@ -440,10 +461,10 @@ def rotation_matrix(sij):
        phi = atan(sij[1]/sij[0])
     if abs(phi) < 1e-8 and sij[0] < -1.0e-8:
        phi = numpy.pi
-    #print("38 sij:", sij, "theta:", theta, "phi:", phi)
 
     T = numpy.array([[1.0, 0.0, 0.0, 0.0], [0.0, cos(theta)*cos(phi), cos(theta)*sin(phi), -sin(theta)], 
                   [0.0, -sin(phi), cos(phi), 0.0], [0.0, sin(theta)*cos(phi), sin(theta)*sin(phi), cos(theta)]])
+    print('sij',sij,'theta',theta,'phi',phi)
     return T
 
 def T2_matrix(T):
@@ -456,6 +477,10 @@ def T2_matrix(T):
             for l in range(0, 4):
                 for k in range(0, l+1):
                     T2[kk, ii] = prod[k, l]
+                    if k != l:
+                        print(f'T2[{kk}, {ii}] = prod[{k}, {l}] = {numpy.round(prod[k, l],4)} + {numpy.round(prod[l, k],4)}')
+                    else:
+                        print(f'T2[{kk}, {ii}] = prod[{k}, {l}] = {numpy.round(prod[k, l],4)}')
                     if k != l: T2[kk, ii] += prod[l, k] 
                     kk += 1    
             ii += 1

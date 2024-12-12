@@ -1,16 +1,15 @@
 import os
 import numpy as np
 from pyscf import lib
-from pyscf.data.nist import HARTREE2EV
+#from pyscf.data.nist import HARTREE2EV
 
 #HARTREE2EV = 27.21138602
+HARTREE2EV = 27.21
 def read_param(method, elements):
     maxqn = np.amax(elements)
     fpath = os.path.dirname(__file__)
     param_file = fpath+'/parameters/parameters_'+method+'.csv'
     parameters = np.genfromtxt(param_file, delimiter=',', names=True, max_rows=maxqn+1)
-    #print("elements:", elements, "maxqn:", maxqn)
-    #print("parameters", parameters)
     return parameters
 
 def read_constants(elements):
@@ -29,85 +28,85 @@ class sqm_parameters():
         parameters = read_param(model, elements)
         constants, monopole_constants  = read_constants(elements)
         self.e2 = 14.399/HARTREE2EV
+        self.bohr = 0.529167 # from mopac 7 and PYSEQM
         self.tore = constants['tore']
         self.U_ss = parameters['U_ss']/HARTREE2EV
         self.U_pp = parameters['U_pp']/HARTREE2EV
         self.zeta_s = parameters['zeta_s']
         self.zeta_p = parameters['zeta_p']
-        #self.zeta_d = parameters['zeta_d']
-        #self.beta_s = parameters['beta_s']
-        #self.beta_p = parameters['beta_p']
         self.g_ss = parameters['g_ss']/HARTREE2EV
         self.g_sp = parameters['g_sp']/HARTREE2EV
         self.g_pp = parameters['g_pp']/HARTREE2EV
         self.g_p2 = parameters['g_p2']/HARTREE2EV
         self.h_sp = parameters['h_sp']/HARTREE2EV
-        #self.alpha = np.copy(parameters['alpha'])
-        self.dd    = np.copy(monopole_constants['MOPAC_DD'])
-        self.qq    = np.copy(monopole_constants['MOPAC_QQ'])
-        self.am    = np.copy(monopole_constants['MOPAC_AM'])
-        self.ad    = np.copy(monopole_constants['MOPAC_AD'])
-        self.aq    = np.copy(monopole_constants['MOPAC_AQ'])
     
         if model == 'AM1':
             self.zeta_d = parameters['zeta_d']
             self.beta_s = parameters['beta_s']
             self.beta_p = parameters['beta_p']
-            self.alpha = np.copy(parameters['alpha'])
-            size = len(parameters['Gaussian1_K'])
-            self.K = np.stack((np.zeros(size),
-                          parameters['Gaussian1_K'],
-                          parameters['Gaussian2_K'],
-                          parameters['Gaussian3_K'],
-                          parameters['Gaussian4_K'],
-                          np.zeros(size), np.zeros(size),
-                          np.zeros(size), np.zeros(size),
-                          np.zeros(size)), axis=1)/HARTREE2EV
-            self.L = np.stack((np.zeros(size),
-                          parameters['Gaussian1_L'],
-                          parameters['Gaussian2_L'],
-                          parameters['Gaussian3_L'],
-                          parameters['Gaussian4_L'],
-                          np.zeros(size), np.zeros(size),
-                          np.zeros(size), np.zeros(size),
-                          np.zeros(size)), axis=1)
-            self.M = np.stack((np.zeros(size),
-                          parameters['Gaussian1_M'],
-                          parameters['Gaussian2_M'],
-                          parameters['Gaussian3_M'],
-                          parameters['Gaussian4_M'],
-                          np.zeros(size), np.zeros(size),
-                          np.zeros(size), np.zeros(size),
-                          np.zeros(size)), axis=1)
+            self.alpha = parameters['alpha']
+            # CL - Pass charges so K,L,M are shaped Nx(2-4) here instead of in sqm.py
+            self.K = np.stack([parameters['Gaussian1_K'],
+                               parameters['Gaussian2_K'],
+                               parameters['Gaussian3_K'],
+                               parameters['Gaussian4_K']],axis=-1) #,dim=1)#/HARTREE2EV
+            self.L = np.stack([parameters['Gaussian1_L'],
+                               parameters['Gaussian2_L'],
+                               parameters['Gaussian3_L'],
+                               parameters['Gaussian4_L']],axis=-1) #,dim=1)#/HARTREE2EV
+            self.M = np.stack([parameters['Gaussian1_M'],
+                               parameters['Gaussian2_M'],
+                               parameters['Gaussian3_M'],
+                               parameters['Gaussian4_M']],axis=-1) #,dim=1)#/HARTREE2EV
+            self.dd = parameters['DD'] # \AA
+            self.qq = parameters['QQ'] # \AA
+            self.am = parameters['AM'] # au \AA
+            self.ad = parameters['AD'] # au \AA
+            self.aq = parameters['AQ'] # au \AA
+            #self.dd    = monopole_constants['MOPAC_DD']
+            #self.qq    = monopole_constants['MOPAC_QQ']
+            #self.am    = monopole_constants['MOPAC_AM']
+            #self.ad    = monopole_constants['MOPAC_AD']
+            #self.aq    = monopole_constants['MOPAC_AQ']
         elif model == 'PM3':
             self.zeta_d = parameters['zeta_d']
             self.beta_s = parameters['beta_s']
             self.beta_p = parameters['beta_p']
-            self.alpha = np.copy(parameters['alpha'])
-            size = len(parameters['Gaussian1_K'])
-            self.K = np.stack((np.zeros(size),
-                          parameters['Gaussian1_K'],
-                          parameters['Gaussian2_K'],
-                          np.zeros(size), np.zeros(size),
-                          np.zeros(size)), axis=1)/HARTREE2EV
-            self.L = np.stack((np.zeros(size),
-                          parameters['Gaussian1_L'],
-                          parameters['Gaussian2_L'],
-                          np.zeros(size), np.zeros(size),
-                          np.zeros(size)), axis=1)
-            self.M = np.stack((np.zeros(size),
-                          parameters['Gaussian1_M'],
-                          parameters['Gaussian2_M'],
-                          np.zeros(size), np.zeros(size),
-                          np.zeros(size)), axis=1)
+            self.alpha = parameters['alpha']
+            self.K = np.stack([parameters['Gaussian1_K'],
+                               parameters['Gaussian2_K']],axis=-1) #,dim=1)#/HARTREE2EV
+            self.L = np.stack([parameters['Gaussian1_L'],
+                               parameters['Gaussian2_L']],axis=-1) #,dim=1)#/HARTREE2EV
+            self.M = np.stack([parameters['Gaussian1_M'],
+                               parameters['Gaussian2_M']],axis=-1) #,dim=1)#/HARTREE2EV
+            self.dd = parameters['DD'] # \AA
+            self.qq = parameters['QQ'] # \AA
+            self.am = parameters['AM'] # au \AA
+            self.ad = parameters['AD'] # au \AA
+            self.aq = parameters['AQ'] # au \AA
+            #self.dd    = monopole_constants['MOPAC_DD']
+            #self.qq    = monopole_constants['MOPAC_QQ']
+            #self.am    = monopole_constants['MOPAC_AM']
+            #self.ad    = monopole_constants['MOPAC_AD']
+            #self.aq    = monopole_constants['MOPAC_AQ']
         elif model == 'MNDO':
             self.beta_s = parameters['beta_s']
             self.beta_p = parameters['beta_p']
-            self.alpha = np.copy(parameters['alpha'])
+            self.alpha = parameters['alpha']
+            self.dd = parameters['DD'] # \AA
+            self.qq = parameters['QQ'] # \AA
+            self.am = parameters['AM'] # au \AA
+            self.ad = parameters['AD'] # au \AA
+            self.aq = parameters['AQ'] # au \AA
+            #self.dd    = monopole_constants['MOPAC_DD']
+            #self.qq    = monopole_constants['MOPAC_QQ']
+            #self.am    = monopole_constants['MOPAC_AM']
+            #self.ad    = monopole_constants['MOPAC_AD']
+            #self.aq    = monopole_constants['MOPAC_AQ']
         elif model == 'MINDO3':
             self.V_s = parameters['V_s']/HARTREE2EV
             self.V_p = parameters['V_p']/HARTREE2EV
-            self.f03 = parameters['f03']/HARTREE2EV
+            self.f03 = parameters['f03']#/HARTREE2EV
             self.h_p2 = parameters['h_p2']/HARTREE2EV
             self.eheat = parameters['eheat']
             self.eisol = parameters['eisol']
@@ -201,11 +200,11 @@ class omx_parameters():
         self.g_p2 = parameters['g_p2']/HARTREE2EV #27.21
         self.h_sp = parameters['h_sp']/HARTREE2EV #27.21 
 
-        self.dd   = parameters['dd']#/27.21 
-        self.qq   = parameters['qq']#/27.21 
-        self.am   = parameters['am']#/27.21 
-        self.ad   = parameters['ad']#/27.21 
-        self.aq   = parameters['aq']#/27.21 
+        #self.dd   = parameters['dd']#/27.21 
+        #self.qq   = parameters['qq']#/27.21 
+        #self.am   = parameters['am']#/27.21 
+        #self.ad   = parameters['ad']#/27.21 
+        #self.aq   = parameters['aq']#/27.21 
     
         if model == 'OM2' or model == 'OM3':
             self.c61   = parameters['c61']

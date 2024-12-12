@@ -26,24 +26,26 @@ def compute_JK(mol, dm, params, atom_list_sorted):
     for ia in atom_list_sorted[0]:
         i0, i1 = aoslices[ia,2:]
         zi = mol.atom_charge(ia)
-        xi = mol.atom_coord(ia)
-        w = compute_W_ll(zi, zi, xi, xi, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+        #xi = mol.atom_coord(ia)
+        #w = compute_W_ll(zi, zi, xi, xi, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+        w = compute_W_ll(mol, zi, zi, ia, ia, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
         w = w[:,tril2sq][tril2sq]
-        print("w:", w.shape)
+        #print("w:", w.shape)
         vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w[:1,:1,:1,:1], dm[:,i0:i1,i0:i1])
         vk[:,i0:i1,i0:i1] += np.einsum('ijkl,xjk->xil', w[:1,:1,:1,:1], dm[:,i0:i1,i0:i1])
-        print("diagonal:", ia, vj[0,0,0])
+        #print("diagonal:", ia, vj[0,0,0])
 
     #diagonal, heavy
     for ia in atom_list_sorted[1]:
         i0, i1 = aoslices[ia,2:]
         zi = mol.atom_charge(ia)
-        xi = mol.atom_coord(ia)
-        w = compute_W_hh(zi, zi, xi, xi, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+        #xi = mol.atom_coord(ia)
+        #w = compute_W_hh(zi, zi, xi, xi, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+        w = compute_W_hh(mol, zi, zi, ia, ia, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
         w = w[:,tril2sq][tril2sq]
         vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w, dm[:,i0:i1,i0:i1])
         vk[:,i0:i1,i0:i1] += np.einsum('ijkl,xjk->xil', w, dm[:,i0:i1,i0:i1])
-        print("diagonal:", ia, vj[0,0,0])
+        #print("diagonal:", ia, vj[0,0,0])
 
     #light-light
     for ia in atom_list_sorted[0]:
@@ -53,15 +55,17 @@ def compute_JK(mol, dm, params, atom_list_sorted):
                 j0, j1 = aoslices[ja,2:]
                 zi = mol.atom_charge(ia)
                 zj = mol.atom_charge(ja)
-                xi = mol.atom_coord(ia)
-                xj = mol.atom_coord(ja)
-                w = compute_W_ll(zi, zj, xi, xj, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+                #xi = mol.atom_coord(ia)
+                #xj = mol.atom_coord(ja)
+                #w = compute_W_ll(zi, zj, xi, xj, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+                w = compute_W_ll(mol, zi, zj, ia, ja, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
                 w = w[:,tril2sq][tril2sq]
                 vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w[:1,:1,:1,:1], dm[:,j0:j1,j0:j1])
                 vj[:,j0:j1,j0:j1] += np.einsum('klij,xkl->xij', w[:1,:1,:1,:1], dm[:,i0:i1,i0:i1])
                 vk[:,i0:i1,j0:j1] += np.einsum('ijkl,xjk->xil', w[:1,:1,:1,:1], dm[:,i0:i1,j0:j1])
                 vk[:,j0:j1,i0:i1] += np.einsum('klij,xjk->xil', w[:1,:1,:1,:1], dm[:,j0:j1,i0:i1])
-                print("off-diagonal:", ia, ja, vj[0,0,0])
+                #print("off-diagonal:", ia, ja, vj[0,0,0])
+                #print('LL w\n',np.round(w*27.21,4))
 
     #light-heavy
     for ia in atom_list_sorted[0]:
@@ -70,15 +74,16 @@ def compute_JK(mol, dm, params, atom_list_sorted):
             j0, j1 = aoslices[ja,2:]
             zi = mol.atom_charge(ia)
             zj = mol.atom_charge(ja)
-            xi = mol.atom_coord(ia)
-            xj = mol.atom_coord(ja)
-            w = compute_W_lh(zi, zj, xi, xj, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+            #xi = mol.atom_coord(ia)
+            #xj = mol.atom_coord(ja)
+            #w = compute_W_lh(zi, zj, xi, xj, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+            w = compute_W_lh(mol, zi, zj, ia, ja, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
             w = w[:,tril2sq][tril2sq]
             vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w[:1,:1], dm[:,j0:j1,j0:j1])
             vj[:,j0:j1,j0:j1] += np.einsum('klij,xkl->xij', w[:1,:1], dm[:,i0:i1,i0:i1])
             vk[:,i0:i1,j0:j1] += np.einsum('ijkl,xjk->xil', w[:1,:1], dm[:,i0:i1,j0:j1])
             vk[:,j0:j1,i0:i1] += np.einsum('klij,xjk->xil', w[:1,:1], dm[:,j0:j1,i0:i1])
-            print("off-diagonal:", ia, ja, vj[0,0,0])
+            #print("off-diagonal:", ia, ja, vj[0,0,0])
 
     #heavy-heavy
     for ia in atom_list_sorted[1]:
@@ -88,16 +93,20 @@ def compute_JK(mol, dm, params, atom_list_sorted):
                 j0, j1 = aoslices[ja,2:]
                 zi = mol.atom_charge(ia)
                 zj = mol.atom_charge(ja)
-                xi = mol.atom_coord(ia)
-                xj = mol.atom_coord(ja)
-                w = compute_W_hh(zi, zj, xi, xj, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+                #xi = mol.atom_coord(ia)
+                #xj = mol.atom_coord(ja)
+                #w = compute_W_hh(zi, zj, xi, xj, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
+                w = compute_W_hh(mol, zi, zj, ia, ja, params.am, params.ad, params.aq, params.dd, params.qq, params.tore)
                 w = w[:,tril2sq][tril2sq]
                 vj[:,i0:i1,i0:i1] += np.einsum('ijkl,xkl->xij', w, dm[:,j0:j1,j0:j1])
                 vj[:,j0:j1,j0:j1] += np.einsum('klij,xkl->xij', w, dm[:,i0:i1,i0:i1])
                 vk[:,i0:i1,j0:j1] += np.einsum('ijkl,xjk->xil', w, dm[:,i0:i1,j0:j1])
                 vk[:,j0:j1,i0:i1] += np.einsum('klij,xjk->xil', w, dm[:,j0:j1,i0:i1])
-                print("off-diagonal:", ia, ja, vj[0,0,0])
+                #print("off-diagonal:", ia, ja, vj[0,0,0])
 
+    #print('w\n',np.round(w*27.21,4))
+    #matrix_print_2d(vj[0]*27.21,8,'vj')
+    #matrix_print_2d(vk[0]*27.21,8,'vk')
     return vj, vk
 
 def diatomic_overlap_matrix(ia, ja, zi, zj, xij, rij, params):
@@ -118,7 +127,7 @@ def diatomic_overlap_matrix(ia, ja, zi, zj, xij, rij, params):
 
 def diatomic_overlap_matrix_ll(zi, zj, xij, rij, params): #generalize -CL ***
 
-    print("calling diatomic_overlap_matrix_ll")
+    #print("calling diatomic_overlap_matrix_ll")
     di = np.zeros((1,1))
     xy = np.linalg.norm(xij[...,:2])
     if xij[2] > 0: tmp = 1.0
@@ -153,7 +162,7 @@ def diatomic_overlap_matrix_ll(zi, zj, xij, rij, params): #generalize -CL ***
 
 def diatomic_overlap_matrix_hl(zi, zj, xij, rij, params):
 
-    print("calling diatomic_overlap_matrix_hl")
+    #print("calling diatomic_overlap_matrix_hl")
     di = np.zeros((4,1)) # original was 4,1
     xy = np.linalg.norm(xij[...,:2])
     if xij[2] > 0: tmp = 1.0
@@ -201,7 +210,7 @@ def diatomic_overlap_matrix_hl(zi, zj, xij, rij, params):
 
 def diatomic_overlap_matrix_lh(zi, zj, xij, rij, params):
 
-    print("calling diatomic_overlap_matrix_hl")
+    #print("calling diatomic_overlap_matrix_hl")
     di = np.zeros((1,4)) # original was 4,1
     xy = np.linalg.norm(xij[...,:2])
     if xij[2] > 0: tmp = 1.0
@@ -251,7 +260,7 @@ def diatomic_overlap_matrix_lh(zi, zj, xij, rij, params):
 
 def diatomic_overlap_matrix_hh(zi, zj, xij, rij, params): 
 
-    print("calling diatomic_overlap_matrix_hh")
+    #print("calling diatomic_overlap_matrix_hh")
 
     di = np.zeros((4,4))
     xy = np.linalg.norm(xij[...,:2])
@@ -276,7 +285,7 @@ def diatomic_overlap_matrix_hh(zi, zj, xij, rij, params):
     zetas = np.array([params.zeta_s[zi], params.zeta_s[zj]])
     zetap = np.array([params.zeta_p[zi], params.zeta_p[zj]]) #do we need zeta below? -CL
     zeta = np.array([[zetas[0], zetap[0]], [zetas[1], zetap[1]]]) #np.concatenate(zetas.unsequeeze(1), zetap.unsequeeze(1))
-    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.211386
+    beta = np.array([[params.beta_s[zi],params.beta_p[zi]],[params.beta_s[zj],params.beta_p[zj]]]) / 27.21#1386
     A111,B111 = SET(rij, zeta[0,0],zeta[1,0])
     S111 = math.pow(zeta[1,0]*zeta[0,0],2.5)* rij**5 * \
                           (A111[4]*B111[0]+B111[4]*A111[0]-2.0*A111[2]*B111[2])/48.0
